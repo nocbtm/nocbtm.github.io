@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-27T13:13:37.680Z</updated>
+  <updated>2018-07-27T13:21:49.135Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,35 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>WxyVM1&#39;</title>
+    <title>南邮ctf-PY交易</title>
+    <link href="http://yoursite.com/2018/07/27/%E5%8D%97%E9%82%AEctf-PY%E4%BA%A4%E6%98%93/"/>
+    <id>http://yoursite.com/2018/07/27/南邮ctf-PY交易/</id>
+    <published>2018-07-27T13:03:52.000Z</published>
+    <updated>2018-07-27T13:21:49.135Z</updated>
+    
+    <content type="html"><![CDATA[<p>下载后是一个pyc文件 选择<a href="https://tool.lu/pyc/" target="_blank" rel="noopener">https://tool.lu/pyc/</a> 进行解密 如下：</p><p><img src="https://i.imgur.com/jlQnQRO.png" alt=""></p><p>只是一个简单的base64加密，得到的py脚本如下：</p><pre><code>import base64c = &apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&apos;m = c.decode(&quot;base64&quot;)s = &apos;&apos;for i in m:        x = ord(i) - 16        x = x ^ 32        s=s+chr(x)print s</code></pre><p>只能在python2.X下运行 得到flag：nctf{d3c0mpil1n9_PyC}</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;下载后是一个pyc文件 选择&lt;a href=&quot;https://tool.lu/pyc/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://tool.lu/pyc/&lt;/a&gt; 进行解密 如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://i.
+      
+    
+    </summary>
+    
+    
+      <category term="ctf" scheme="http://yoursite.com/tags/ctf/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WxyVM1</title>
     <link href="http://yoursite.com/2018/07/27/WxyVM1/"/>
     <id>http://yoursite.com/2018/07/27/WxyVM1/</id>
     <published>2018-07-27T11:51:51.000Z</published>
-    <updated>2018-07-27T13:13:37.680Z</updated>
+    <updated>2018-07-27T13:21:53.225Z</updated>
     
     <content type="html"><![CDATA[<p>##南邮攻防训练平台逆向第四题WxyVM1##<br>下载文件elf文件，运行输入flag，用ida打开逆向算法：</p><p><img src="https://i.imgur.com/LPsRbJE.png" alt=""></p><p>不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进行比较，<br>一致则成功，那么现在只需要看上面的sub_4005B6()函数了：<br><img src="https://i.imgur.com/S0pjIrz.png" alt=""></p><p>跟进两个地址进去看一下，发现有已经给出的处理所需数据，只是比较多，有15000个，想了想最后还是决定把数据提出来（其实是没其他办法了==）</p><p>最后是逆推py脚本：</p><p>那个15000的数组太长了，不好复制，要导出在一个文档里，才能复制完</p><pre><code>tmp=[1,  16,  37,   3,  13,  10,   2,  11,  40,   2 ]    //太长了只写前十个 final=[196, 52, 34, 177, 211, 17,   151, 7,   219,   55,       196, 6,  29,  252, 91, 237, 152,  223, 148,  216,       179,  132,   204, 8]i = 14997while i&gt;0:v0 = tmp[i]v3 = tmp[i+2]result =  tmp[i+1]if v0 == 1:    final[result] -= v3elif v0 == 2:    final[result] += v3elif v0 == 3:    final[result] ^= v3elif v0 == 4:    final[result] /= v3!elif v0 == 5:    final[result] ^= final[v3]final[result]&amp;=0xFF     //需要注意的地方，因为ascii字符码范围为0~127，可能发生越界i -= 3for x in final:    print(chr(x), end = &apos;&apos;)</code></pre><p>得到flag：nctf{Embr4ce_Vm_j0in_R3}</p><p>如果不加final[result]&amp;=0xFF 这句话就会越界，如图：<br><img src="https://i.imgur.com/qRMGM9J.png" alt=""></p><p>&amp;0xFF到底是什么意思</p><p>举个简单的例子:</p><p>byte[]  b = new byte[5];</p><p>b[0] = -12;</p><p>byte   8位二进制   =   1个字节    char   2个字节   short (2个字节)    int（4个字节） long（8个字节） float  （4个字节） double（8个字节）</p><p>计算机存储数据机制：正数存储的二进制原码,负数存储的是二进制的补码。  补码是负数的绝对值反码加1。</p><p>比如-12，-12 的绝对值原码是：0000 1100  取反： 1111 0011  加1：  1111 0100</p><p>byte –&gt; int   就是由8位变 32 位 高24位全部补1： 1111 1111 1111 1111 1111 1111 1111 0100 ;</p><p>0xFF 是计算机十六进制的表示： 0x就是代表十六进制，A B C D E F  分别代表10 11 12 13 14 15   F就是15  一个F 代表4位二进制：可以看做 是   8  4  2  1。</p><p>0xFF的二进制表示就是：1111 1111。   高24位补0：0000 0000 0000 0000 0000 0000 1111 1111;</p><p>-12的补码与0xFF 进行与（&amp;）操作  最后就是0000 0000 0000 0000 0000 0000 1111 0100 </p><p>转换为十进制就是 244。</p><p>byte类型的数字要&amp;0xff再赋值给int类型，其本质原因就是想保持二进制补码的一致性。</p><p>当byte要转化为int的时候，高的24位必然会补1，这样，其二进制补码其实已经不一致了，&amp;0xff可以将高的24位置为0，低8位保持原样。这样做的目的就是为了保证二进制数据的一致性。</p><p>有人问为什么上面的式子中b[0]不是8位而是32位，因为当系统检测到byte可能会转化成int或者说byte与int类型进行运算的时候，就会将byte的内存空间高位补1（也就是按符号位补位）扩充到32位，再参与运算。</p>]]></content>
     
