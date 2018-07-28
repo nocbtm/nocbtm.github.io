@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[resever]]></title>
+    <url>%2F2018%2F07%2F28%2Fresever%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[南邮ctf-PY交易]]></title>
     <url>%2F2018%2F07%2F27%2F%E5%8D%97%E9%82%AEctf-PY%E4%BA%A4%E6%98%93%2F</url>
     <content type="text"><![CDATA[下载后是一个pyc文件 选择https://tool.lu/pyc/ 进行解密 如下： 只是一个简单的base64加密，得到的py脚本如下： import base64 c = &apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&apos; m = c.decode(&quot;base64&quot;) s = &apos;&apos; for i in m: x = ord(i) - 16 x = x ^ 32 s=s+chr(x) print s 只能在python2.X下运行 得到flag：nctf{d3c0mpil1n9_PyC}]]></content>
