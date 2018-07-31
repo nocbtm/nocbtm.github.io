@@ -121,20 +121,18 @@
 
 
 
-  <meta name="description" content="下载后是一个pyc文件 选择https://tool.lu/pyc/ 进行解密 如下：  只是一个简单的base64加密，得到的py脚本如下： import base64 c = &amp;apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&amp;apos;  m = c.decode(&amp;quot;base64&amp;quot;) s = &amp;apos;&amp;apos; for i in m:">
-<meta name="keywords" content="ctf">
+  <meta name="description" content="###思路如下:  首先，从敏感词文件中读取到敏感词汇，放入容器中 如果有标点符号，则把一些没用的标点符号去掉 然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果  1234567891011121314151617181920212223242526272829303132333435import osdef filter_words(path):    if os.path.i">
+<meta name="keywords" content="python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="南邮ctf-PY交易">
-<meta property="og:url" content="http://yoursite.com/2018/07/27/南邮ctf-PY交易/index.html">
+<meta property="og:title" content="python替换敏感词">
+<meta property="og:url" content="http://yoursite.com/2018/07/31/python替换敏感词/index.html">
 <meta property="og:site_name" content="Jing&#39;s Hexo">
-<meta property="og:description" content="下载后是一个pyc文件 选择https://tool.lu/pyc/ 进行解密 如下：  只是一个简单的base64加密，得到的py脚本如下： import base64 c = &amp;apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&amp;apos;  m = c.decode(&amp;quot;base64&amp;quot;) s = &amp;apos;&amp;apos; for i in m:">
+<meta property="og:description" content="###思路如下:  首先，从敏感词文件中读取到敏感词汇，放入容器中 如果有标点符号，则把一些没用的标点符号去掉 然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果  1234567891011121314151617181920212223242526272829303132333435import osdef filter_words(path):    if os.path.i">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://i.imgur.com/jlQnQRO.png">
-<meta property="og:updated_time" content="2018-07-27T13:21:49.135Z">
+<meta property="og:updated_time" content="2018-07-31T10:36:14.168Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="南邮ctf-PY交易">
-<meta name="twitter:description" content="下载后是一个pyc文件 选择https://tool.lu/pyc/ 进行解密 如下：  只是一个简单的base64加密，得到的py脚本如下： import base64 c = &amp;apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&amp;apos;  m = c.decode(&amp;quot;base64&amp;quot;) s = &amp;apos;&amp;apos; for i in m:">
-<meta name="twitter:image" content="https://i.imgur.com/jlQnQRO.png">
+<meta name="twitter:title" content="python替换敏感词">
+<meta name="twitter:description" content="###思路如下:  首先，从敏感词文件中读取到敏感词汇，放入容器中 如果有标点符号，则把一些没用的标点符号去掉 然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果  1234567891011121314151617181920212223242526272829303132333435import osdef filter_words(path):    if os.path.i">
 
 
 
@@ -143,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/27/南邮ctf-PY交易/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/07/31/python替换敏感词/"/>
 
 
 
@@ -153,7 +151,7 @@
   };
 </script>
 
-  <title>南邮ctf-PY交易 | Jing's Hexo</title>
+  <title>python替换敏感词 | Jing's Hexo</title>
   
 
 
@@ -366,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/27/南邮ctf-PY交易/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/python替换敏感词/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nocbtm">
@@ -383,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">南邮ctf-PY交易
+          <h1 class="post-title" itemprop="name headline">python替换敏感词
               
             
           </h1>
@@ -408,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2018-07-27 21:03:52 / 修改时间：21:21:49" itemprop="dateCreated datePublished" datetime="2018-07-27T21:03:52+08:00">2018-07-27</time>
+              <time title="创建时间：2018-07-31 18:25:26 / 修改时间：18:36:14" itemprop="dateCreated datePublished" datetime="2018-07-31T18:25:26+08:00">2018-07-31</time>
             
 
             
@@ -427,8 +425,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/27/南邮ctf-PY交易/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/07/27/南邮ctf-PY交易/" itemprop="commentCount"></span>
+                <a href="/2018/07/31/python替换敏感词/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/07/31/python替换敏感词/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -436,7 +434,7 @@
 
           
           
-             <span id="/2018/07/27/南邮ctf-PY交易/" class="leancloud_visitors" data-flag-title="南邮ctf-PY交易">
+             <span id="/2018/07/31/python替换敏感词/" class="leancloud_visitors" data-flag-title="python替换敏感词">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -461,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">311</span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -495,23 +493,13 @@
       
 
       
-        <p>下载后是一个pyc文件 选择<a href="https://tool.lu/pyc/" target="_blank" rel="noopener">https://tool.lu/pyc/</a> 进行解密 如下：</p>
-<p><img src="https://i.imgur.com/jlQnQRO.png" alt=""></p>
-<p>只是一个简单的base64加密，得到的py脚本如下：</p>
-<pre><code>import base64
-c = &apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&apos;
-
-m = c.decode(&quot;base64&quot;)
-s = &apos;&apos;
-for i in m:
-
-        x = ord(i) - 16
-        x = x ^ 32
-        s=s+chr(x)
-
-print s
-</code></pre><p>只能在python2.X下运行 得到flag：nctf{d3c0mpil1n9_PyC}</p>
-
+        <p>###思路如下:</p>
+<ul>
+<li>首先，从敏感词文件中读取到敏感词汇，放入容器中</li>
+<li>如果有标点符号，则把一些没用的标点符号去掉</li>
+<li>然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def filter_words(path):</span><br><span class="line">    if os.path.isfile(path):</span><br><span class="line">        with open(path, &apos;r&apos;) as f:</span><br><span class="line">            words = f.read()</span><br><span class="line">            words = words.replace(&apos;，&apos;, &apos;&apos;)</span><br><span class="line">            words = words.replace(&apos;\n&apos;, &apos;&apos;)</span><br><span class="line">            return words</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def sense_words():</span><br><span class="line">    words = filter_words(&apos;filter.txt&apos;)</span><br><span class="line">    print(&quot;敏感字内容如下:&quot;)</span><br><span class="line">    print(&quot;------------------------------------------------------------------&quot;)</span><br><span class="line">    print(words)</span><br><span class="line">    print(&quot;------------------------------------------------------------------&quot;)</span><br><span class="line">    while True:</span><br><span class="line">        sentence = input(&quot;请输入：&quot;)</span><br><span class="line">        if sentence == &apos;0&apos;:</span><br><span class="line">            print(&apos;exit&apos;)</span><br><span class="line">            break</span><br><span class="line">        for i in words:</span><br><span class="line">            if i in sentence:</span><br><span class="line">                replace = &apos;&apos;</span><br><span class="line">                for j in range(len(i)):</span><br><span class="line">                    replace = replace + &apos;*&apos;</span><br><span class="line"></span><br><span class="line">                sentence = sentence.replace(i, replace)</span><br><span class="line">        print(sentence)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    sense_words()</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -556,7 +544,7 @@ print s
     <strong>本文作者： </strong>Nocbtm</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/07/27/南邮ctf-PY交易/" title="南邮ctf-PY交易">http://yoursite.com/2018/07/27/南邮ctf-PY交易/</a>
+    <a href="http://yoursite.com/2018/07/31/python替换敏感词/" title="python替换敏感词">http://yoursite.com/2018/07/31/python替换敏感词/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -569,7 +557,7 @@ print s
       
         <div class="post-tags">
           
-            <a href="/tags/ctf/" rel="tag"><i class="fa fa-tag"></i> ctf</a>
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
         </div>
       
@@ -582,8 +570,8 @@ print s
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/WxyVM1/" rel="next" title="南邮攻防训练平台逆向第四题WxyVM1">
-                <i class="fa fa-chevron-left"></i> 南邮攻防训练平台逆向第四题WxyVM1
+              <a href="/2018/07/28/resever/" rel="next" title="resever">
+                <i class="fa fa-chevron-left"></i> resever
               </a>
             
           </div>
@@ -591,10 +579,6 @@ print s
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/28/resever/" rel="prev" title="resever">
-                resever <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
