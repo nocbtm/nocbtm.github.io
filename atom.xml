@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-07-31T11:17:44.498Z</updated>
+  <updated>2018-08-07T09:55:21.892Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>黑客游戏</title>
+    <link href="http://yoursite.com/2018/08/07/%E9%BB%91%E5%AE%A2%E6%B8%B8%E6%88%8F/"/>
+    <id>http://yoursite.com/2018/08/07/黑客游戏/</id>
+    <published>2018-08-07T09:15:00.000Z</published>
+    <updated>2018-08-07T09:55:21.892Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>第一关网址：<a href="http://www.cn-hack.cn/qs/5.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/5.htm</a></li></ul><p>进来可以看到要求输入密码进入下一关，<img src="https://i.imgur.com/E9u1Cwn.png" alt=""><br>可以先看下页面源代码发现下一关的网址，如图：<img src="https://i.imgur.com/nkDdttl.png" alt=""></p><ul><li>那就进入<a href="http://www.cn-hack.cn/qs/2sdfadf.htm来到第二关" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/2sdfadf.htm来到第二关</a></li></ul><p>第二关是一张图片，提示密码在图片中，<br><img src="https://i.imgur.com/uQA0xto.png" alt="">那就把图片下载下来，改为txt文档，打开看看，发现第三关的网址，如图：<img src="https://i.imgur.com/GtIzWA6.png" alt=""></p><ul><li>进入第三关的网址<a href="http://www.cn-hack.cn/qs/or3.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/or3.htm</a><br><img src="https://i.imgur.com/wvtdJwK.png" alt=""></li></ul><p>第三关就直接给出密码：%68%74%74%70%3A%2F%2F%77%77%77%2E%63%6E%2D%68%61%63%6B%2E%63%6E%2F%71%73%2F%34%64%66%73%61%2E%68%74%6D ，不过是经过URL加密过的，进行URL解密得到网址：<a href="http://www.cn-hack.cn/qs/4dfsa.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/4dfsa.htm</a></p><ul><li>进入第四关<a href="http://www.cn-hack.cn/qs/4dfsa.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/4dfsa.htm</a><br><img src="https://i.imgur.com/AR5OmrN.png" alt=""></li></ul><p>需要输入用户名和密码，先看看页面源代码，没发现什么，那就随便输入用户名和密码，然后跳转到一个页面，那就在看看源代码，<img src="https://i.imgur.com/R5V5WR1.jpg" alt=""></p><ul><li>发现第五关的地址<br>进入第五关<a href="http://www.cn-hack.cn/qs/789.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/789.htm</a><br><img src="https://i.imgur.com/JfwzJTa.png" alt=""></li></ul><p>进来就让你输入通用密码中的两个字母，想看页面源代码也看不了，上网搜搜SQL通用密码，知道了密码为 or ,输入进去就通关了<img src="https://i.imgur.com/McRCcr2.png" alt=""></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;第一关网址：&lt;a href=&quot;http://www.cn-hack.cn/qs/5.htm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cn-hack.cn/qs/5.htm&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;进来可以
+      
+    
+    </summary>
+    
+    
+      <category term="html 前端" scheme="http://yoursite.com/tags/html-%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>python替换敏感词</title>
