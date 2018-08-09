@@ -121,17 +121,18 @@
 
 
 
-  <meta name="description" content="Happy Everyday">
+  <meta name="description" content="#1、Cookie 介绍   Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cook">
+<meta name="keywords" content="cookie">
 <meta property="og:type" content="article">
-<meta property="og:title" content="resever">
-<meta property="og:url" content="http://yoursite.com/2018/07/28/resever/index.html">
+<meta property="og:title" content="Cookie和Session">
+<meta property="og:url" content="http://yoursite.com/2018/08/09/Cookie和Session/index.html">
 <meta property="og:site_name" content="Jing&#39;s Hexo">
-<meta property="og:description" content="Happy Everyday">
+<meta property="og:description" content="#1、Cookie 介绍   Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cook">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-28T09:29:36.861Z">
+<meta property="og:updated_time" content="2018-08-09T02:02:15.624Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="resever">
-<meta name="twitter:description" content="Happy Everyday">
+<meta name="twitter:title" content="Cookie和Session">
+<meta name="twitter:description" content="#1、Cookie 介绍   Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cook">
 
 
 
@@ -140,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/28/resever/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/09/Cookie和Session/"/>
 
 
 
@@ -150,7 +151,7 @@
   };
 </script>
 
-  <title>resever | Jing's Hexo</title>
+  <title>Cookie和Session | Jing's Hexo</title>
   
 
 
@@ -363,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/28/resever/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/09/Cookie和Session/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nocbtm">
@@ -380,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">resever
+          <h1 class="post-title" itemprop="name headline">Cookie和Session
               
             
           </h1>
@@ -405,9 +406,13 @@
                 
               
 
-              <time title="创建时间：2018-07-28 17:29:36" itemprop="dateCreated datePublished" datetime="2018-07-28T17:29:36+08:00">2018-07-28</time>
+              <time title="创建时间：2018-08-09 09:51:41 / 修改时间：10:02:15" itemprop="dateCreated datePublished" datetime="2018-08-09T09:51:41+08:00">2018-08-09</time>
             
 
+            
+              
+
+              
             
           </span>
 
@@ -420,8 +425,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/28/resever/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/07/28/resever/" itemprop="commentCount"></span>
+                <a href="/2018/08/09/Cookie和Session/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/08/09/Cookie和Session/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -429,7 +434,7 @@
 
           
           
-             <span id="/2018/07/28/resever/" class="leancloud_visitors" data-flag-title="resever">
+             <span id="/2018/08/09/Cookie和Session/" class="leancloud_visitors" data-flag-title="Cookie和Session">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -454,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">0</span>
+                <span title="本文字数">2.9k</span>
               
 
               
@@ -468,7 +473,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -488,7 +493,71 @@
       
 
       
-        
+        <p>#1、Cookie</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>   Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。</p>
+<p>   简单来说，Cookie 是保存在浏览器的一个键值对，每次的HTTP请求都会携带 Cookie 。</p>
+<p>##cookie的作用</p>
+<p>　　服务器可以利用Cookies包含信息的任意性来筛选并经常性维护这些信息，以判断在HTTP传输中的状态。Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。</p>
+<p>##Django框架的下cookie</p>
+<p>###1、 获取Cookie：</p>
+<p>  获取已经设置好的cookies极其简单。 每一个<code>HttpRequest</code> 对象都有一个<code>COOKIES</code> 对象，该对象的行为类似一个字典，你可以使用它读取任何浏览器发送给视图（view）的cookies。</p>
+<pre><code>获取普通cookie
+request.COOKIES[&apos;key&apos;]
+request.COOKIES.get(&apos;key&apos;)
+
+解密带签名的cookie
+request.get_signed_cookie(key, default=RAISE_ERROR, salt=&apos;&apos;, max_age=None)
+       参数：
+           default: 默认值
+               salt: 加密盐
+            max_age: 后台控制过期时间
+</code></pre><p>###2、设置Cookie：</p>
+<pre><code>rep = HttpResponse(...) 或 rep ＝ render(request, ...)
+#设置cookie需要使用 HttpResponse对象的 set_cookie()方法
+
+#设置普通cookie
+rep.set_cookie(key,value,...)
+
+#设置带签名的cookie
+rep.set_signed_cookie(key,value,salt=&apos;加密盐&apos;,...)
+
+
+   #参数：
+        key,              键
+        value=&apos;&apos;,         值
+        max_age=None,     超时时间
+        expires=None,     超时时间(IE requires expires, so set it if hasn&apos;t been already.)
+        path=&apos;/&apos;,         Cookie生效的路径，/ 表示根路径，特殊的：跟路径的cookie可以被任何url的页面访问
+        domain=None,      Cookie生效的域名
+        secure=False,     https传输
+        httponly=False    只能http协议传输，无法被JavaScript获取（不是绝对，底层抓包可以获取到也可以被覆盖）
+</code></pre><p>由于cookie保存在客户端的电脑上，所以，JavaScript和jquery也可以操作cookie。</p>
+<pre><code>&lt;script src=&apos;/static/js/jquery.cookie.js&apos;&gt;&lt;/script&gt;
+$.cookie(&quot;list_pager_num&quot;, 30,{ path: &apos;/&apos; });
+</code></pre><p>###注意：</p>
+<p>　　Cookie(特别是那些没通过HTTPS传输的)是非常不安全的。 因为HTTP数据是以明文发送的，所以 特别容易受到嗅探攻击。 也就是说，嗅探攻击者可以在网络中拦截并读取cookies，因此你要 绝对避免在cookies中存储敏感信息。 这就意味着您不应该使用cookie来在存储任何敏感信息。</p>
+<p>   因此不能在cookies中存储可能会被篡改的敏感数据。 在cookies中存储 IsLoggedIn=1 ，以标识用户已经登录。 犯这类错误的站点数量多的令人难以置信； 绕过这些网站的安全系统也是易如反掌。</p>
+<p>#2、Session</p>
+<p>##1、介绍</p>
+<p>　　在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p>
+<p>###Session与Cookie的区别：</p>
+<p>　　Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。</p>
+<p>　　Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</p>
+<p>　　Session 必须要依赖 Cookie ，因为 Cookie的值就等于 Session 的Key</p>
+<p>###Session的工作原理:</p>
+<p>　　当用户第一次访问时，服务器会给其创建一个session，并且把session的Id(本质是随机字符串)以cookie的形式发送给客户端浏览器，下次再去访问服务器时，客户机浏览器会把存储到cookie中的session的Id一起传递到服务器端，服务器发现客户机浏览器带session id过来了，就会使用内存中与之对应的session为之服务</p>
+<p>##2、Django下的 Session 框架</p>
+<p>　　由于存在的限制与安全漏洞，cookies和持续性会话已经成为Web开发中令人头疼的典范。 好消息是，Django的目标正是高效的“头疼杀手”，它自带的session框架会帮你搞定这些问题。</p>
+<p>　　你可以用session 框架来存取每个访问者任意数据， 这些数据在服务器端存储，并对cookie的收发进行了抽象。 Cookies只存储数据的哈希会话ID，而不是数据本身，从而避免了大部分的常见cookie问题。</p>
+<p>Django中默认支持Session，其内部提供了5种类型的Session供开发者使用：</p>
+<ul>
+<li>数据库（默认）</li>
+<li>缓存</li>
+<li>文件</li>
+<li>缓存+数据库</li>
+<li>加密cookie</li>
+</ul>
+
       
     </div>
 
@@ -533,7 +602,7 @@
     <strong>本文作者： </strong>Nocbtm</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/07/28/resever/" title="resever">http://yoursite.com/2018/07/28/resever/</a>
+    <a href="http://yoursite.com/2018/08/09/Cookie和Session/" title="Cookie和Session">http://yoursite.com/2018/08/09/Cookie和Session/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -544,6 +613,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/cookie/" rel="tag"><i class="fa fa-tag"></i> cookie</a>
+          
+        </div>
+      
 
       
       
@@ -553,8 +628,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/27/南邮ctf-PY交易/" rel="next" title="南邮ctf-PY交易">
-                <i class="fa fa-chevron-left"></i> 南邮ctf-PY交易
+              <a href="/2018/08/07/黑客游戏/" rel="next" title="黑客游戏">
+                <i class="fa fa-chevron-left"></i> 黑客游戏
               </a>
             
           </div>
@@ -562,10 +637,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/31/python替换敏感词/" rel="prev" title="python替换敏感词">
-                python替换敏感词 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -613,8 +684,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -709,6 +789,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
