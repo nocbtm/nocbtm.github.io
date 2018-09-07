@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[cpu与存储器]]></title>
+    <url>%2F2018%2F09%2F07%2Fcpu%2F</url>
+    <content type="text"><![CDATA[存储器CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。 存储单元 存储器被划分若干个存储单元，每个存储单元从0开始循序编号 这些编号可以看作存储单元在存储器中的地址 一个存储单元可以存储一个Byte，即8个二进制位（bit） CPU对存储器的读写 CPU通过地址线将地址信息3发出 CPU通过控制线发出内存读命令，选中存储器芯片，并通知它，将要从中读取数据 存储器将三号单元中的数据8通过数据线送入CPU。写操作与读操作的步骤相似。如向3号单元写入数据26 地址总线 若一个CPU有N根地址总线，也就是说这个CPU的地址总线的宽度为N，这样的CPU最多可以寻找2的N次方个内存单位 数据总线 数据总线的宽度决定了CPU和外界的数据传送速度。8根数据总线 一次可传送一个8位二进制数据（即一个字节）。16根数据总线一次可传送两个字节 8088CPU的数据总线宽度为8,8086CPU的为16 控制总线 CPU对外部器件的控制是通过控制总线来进行的 控制总线的跨度决定了CPU对外部器件的控制能力 检测点1.1 一个CPU的寻址能力为8KB，那么他的地址总线宽度为13。2^n=1024*8n为总线宽度。已知2^10 = 1024因此n=13 1KB的存储器有1024个存储单元。存储单元的编号从0到1023 。2^10=1KB=1024 1KB的存储器可以存储 8192个bit, 1024 个Byte。1Byte=8bit 1GB、1MB、1KB分别是2^30 Byte,2^20 Byte,2^10 Byte。102410241024=2^301024*1024=2^201024=2^10 8080、8088、80286、80386的地址总线宽度分别为16根、20根、24根、32根，则他们的寻址能力分别为： 64 （KB）、 1 （MB）、 16 （MB）、 4 （GB）。2^10=1K 2^6=642^20=1M2^4=162^30=1G 2^2=4 8080、8088、8086、80286、80386的数据总线宽度分别为8根、8根、16根、16根、32根。则它们一次可以传送的数据为： 1 （B）、 1 （B）、 2 （B）、 2 （B） 4 （B）。1Byte=8bit每8根总线一次最多可传递一字节数据。 从内存中读取1024字节的数据，8086至少要读 512 次，80386至少要读 256 次。8086每次读2字节数据80386每次读4字节数据 在存储器中，数据和程序以 二进制 形式存放。数据与程序在存储器中以无差别的二进制数据形式存放 存储器芯片 一台PC机上，装有多个存储器芯片，从读写属性上看分为两类：随机存储器（RAM）和只读存储器（ROM） 随机存储器用于放供CPU使用的绝大部分程序和数据 内存地址空间 所有的物理存储器被看作一个由若干存储单元组成的的逻辑存储器 每个物理存储器在这个逻辑存储器中占有一个地址段，即一段地址空间 CPU在这段地址空间中读写数据，实际上就是在相对于的物理存储器中读写数据]]></content>
+      <tags>
+        <tag>汇编语言</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Cookie和Session]]></title>
     <url>%2F2018%2F08%2F09%2FCookie%E5%92%8CSession%2F</url>
     <content type="text"><![CDATA[1、Cookie介绍 Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。 简单来说，Cookie 是保存在浏览器的一个键值对，每次的HTTP请求都会携带 Cookie 。 cookie的作用 服务器可以利用Cookies包含信息的任意性来筛选并经常性维护这些信息，以判断在HTTP传输中的状态。Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。 Django框架的下cookie1、 获取Cookie： 获取已经设置好的cookies极其简单。 每一个HttpRequest 对象都有一个COOKIES 对象，该对象的行为类似一个字典，你可以使用它读取任何浏览器发送给视图（view）的cookies。 获取普通cookie request.COOKIES[&apos;key&apos;] request.COOKIES.get(&apos;key&apos;) 解密带签名的cookie request.get_signed_cookie(key, default=RAISE_ERROR, salt=&apos;&apos;, max_age=None) 参数： default: 默认值 salt: 加密盐 max_age: 后台控制过期时间 2、设置Cookie：rep = HttpResponse(...) 或 rep ＝ render(request, ...) #设置cookie需要使用 HttpResponse对象的 set_cookie()方法 #设置普通cookie rep.set_cookie(key,value,...) #设置带签名的cookie rep.set_signed_cookie(key,value,salt=&apos;加密盐&apos;,...) #参数： key, 键 value=&apos;&apos;, 值 max_age=None, 超时时间 expires=None, 超时时间(IE requires expires, so set it if hasn&apos;t been already.) path=&apos;/&apos;, Cookie生效的路径，/ 表示根路径，特殊的：跟路径的cookie可以被任何url的页面访问 domain=None, Cookie生效的域名 secure=False, https传输 httponly=False 只能http协议传输，无法被JavaScript获取（不是绝对，底层抓包可以获取到也可以被覆盖） 由于cookie保存在客户端的电脑上，所以，JavaScript和jquery也可以操作cookie。 &lt;script src=&apos;/static/js/jquery.cookie.js&apos;&gt;&lt;/script&gt; $.cookie(&quot;list_pager_num&quot;, 30,{ path: &apos;/&apos; }); 注意： Cookie(特别是那些没通过HTTPS传输的)是非常不安全的。 因为HTTP数据是以明文发送的，所以 特别容易受到嗅探攻击。 也就是说，嗅探攻击者可以在网络中拦截并读取cookies，因此你要 绝对避免在cookies中存储敏感信息。 这就意味着您不应该使用cookie来在存储任何敏感信息。 因此不能在cookies中存储可能会被篡改的敏感数据。 在cookies中存储 IsLoggedIn=1 ，以标识用户已经登录。 犯这类错误的站点数量多的令人难以置信； 绕过这些网站的安全系统也是易如反掌。 2、Session1、介绍 在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。 Session与Cookie的区别： Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。 Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。 Session 必须要依赖 Cookie ，因为 Cookie的值就等于 Session 的Key ###Session的工作原理: 当用户第一次访问时，服务器会给其创建一个session，并且把session的Id(本质是随机字符串)以cookie的形式发送给客户端浏览器，下次再去访问服务器时，客户机浏览器会把存储到cookie中的session的Id一起传递到服务器端，服务器发现客户机浏览器带session id过来了，就会使用内存中与之对应的session为之服务 2、Django下的 Session 框架 由于存在的限制与安全漏洞，cookies和持续性会话已经成为Web开发中令人头疼的典范。 好消息是，Django的目标正是高效的“头疼杀手”，它自带的session框架会帮你搞定这些问题。 你可以用session 框架来存取每个访问者任意数据， 这些数据在服务器端存储，并对cookie的收发进行了抽象。 Cookies只存储数据的哈希会话ID，而不是数据本身，从而避免了大部分的常见cookie问题。 Django中默认支持Session，其内部提供了5种类型的Session供开发者使用： 数据库（默认） 缓存 文件 缓存+数据库 加密cookie]]></content>
@@ -23,11 +31,6 @@
       <tags>
         <tag>python</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[resever]]></title>
-    <url>%2F2018%2F07%2F28%2Fresever%2F</url>
-    <content type="text"></content>
   </entry>
   <entry>
     <title><![CDATA[南邮ctf-PY交易]]></title>
