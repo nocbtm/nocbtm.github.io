@@ -121,23 +121,23 @@
 
 
 
-  <meta name="description" content="存储器CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。 存储单元 存储器被划分若干个存储单元，每个存储单元从0开始循序编号 这些编号可以看作存储单元在存储器中的地址 一个存储单元可以存储一个Byte，即8个二进制位（bit）  CPU对存储器的读写  CPU通过地址线将地址信息3发出 CPU通过控制线发出内存读命令，选中">
+  <meta name="description" content="#cpu中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控">
 <meta name="keywords" content="汇编语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cpu与存储器">
 <meta property="og:url" content="http://yoursite.com/2018/09/07/cpu/index.html">
 <meta property="og:site_name" content="Jing&#39;s Hexo">
-<meta property="og:description" content="存储器CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。 存储单元 存储器被划分若干个存储单元，每个存储单元从0开始循序编号 这些编号可以看作存储单元在存储器中的地址 一个存储单元可以存储一个Byte，即8个二进制位（bit）  CPU对存储器的读写  CPU通过地址线将地址信息3发出 CPU通过控制线发出内存读命令，选中">
+<meta property="og:description" content="#cpu中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/148QNti.png">
 <meta property="og:image" content="https://i.imgur.com/Eat6XIM.png">
 <meta property="og:image" content="https://i.imgur.com/Nk7DLsB.png">
 <meta property="og:image" content="https://i.imgur.com/Qhqj8C7.png">
 <meta property="og:image" content="https://i.imgur.com/NQ7MMMa.png">
-<meta property="og:updated_time" content="2018-09-07T13:49:33.382Z">
+<meta property="og:updated_time" content="2018-09-07T13:56:44.804Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cpu与存储器">
-<meta name="twitter:description" content="存储器CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。 存储单元 存储器被划分若干个存储单元，每个存储单元从0开始循序编号 这些编号可以看作存储单元在存储器中的地址 一个存储单元可以存储一个Byte，即8个二进制位（bit）  CPU对存储器的读写  CPU通过地址线将地址信息3发出 CPU通过控制线发出内存读命令，选中">
+<meta name="twitter:description" content="#cpu中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控">
 <meta name="twitter:image" content="https://i.imgur.com/148QNti.png">
 
 
@@ -412,7 +412,7 @@
                 
               
 
-              <time title="创建时间：2018-09-07 20:37:33 / 修改时间：21:49:33" itemprop="dateCreated datePublished" datetime="2018-09-07T20:37:33+08:00">2018-09-07</time>
+              <time title="创建时间：2018-09-07 20:37:33 / 修改时间：21:56:44" itemprop="dateCreated datePublished" datetime="2018-09-07T20:37:33+08:00">2018-09-07</time>
             
 
             
@@ -465,7 +465,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.3k</span>
+                <span title="本文字数">1.6k</span>
               
 
               
@@ -499,7 +499,8 @@
       
 
       
-        <h1 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h1><p>CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。</p>
+        <p>#cpu<br>中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。<br>中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控制及状态的总线（Bus）。它与内部存储器（Memory）和输入/输出（I/O）设备合称为电子计算机三大核心部件。</p>
+<h1 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h1><p>CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。</p>
 <h2 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h2><ul>
 <li>存储器被划分若干个存储单元，每个存储单元从0开始循序编号</li>
 <li>这些编号可以看作存储单元在存储器中的地址</li>
@@ -866,7 +867,7 @@ id="busuanzi_container_site_uv">
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> Blog total 5.3k words</span>
+  <span class="post-count"> Blog total 5.4k words</span>
 </div>
 
 
