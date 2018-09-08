@@ -121,17 +121,29 @@
 
 
 
-  <meta name="description" content="Happy Everyday">
+  <meta name="description" content="寄存器 一个典型的CPU有运算器、控制器、寄存器等器件构成 寄存器是CPU中程序员可以用执行读写的部件。程序员通过改变各种寄存器中的内容来实现对CPU的控制 不同的CPU，寄存器的个数、结构是不同的。8086CPU有14个寄存器，每个寄存器有一个名称。这些寄存器是：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PWS、  通用寄存器 8086CPU的的所有寄存器都是">
 <meta property="og:type" content="article">
 <meta property="og:title" content="寄存器">
 <meta property="og:url" content="http://yoursite.com/2018/09/07/寄存器/index.html">
 <meta property="og:site_name" content="Jing&#39;s Hexo">
-<meta property="og:description" content="Happy Everyday">
+<meta property="og:description" content="寄存器 一个典型的CPU有运算器、控制器、寄存器等器件构成 寄存器是CPU中程序员可以用执行读写的部件。程序员通过改变各种寄存器中的内容来实现对CPU的控制 不同的CPU，寄存器的个数、结构是不同的。8086CPU有14个寄存器，每个寄存器有一个名称。这些寄存器是：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PWS、  通用寄存器 8086CPU的的所有寄存器都是">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-07T14:00:19.181Z">
+<meta property="og:image" content="https://i.imgur.com/QNIONUF.png">
+<meta property="og:image" content="https://i.imgur.com/rMcnnbL.png">
+<meta property="og:image" content="https://i.imgur.com/VwH9tTk.png">
+<meta property="og:image" content="https://i.imgur.com/3DioByx.png">
+<meta property="og:image" content="https://i.imgur.com/Kb8TLw6.png">
+<meta property="og:image" content="https://i.imgur.com/hriHdmb.png">
+<meta property="og:image" content="https://i.imgur.com/VRoa36Z.png">
+<meta property="og:image" content="https://i.imgur.com/VtTkOAl.png">
+<meta property="og:image" content="https://i.imgur.com/8kaY3OY.png">
+<meta property="og:image" content="https://i.imgur.com/auXp6R7.png">
+<meta property="og:image" content="https://i.imgur.com/dqn3ecD.png">
+<meta property="og:updated_time" content="2018-09-08T09:19:20.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="寄存器">
-<meta name="twitter:description" content="Happy Everyday">
+<meta name="twitter:description" content="寄存器 一个典型的CPU有运算器、控制器、寄存器等器件构成 寄存器是CPU中程序员可以用执行读写的部件。程序员通过改变各种寄存器中的内容来实现对CPU的控制 不同的CPU，寄存器的个数、结构是不同的。8086CPU有14个寄存器，每个寄存器有一个名称。这些寄存器是：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PWS、  通用寄存器 8086CPU的的所有寄存器都是">
+<meta name="twitter:image" content="https://i.imgur.com/QNIONUF.png">
 
 
 
@@ -409,6 +421,22 @@
             
 
             
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-08 17:19:20" itemprop="dateModified" datetime="2018-09-08T17:19:20+08:00">2018-09-08</time>
+              
+            
           </span>
 
           
@@ -454,7 +482,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">0</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -468,7 +496,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -488,7 +516,79 @@
       
 
       
-        
+        <h1 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h1><ul>
+<li>一个典型的CPU有运算器、控制器、寄存器等器件构成</li>
+<li>寄存器是CPU中程序员可以用执行读写的部件。程序员通过改变各种寄存器中的内容来实现对CPU的控制</li>
+<li>不同的CPU，寄存器的个数、结构是不同的。8086CPU有14个寄存器，每个寄存器有一个名称。这些寄存器是：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PWS、</li>
+</ul>
+<h2 id="通用寄存器"><a href="#通用寄存器" class="headerlink" title="通用寄存器"></a>通用寄存器</h2><ul>
+<li>8086CPU的的所有寄存器都是16位的，可以存放两个字节，AX、BX、CX、DX、这四个寄存器位通用寄存器</li>
+<li>一个16位的寄存器可以存储一个16位的数据，所能存储的数据最大值为2^16-1，或用16进制表示为FFFFH，也为10000H-1</li>
+<li>AX的低8位构成了AL寄存器，高8位构成了AH寄存器，AH和AL寄存器是可以独立使用的<br><img src="https://i.imgur.com/QNIONUF.png" alt=""></li>
+</ul>
+<h2 id="字在寄存器中的存储"><a href="#字在寄存器中的存储" class="headerlink" title="字在寄存器中的存储"></a>字在寄存器中的存储</h2><ul>
+<li>一个16位的寄存器可以存放两个字节（byte），即为一个字（word），一个字等于两个字节</li>
+<li>而计算机的存储单元为字节（byte），一个内存（存储）单元可以存放8位数据（bit），也就是说，计算机中的数据大多是由1~N个8位数据构成。</li>
+<li>很多时候，用16进制表示数据可以直观的看出数据是由哪些8位数据构成，如2000写成4E20，可以看出是由4E和20两个8位数据构成的，如果AX中存放4E20H，则AH里是4E，AL里是20<h2 id="mov和add汇编指令"><a href="#mov和add汇编指令" class="headerlink" title="mov和add汇编指令"></a>mov和add汇编指令</h2>原AX，BX中的值：0000H，0000H<br><img src="https://i.imgur.com/rMcnnbL.png" alt=""><br><img src="https://i.imgur.com/VwH9tTk.png" alt=""><br>问题2.1<br>在执行前ax和bx中的数据都为8226H，相加后所得值为：1044CH，但ax为16位寄存器，只能存放4位十六进制的数据，所以最高位的1不能在ax中保存，，ax中的数据为：044CH<br><img src="https://i.imgur.com/3DioByx.png" alt=""><br>问题2.2<br>在执行前，al中的数据为C5H，相加后所得的值为：158H，但是al为8位寄存器，只能诚邀您放两位16精致的数据，所以最高位的1丢失，ax中的数据为：0058H<br><img src="https://i.imgur.com/Kb8TLw6.png" alt=""><h2 id="检测点2-1："><a href="#检测点2-1：" class="headerlink" title="检测点2.1："></a>检测点2.1：</h2></li>
+</ul>
+<p>(1)写出每条汇编指令执行后相关寄存器中的值。</p>
+<p>mov ax,62627 AX= F4A3H</p>
+<p>mov ah,31H AX=31A3H</p>
+<p>mov al,23H AX=3123H</p>
+<p>add ax,ax AX=6246H</p>
+<p>mov bx,826CH BX=826CH</p>
+<p>mov cx,ax CX=6246H</p>
+<p>mov ax,bx AX=826CH</p>
+<p>add ax,bx AX=04D8H</p>
+<p>mov al,bh AX=0482H</p>
+<p>mov ah,bl AX=6C82H</p>
+<p>add ah,ah AX=D882H</p>
+<p>add al,6 AX=D888H</p>
+<p>add al,al AX=D810H</p>
+<p>mov ax,cx AX=6246H</p>
+<p>(2)只能使用目前学过的汇编指令，最多使用4条指令，计算2的4次方.</p>
+<p>mov ax,2h</p>
+<p>add ax,ax</p>
+<p>add ax,ax</p>
+<p>add ax,ax</p>
+<h2 id="物理地址"><a href="#物理地址" class="headerlink" title="物理地址"></a>物理地址</h2><p><img src="https://i.imgur.com/hriHdmb.png" alt=""><br><img src="https://i.imgur.com/VRoa36Z.png" alt=""></p>
+<h2 id="段地址-16-偏移地址-物理地址的本质含义"><a href="#段地址-16-偏移地址-物理地址的本质含义" class="headerlink" title="段地址*16+偏移地址=物理地址的本质含义"></a>段地址*16+偏移地址=物理地址的本质含义</h2><p>CPU在访问内存时，用一个基础地址（段地址*16）和一个相对于基础地址的偏移地址相加，给出内存单元的物理地址</p>
+<h2 id="检测点2-2"><a href="#检测点2-2" class="headerlink" title="检测点2.2"></a>检测点2.2</h2><p>（1）给定段地址为0001H，仅通过变化偏移地址寻址，CPU的寻址范围为多少到多少？</p>
+<p> 答：物理地址=SA*16+EA</p>
+<p>   EA的变化范围为0H~FFFFH</p>
+<p> 物理地址范围为（SA<em>16+0H）~（SA</em>16+FFFFH）</p>
+<p> 现在SA=0001H，那么寻址范围为</p>
+<p> （0001H<em>16+0H）~（0001H</em>16+FFFFH）=00010H~1000FH</p>
+<p> （2）有一数据存放在内存20000H单元中，现给定段地址为SA，若想用偏移地址寻到此单元。则SA应满足的条件是：最小为多少？最大为多少？</p>
+<p>  答：</p>
+<p>　物理地址 20000H ＝ SA * 10H ＋ 偏移地址</p>
+<p>　显然，偏移地址应该取最大值，SA 才能达到最小。</p>
+<p>　那么，偏移地址取最大值：FFFFH，行吗？</p>
+<p>　代入上述方程，发现，两边的，最末位，不相等。</p>
+<p> 偏移地址最大值，只能取到：FFF0H，方程才有可能成立。</p>
+<p>　按照公式：</p>
+<p>　物理地址 ＝ SA * 10H ＋ 偏移地址</p>
+<p>　可知，物理地址、偏移地址，两者的最低位，必定是相同的。</p>
+<p>　当物理地址＝20000H，偏移地址也只能是：XXX0H，取最大就是 FFF0H。</p>
+<p> 于是：SA = (20000H － FFF0H) / 16＝10010H / 16 ＝ 1001H。</p>
+<p> 标记：王爽汇编语言，段地址*16+偏移地址=物理地址，其中16是十进制。</p>
+<p> 提示，反过来思考一下，当段地址给定为多少，CPU无论怎么变化偏移地址都无法寻到20000H单元？</p>
+<p> 答：</p>
+<p>　先求出，段地址为多少的时候，变化偏移地址可找到20000H地址单元。</p>
+<p>　段地址 × 16  +  偏移地址  =  20000H</p>
+<p>　偏移地址=0000H，段地址则为 2000H；</p>
+<p>　偏移地址=FFF0H，段地址则为 1001H。</p>
+<p>　那么，当段地址大于 2000H，或小于 1001H，就不能找到 20000H。</p>
+<h2 id="CS和IP"><a href="#CS和IP" class="headerlink" title="CS和IP"></a>CS和IP</h2><p>CS和IP是8086CPU中最为关键的寄存器，CS为代码段寄存器（存放段地址），IP为指令指针寄存器（存放偏移地址）<br><img src="https://i.imgur.com/VtTkOAl.png" alt=""></p>
+<p>1、 汇编指令由操作码和操作数组成   如：mov ax,0<br>   mov为操作数   表示指令的功能（是传送指令）<br>   ax,0是2个操作数   即0（0000H）为源操作数      ax为目的操作数<br>   该指令就是  将源操作数传送给目的操作数  从ax可以看出是一条16位的传送指令<br>2、 mov ax,0在内存中的机器指令是B8  00  00<br>   B8 是操作码  表示是一条以ax为目的操作数的传送指令（操作数ax为寄存器寻址  隐含在操作码 中，00  00    表示的是一个16位的立即数即0000H   低8位在前   高8位在后。<br>3、汇编指令在内存中  就是以B8 00 00机器指令表示的二进制代码。</p>
+<h2 id="问题2-3"><a href="#问题2-3" class="headerlink" title="问题2.3"></a>问题2.3</h2><p><img src="https://i.imgur.com/8kaY3OY.png" alt=""><br><img src="https://i.imgur.com/auXp6R7.png" alt=""><br><img src="https://i.imgur.com/dqn3ecD.png" alt=""></p>
+<h2 id="检测点"><a href="#检测点" class="headerlink" title="检测点"></a>检测点</h2><p>下面的3条指令执行后，cpu几次修改IP？都是在什么时候？最后IP中的值是多少？ </p>
+<pre><code>mov ax,bx       
+sub ax,ax  
+jmp ax 
+</code></pre><p>注：mov ax,bx  (高级编程语言就是ax=bx )<br>  sub ax,ax    (高级编程语言就是ax=ax-ax  发现ax=0H)<br>  jmp ax        (偏移增量为ax,进而IP=IP+ax，即加上索引的字节数）</p>
+<p>  一共修改四次<br>  第一次：读取mov ax,bx之后<br>  第二次：读取sub ax,ax之后<br>  第三次：读取jmp ax之后<br>  第四次：执行jmp ax修改IP<br>  最后IP的值为0000H，因为最后ax中的值为0000H，所以IP中的值也为0000H</p>
+
       
     </div>
 
@@ -563,6 +663,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/09/08/寄存器（内存访问）/" rel="prev" title="寄存器（内存访问）">
+                寄存器（内存访问） <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -609,8 +713,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -629,7 +742,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">10</span>
+                    <span class="site-state-item-count">11</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -708,6 +821,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#寄存器"><span class="nav-number">1.</span> <span class="nav-text">寄存器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通用寄存器"><span class="nav-number">1.1.</span> <span class="nav-text">通用寄存器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字在寄存器中的存储"><span class="nav-number">1.2.</span> <span class="nav-text">字在寄存器中的存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mov和add汇编指令"><span class="nav-number">1.3.</span> <span class="nav-text">mov和add汇编指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测点2-1："><span class="nav-number">1.4.</span> <span class="nav-text">检测点2.1：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理地址"><span class="nav-number">1.5.</span> <span class="nav-text">物理地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#段地址-16-偏移地址-物理地址的本质含义"><span class="nav-number">1.6.</span> <span class="nav-text">段地址*16+偏移地址=物理地址的本质含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测点2-2"><span class="nav-number">1.7.</span> <span class="nav-text">检测点2.2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CS和IP"><span class="nav-number">1.8.</span> <span class="nav-text">CS和IP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题2-3"><span class="nav-number">1.9.</span> <span class="nav-text">问题2.3</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测点"><span class="nav-number">1.10.</span> <span class="nav-text">检测点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -735,7 +864,7 @@ busuanzi.pure.mini.js"></script>
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">11k</span>
+    <span title="站点总字数">14k</span>
   
 
   
@@ -744,7 +873,7 @@ busuanzi.pure.mini.js"></script>
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">10 分钟</span>
+    <span title="站点阅读时长">13 分钟</span>
   
 </div>
 
@@ -773,7 +902,7 @@ id="busuanzi_container_site_uv">
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> Blog total 5.8k words</span>
+  <span class="post-count"> Blog total 7.3k words</span>
 </div>
 
 
@@ -1357,8 +1486,8 @@ id="busuanzi_container_site_uv">
   
   0
   1 mins.
-  11k
-  10 mins.
+  14k
+  13 mins.
  
 
   <!-- ҳ����С���� -->
