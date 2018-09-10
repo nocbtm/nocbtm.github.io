@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Loop指令]]></title>
     <url>%2F2018%2F09%2F10%2FLoop%E6%8C%87%E4%BB%A4%2F</url>
-    <content type="text"><![CDATA[loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode endsend 例子2：用加法计算123*236 123456789101112assume cs:codecode segmentmov ax,0mov cx,123s: add ax,236loop smov ax,4c00Hint 21Hcode endsend]]></content>
+    <content type="text"><![CDATA[loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cx中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode endsend 例子2：用加法计算123*236 123456789101112assume cs:codecode segmentmov ax,0mov cx,123s: add ax,236loop smov ax,4c00Hint 21Hcode endsend]]></content>
       <tags>
         <tag>汇编语言</tag>
       </tags>
