@@ -121,18 +121,18 @@
 
 
 
-  <meta name="description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方`assume cs:codecode segment mov ax,2mov cx,11s: add ax,axloop s mov ax,4c00Hint 21Hcode endsend`例子2：用加">
+  <meta name="description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode e">
 <meta name="keywords" content="汇编语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Loop指令">
 <meta property="og:url" content="http://yoursite.com/2018/09/10/Loop指令/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方`assume cs:codecode segment mov ax,2mov cx,11s: add ax,axloop s mov ax,4c00Hint 21Hcode endsend`例子2：用加">
+<meta property="og:description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode e">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-10T11:55:34.981Z">
+<meta property="og:updated_time" content="2018-09-10T11:58:54.686Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Loop指令">
-<meta name="twitter:description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方`assume cs:codecode segment mov ax,2mov cx,11s: add ax,axloop s mov ax,4c00Hint 21Hcode endsend`例子2：用加">
+<meta name="twitter:description" content="loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode e">
 
 
 
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2018-09-10 19:34:52 / 修改时间：19:55:34" itemprop="dateCreated datePublished" datetime="2018-09-10T19:34:52+08:00">2018-09-10</time>
+              <time title="创建时间：2018-09-10 19:34:52 / 修改时间：19:58:54" itemprop="dateCreated datePublished" datetime="2018-09-10T19:34:52+08:00">2018-09-10</time>
             
 
             
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">310</span>
+                <span title="本文字数">334</span>
               
 
               
@@ -494,12 +494,9 @@
 
       
         <p>loop指令的格式是：loop 标号<br>CPU执行loop指令的时候，要进行两步操作，<br>1、(cx)=(cx)-1<br>2、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行</p>
-<p>例子1：计算2的十二次方<br>`assume cs:code<br>code segment</p>
-<p>mov ax,2<br>mov cx,11<br>s: add ax,ax<br>loop s</p>
-<p>mov ax,4c00H<br>int 21H<br>code ends<br>end<br>`<br>例子2：用加法计算123*236</p>
-<p>`assume cs:code<br>code segment</p>
-<p>mov ax,0<br>mov cx,123<br>s: add ax,236<br>loop s</p>
-<p>mov ax,4c00H<br>int 21H<br>code ends<br>end`</p>
+<p>例子1：计算2的十二次方<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code </span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">mov ax,2</span><br><span class="line">mov cx,11</span><br><span class="line">s: add ax,ax</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00H</span><br><span class="line">int 21H</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
+<p>例子2：用加法计算123*236</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line"></span><br><span class="line">mov ax,0</span><br><span class="line">mov cx,123</span><br><span class="line">s: add ax,236</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00H</span><br><span class="line">int 21H</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -791,7 +788,7 @@ id="busuanzi_container_site_uv">
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> Blog total 8.3k words</span>
+  <span class="post-count"> Blog total 8.4k words</span>
 </div>
 
 
