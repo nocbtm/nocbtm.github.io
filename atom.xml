@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-08T12:16:33.951Z</updated>
+  <updated>2018-09-10T11:55:34.981Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Loop指令</title>
+    <link href="http://yoursite.com/2018/09/10/Loop%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/09/10/Loop指令/</id>
+    <published>2018-09-10T11:34:52.000Z</published>
+    <updated>2018-09-10T11:55:34.981Z</updated>
+    
+    <content type="html"><![CDATA[<p>loop指令的格式是：loop 标号<br>CPU执行loop指令的时候，要进行两步操作，<br>1、(cx)=(cx)-1<br>2、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行</p><p>例子1：计算2的十二次方<br>`assume cs:code<br>code segment</p><p>mov ax,2<br>mov cx,11<br>s: add ax,ax<br>loop s</p><p>mov ax,4c00H<br>int 21H<br>code ends<br>end<br>`<br>例子2：用加法计算123*236</p><p>`assume cs:code<br>code segment</p><p>mov ax,0<br>mov cx,123<br>s: add ax,236<br>loop s</p><p>mov ax,4c00H<br>int 21H<br>code ends<br>end`</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;loop指令的格式是：loop 标号&lt;br&gt;CPU执行loop指令的时候，要进行两步操作，&lt;br&gt;1、(cx)=(cx)-1&lt;br&gt;2、判断cs中的值，不为零则转至标号处执行，如果为零则向下执行&lt;/p&gt;
+&lt;p&gt;例子1：计算2的十二次方&lt;br&gt;`assume cs:code&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
   
   <entry>
     <title>寄存器（内存访问）</title>
