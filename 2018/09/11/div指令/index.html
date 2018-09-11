@@ -121,18 +121,18 @@
 
 
 
-  <meta name="description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+  <meta name="description" content="div是除法指令，使用div做除法时应注意以下问题。 1、除数：有8位和16位两种，在一个reg或内存单元中。2、被除数：默认放在AX或DX和AX中，如果除数位8位，被除数则为16位，默认在AX中存放；如果除数为16位，被除数则为32位，在DX和AX中存放，DX放高16位，AX存放低16位。3、结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；如果除数为16位，则AX存储除法操">
 <meta name="keywords" content="汇编语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="检测点6.1">
-<meta property="og:url" content="http://yoursite.com/2018/09/10/检测点6-1/index.html">
+<meta property="og:title" content="div指令">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/div指令/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+<meta property="og:description" content="div是除法指令，使用div做除法时应注意以下问题。 1、除数：有8位和16位两种，在一个reg或内存单元中。2、被除数：默认放在AX或DX和AX中，如果除数位8位，被除数则为16位，默认在AX中存放；如果除数为16位，被除数则为32位，在DX和AX中存放，DX放高16位，AX存放低16位。3、结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；如果除数为16位，则AX存储除法操">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-10T13:16:23.212Z">
+<meta property="og:updated_time" content="2018-09-11T12:48:20.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="检测点6.1">
-<meta name="twitter:description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+<meta name="twitter:title" content="div指令">
+<meta name="twitter:description" content="div是除法指令，使用div做除法时应注意以下问题。 1、除数：有8位和16位两种，在一个reg或内存单元中。2、被除数：默认放在AX或DX和AX中，如果除数位8位，被除数则为16位，默认在AX中存放；如果除数为16位，被除数则为32位，在DX和AX中存放，DX放高16位，AX存放低16位。3、结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；如果除数为16位，则AX存储除法操">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/10/检测点6-1/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/div指令/"/>
 
 
 
@@ -151,7 +151,7 @@
   };
 </script>
 
-  <title>检测点6.1 | nocbtm's Blog</title>
+  <title>div指令 | nocbtm's Blog</title>
   
 
 
@@ -364,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/检测点6-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/div指令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nocbtm">
@@ -381,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">检测点6.1
+          <h1 class="post-title" itemprop="name headline">div指令
               
             
           </h1>
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2018-09-10 21:01:50 / 修改时间：21:16:23" itemprop="dateCreated datePublished" datetime="2018-09-10T21:01:50+08:00">2018-09-10</time>
+              <time title="创建时间：2018-09-11 19:48:19 / 修改时间：20:48:20" itemprop="dateCreated datePublished" datetime="2018-09-11T19:48:19+08:00">2018-09-11</time>
             
 
             
@@ -425,8 +425,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/10/检测点6-1/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/检测点6-1/" itemprop="commentCount"></span>
+                <a href="/2018/09/11/div指令/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/11/div指令/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -434,7 +434,7 @@
 
           
           
-             <span id="/2018/09/10/检测点6-1/" class="leancloud_visitors" data-flag-title="检测点6.1">
+             <span id="/2018/09/11/div指令/" class="leancloud_visitors" data-flag-title="div指令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">726</span>
+                <span title="本文字数">819</span>
               
 
               
@@ -493,10 +493,23 @@
       
 
       
-        <p>知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀</p>
-<p>2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。</p>
-<p>检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h</span><br><span class="line">start: mov ax,0</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0</span><br><span class="line"></span><br><span class="line">mov cx,8</span><br><span class="line">s: mov ax,[bx]</span><br><span class="line">mov cs:[bx],ax</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
-<p>(2)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，数据的传送用栈来进行。栈空间设置栈程序中。完成程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h</span><br><span class="line">dw 0,0,0,0,0,0,0,0,0,0</span><br><span class="line"></span><br><span class="line">start: mov ax,cs</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,24h</span><br><span class="line">mov ax,0</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0</span><br><span class="line">mov cx,8</span><br><span class="line">s: push [bx]</span><br><span class="line">pop [bx]</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
+        <p>div是除法指令，使用div做除法时应注意以下问题。</p>
+<p>1、除数：有8位和16位两种，在一个reg或内存单元中。<br>2、被除数：默认放在AX或DX和AX中，如果除数位8位，被除数则为16位，默认在AX中存放；如果除数为16位，被除数则为32位，在DX和AX中存放，DX放高16位，AX存放低16位。<br>3、结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；<br>如果除数为16位，则AX存储除法操作的商，DX存储除法操作的余数。</p>
+<p>例如：<br>1、除数为8位：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div byte ptr ds:[0]</span><br></pre></td></tr></table></figure>
+<p>含义：（al）=（ax）/（（ds）*16+0）的商</p>
+<p>（ah）=（ax）/（ds)*16+0)的余数</p>
+<p>2、除数为16位：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">div word ptr es:[0]</span><br></pre></td></tr></table></figure>
+<p>含义：(ax)=[(dx)*10000H+(ax)] /</p>
+<p>((es)*16+0)的商</p>
+<p>（dx）=[(dx)*10000H+(ax)] / </p>
+<p>(es)*16+0)的余数</p>
+<p>3、用除法指令计算100001/100</p>
+<p>分析：被除数100001大于65535（ffffh），所以用dx和ax两个寄存器联合存放100001，除数100虽然小于255可以在一个8位寄存器中存放，但是，因为除数是32位的，除数应为16位，所以要用16位寄存器存放除数100<br>100001表示为16进制为：186A1H。程序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov dx,1</span><br><span class="line">mov ax,86A1H      ;(dx)*10000H+(ax)=100001</span><br><span class="line">mov bx,100</span><br><span class="line">div bx</span><br></pre></td></tr></table></figure></p>
+<p>程序执行后（ax）=03E8H（即1000）（dx）=1（余数为1）</p>
+<p>4、用除法指令计算1001/100<br>分析：被除数1001可用ax寄存器存放，除数100可用8位寄存器存放，也就是说，要进行8位的除法。程序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1001</span><br><span class="line">mov bl,100</span><br><span class="line">div bl</span><br></pre></td></tr></table></figure></p>
+<p>程序执行后，（al）=0AH（即10），（ah）=1（余数为1）</p>
 
       
     </div>
@@ -542,7 +555,7 @@
     <strong>本文作者： </strong>Nocbtm</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/09/10/检测点6-1/" title="检测点6.1">http://yoursite.com/2018/09/10/检测点6-1/</a>
+    <a href="http://yoursite.com/2018/09/11/div指令/" title="div指令">http://yoursite.com/2018/09/11/div指令/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -568,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/10/在代码段中使用栈/" rel="next" title="在代码段中使用栈">
-                <i class="fa fa-chevron-left"></i> 在代码段中使用栈
+              <a href="/2018/09/11/and和or指令/" rel="next" title="and和or指令">
+                <i class="fa fa-chevron-left"></i> and和or指令
               </a>
             
           </div>
@@ -577,10 +590,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/11/and和or指令/" rel="prev" title="and和or指令">
-                and和or指令 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>

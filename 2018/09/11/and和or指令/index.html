@@ -121,18 +121,18 @@
 
 
 
-  <meta name="description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+  <meta name="description" content="1、and指令：逻辑与指令，按位进行与运算通过该指令可将操作对象位设为0，其他为不变 例如：12mov al,01100011Band al,00111011B 执行后al=00100011B 2、or指令：逻辑或指令，按位进行或运算。通过该指令可将操作对象位设为1，其他位不变 例如指令： 12mov al,0110001Bor al,00111011B 执行后：al=01111011B">
 <meta name="keywords" content="汇编语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="检测点6.1">
-<meta property="og:url" content="http://yoursite.com/2018/09/10/检测点6-1/index.html">
+<meta property="og:title" content="and和or指令">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/and和or指令/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+<meta property="og:description" content="1、and指令：逻辑与指令，按位进行与运算通过该指令可将操作对象位设为0，其他为不变 例如：12mov al,01100011Band al,00111011B 执行后al=00100011B 2、or指令：逻辑或指令，按位进行或运算。通过该指令可将操作对象位设为1，其他位不变 例如指令： 12mov al,0110001Bor al,00111011B 执行后：al=01111011B">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-10T13:16:23.212Z">
+<meta property="og:updated_time" content="2018-09-11T11:27:07.440Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="检测点6.1">
-<meta name="twitter:description" content="知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcod">
+<meta name="twitter:title" content="and和or指令">
+<meta name="twitter:description" content="1、and指令：逻辑与指令，按位进行与运算通过该指令可将操作对象位设为0，其他为不变 例如：12mov al,01100011Band al,00111011B 执行后al=00100011B 2、or指令：逻辑或指令，按位进行或运算。通过该指令可将操作对象位设为1，其他位不变 例如指令： 12mov al,0110001Bor al,00111011B 执行后：al=01111011B">
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/10/检测点6-1/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/and和or指令/"/>
 
 
 
@@ -151,7 +151,7 @@
   };
 </script>
 
-  <title>检测点6.1 | nocbtm's Blog</title>
+  <title>and和or指令 | nocbtm's Blog</title>
   
 
 
@@ -364,7 +364,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/10/检测点6-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/and和or指令/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nocbtm">
@@ -381,7 +381,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">检测点6.1
+          <h1 class="post-title" itemprop="name headline">and和or指令
               
             
           </h1>
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2018-09-10 21:01:50 / 修改时间：21:16:23" itemprop="dateCreated datePublished" datetime="2018-09-10T21:01:50+08:00">2018-09-10</time>
+              <time title="创建时间：2018-09-11 19:05:02 / 修改时间：19:27:07" itemprop="dateCreated datePublished" datetime="2018-09-11T19:05:02+08:00">2018-09-11</time>
             
 
             
@@ -425,8 +425,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/10/检测点6-1/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/10/检测点6-1/" itemprop="commentCount"></span>
+                <a href="/2018/09/11/and和or指令/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/11/and和or指令/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -434,7 +434,7 @@
 
           
           
-             <span id="/2018/09/10/检测点6-1/" class="leancloud_visitors" data-flag-title="检测点6.1">
+             <span id="/2018/09/11/and和or指令/" class="leancloud_visitors" data-flag-title="and和or指令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -459,7 +459,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">726</span>
+                <span title="本文字数">196</span>
               
 
               
@@ -493,10 +493,13 @@
       
 
       
-        <p>知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀</p>
-<p>2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。</p>
-<p>检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line"></span><br><span class="line">dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h</span><br><span class="line">start: mov ax,0</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0</span><br><span class="line"></span><br><span class="line">mov cx,8</span><br><span class="line">s: mov ax,[bx]</span><br><span class="line">mov cs:[bx],ax</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
-<p>(2)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，数据的传送用栈来进行。栈空间设置栈程序中。完成程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:codesg</span><br><span class="line">codesg segment</span><br><span class="line">dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h</span><br><span class="line">dw 0,0,0,0,0,0,0,0,0,0</span><br><span class="line"></span><br><span class="line">start: mov ax,cs</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,24h</span><br><span class="line">mov ax,0</span><br><span class="line">mov ds,ax</span><br><span class="line">mov bx,0</span><br><span class="line">mov cx,8</span><br><span class="line">s: push [bx]</span><br><span class="line">pop [bx]</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
+        <p>1、and指令：逻辑与指令，按位进行与运算<br>通过该指令可将操作对象位设为0，其他为不变</p>
+<p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov al,01100011B</span><br><span class="line">and al,00111011B</span><br></pre></td></tr></table></figure></p>
+<p>执行后al=00100011B</p>
+<p>2、or指令：逻辑或指令，按位进行或运算。<br>通过该指令可将操作对象位设为1，其他位不变</p>
+<p>例如指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov al,0110001B</span><br><span class="line">or al,00111011B</span><br></pre></td></tr></table></figure>
+<p>执行后：al=01111011B</p>
 
       
     </div>
@@ -542,7 +545,7 @@
     <strong>本文作者： </strong>Nocbtm</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/09/10/检测点6-1/" title="检测点6.1">http://yoursite.com/2018/09/10/检测点6-1/</a>
+    <a href="http://yoursite.com/2018/09/11/and和or指令/" title="and和or指令">http://yoursite.com/2018/09/11/and和or指令/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -568,8 +571,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/10/在代码段中使用栈/" rel="next" title="在代码段中使用栈">
-                <i class="fa fa-chevron-left"></i> 在代码段中使用栈
+              <a href="/2018/09/10/检测点6-1/" rel="next" title="检测点6.1">
+                <i class="fa fa-chevron-left"></i> 检测点6.1
               </a>
             
           </div>
@@ -578,8 +581,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/11/and和or指令/" rel="prev" title="and和or指令">
-                and和or指令 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/11/div指令/" rel="prev" title="div指令">
+                div指令 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
