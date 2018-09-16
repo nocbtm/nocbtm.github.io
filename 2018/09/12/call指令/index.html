@@ -129,10 +129,12 @@
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
 <meta property="og:description" content="CPU执行call指令时，进行两步操作：（1）将当前的IP或CS和IP压入栈中；（2）转移call指令不能实现短转移，除此之外，call指令实现转移的方法和jmp指令的原理相同。 call 标号依据位移进行转移的call指令CPU执行 “call 标号”指令时，进行如下操作：（1）(sp)=(sp)-2((ss)*16+(sp))=(IP)(2) (IP)=(IP)+16位位移。 16位位移=标号">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-12T13:52:20.196Z">
+<meta property="og:image" content="https://i.imgur.com/hzLJVqo.png">
+<meta property="og:updated_time" content="2018-09-16T08:09:45.700Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="call指令">
 <meta name="twitter:description" content="CPU执行call指令时，进行两步操作：（1）将当前的IP或CS和IP压入栈中；（2）转移call指令不能实现短转移，除此之外，call指令实现转移的方法和jmp指令的原理相同。 call 标号依据位移进行转移的call指令CPU执行 “call 标号”指令时，进行如下操作：（1）(sp)=(sp)-2((ss)*16+(sp))=(IP)(2) (IP)=(IP)+16位位移。 16位位移=标号">
+<meta name="twitter:image" content="https://i.imgur.com/hzLJVqo.png">
 
 
 
@@ -406,12 +408,24 @@
                 
               
 
-              <time title="创建时间：2018-09-12 20:12:52 / 修改时间：21:52:20" itemprop="dateCreated datePublished" datetime="2018-09-12T20:12:52+08:00">2018-09-12</time>
+              <time title="创建时间：2018-09-12 20:12:52" itemprop="dateCreated datePublished" datetime="2018-09-12T20:12:52+08:00">2018-09-12</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-16 16:09:45" itemprop="dateModified" datetime="2018-09-16T16:09:45+08:00">2018-09-16</time>
               
             
           </span>
@@ -459,7 +473,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1k</span>
+                <span title="本文字数">1.6k</span>
               
 
               
@@ -510,6 +524,9 @@
 <p>用汇编语言解释，相当于进行：<br>push CS<br>push IP<br>jmp word ptr 内存单元地址</p>
 <p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov as,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">call dword ptr ds:[0]</span><br></pre></td></tr></table></figure></p>
 <p>执行后，（CS）=0，（IP）=0123H，（sp）=0CH</p>
+<h2 id="call和ret的配合使用"><a href="#call和ret的配合使用" class="headerlink" title="call和ret的配合使用"></a>call和ret的配合使用</h2><p>call和ret配合使用来实现子程序<br>先分析一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start: mov ax,1</span><br><span class="line">	   mov cx,3</span><br><span class="line">	   call s</span><br><span class="line">	   mov bx,ax</span><br><span class="line">	   mov ax,4c00h</span><br><span class="line">	   int 21h</span><br><span class="line">    s: add ax,bx</span><br><span class="line">	   loops</span><br><span class="line">	   ret</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p>
+<p>CPU执行这个程序的主要过程<br><img src="https://i.imgur.com/hzLJVqo.png" alt=""><br>可以写一个具有一定功能的程序段，我们称其为子程序，在需要的时候，用call指令去执行。可是执行完子程序后，如何让CPU接着call指令向下执行？call指令去执行子程序之前，call指令后面的指令的地址将存储在栈中，所以可在子程序后面使用ret指令，用栈中的数据设置IP的值，从而转到call指令后面的代码处继续执行。</p>
+<p>具有子程序的源程序的框架如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">main: :</span><br><span class="line">	  :</span><br><span class="line">	  call sub1</span><br><span class="line">	  :</span><br><span class="line">	  :</span><br><span class="line">	  mov ax,4c00h</span><br><span class="line">	  int 21h</span><br><span class="line">sub1: :</span><br><span class="line">	  :</span><br><span class="line">	  call sub2</span><br><span class="line">	  :</span><br><span class="line">	  :</span><br><span class="line">	  ret</span><br><span class="line">sub2: :</span><br><span class="line">	  :</span><br><span class="line">	  ret</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end main</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -591,6 +608,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/09/16/mul指令/" rel="prev" title="mul指令">
+                mul指令 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -666,7 +687,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -754,7 +775,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#call-标号"><span class="nav-number">1.</span> <span class="nav-text">call 标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依据位移进行转移的call指令"><span class="nav-number">1.1.</span> <span class="nav-text">依据位移进行转移的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-far-ptr-标号"><span class="nav-number">2.</span> <span class="nav-text">call far ptr 标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转移的目的之地在指令中的call指令"><span class="nav-number">2.1.</span> <span class="nav-text">转移的目的之地在指令中的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-16-位-reg"><span class="nav-number">3.</span> <span class="nav-text">call 16 位 reg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转移地址在寄存器中的call指令"><span class="nav-number">3.1.</span> <span class="nav-text">转移地址在寄存器中的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-word-ptr-内存单元地址"><span class="nav-number">4.</span> <span class="nav-text">call word ptr 内存单元地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-dword-ptr-内存单元地址"><span class="nav-number">5.</span> <span class="nav-text">call dword ptr 内存单元地址</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#call-标号"><span class="nav-number">1.</span> <span class="nav-text">call 标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#依据位移进行转移的call指令"><span class="nav-number">1.1.</span> <span class="nav-text">依据位移进行转移的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-far-ptr-标号"><span class="nav-number">2.</span> <span class="nav-text">call far ptr 标号</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转移的目的之地在指令中的call指令"><span class="nav-number">2.1.</span> <span class="nav-text">转移的目的之地在指令中的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-16-位-reg"><span class="nav-number">3.</span> <span class="nav-text">call 16 位 reg</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转移地址在寄存器中的call指令"><span class="nav-number">3.1.</span> <span class="nav-text">转移地址在寄存器中的call指令</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-word-ptr-内存单元地址"><span class="nav-number">4.</span> <span class="nav-text">call word ptr 内存单元地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call-dword-ptr-内存单元地址"><span class="nav-number">5.</span> <span class="nav-text">call dword ptr 内存单元地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#call和ret的配合使用"><span class="nav-number">6.</span> <span class="nav-text">call和ret的配合使用</span></a></li></ol></div>
             
 
           </div>
@@ -788,7 +809,7 @@ busuanzi.pure.mini.js"></script>
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">29k</span>
   
 
   
@@ -797,7 +818,7 @@ busuanzi.pure.mini.js"></script>
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">23 分钟</span>
+    <span title="站点阅读时长">26 分钟</span>
   
 </div>
 
@@ -826,7 +847,7 @@ id="busuanzi_container_site_uv">
 -->
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count"> Blog total 11.9k words</span>
+  <span class="post-count"> Blog total 14.2k words</span>
 </div>
 
 
@@ -1410,8 +1431,8 @@ id="busuanzi_container_site_uv">
   
   0
   1 mins.
-  25k
-  23 mins.
+  29k
+  26 mins.
  
 
   <!-- ҳ����С���� -->

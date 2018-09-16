@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-12T13:52:20.196Z</updated>
+  <updated>2018-09-16T08:54:02.352Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,153 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>cmp指令 </title>
+    <link href="http://yoursite.com/2018/09/16/cmp%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/09/16/cmp指令/</id>
+    <published>2018-09-16T08:16:31.000Z</published>
+    <updated>2018-09-16T08:54:02.352Z</updated>
+    
+    <content type="html"><![CDATA[<p>cmp是比较指令，cmp的功能相当于减法指令，只是不保存结果。<br>cmp指令格式：cmp操作对象1，操作对象2<br>功能：计算操作对象1-操作对象2但不保存结果，仅仅根据计算结果对标志寄存器进行设置。</p><p>指令cmp ax，bx的逻辑含义是比较ax，bx中的值，如果执行后：<br>zf=1，说明(ax)=(bx)<br>zf=0，说明（ax）不等于（bx）<br>cf=1，说明（ax）&lt;(bx)<br>cf=0，说明（ax)&gt;=(bx)<br>cf=0且zf=0，说明（ax）&gt;(bx)<br>cf=1或zf=1,说明(ax)&lt;=(bx）</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;cmp是比较指令，cmp的功能相当于减法指令，只是不保存结果。&lt;br&gt;cmp指令格式：cmp操作对象1，操作对象2&lt;br&gt;功能：计算操作对象1-操作对象2但不保存结果，仅仅根据计算结果对标志寄存器进行设置。&lt;/p&gt;
+&lt;p&gt;指令cmp ax，bx的逻辑含义是比较ax，bx中的
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>sbb指令 </title>
+    <link href="http://yoursite.com/2018/09/16/sbb%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/09/16/sbb指令/</id>
+    <published>2018-09-16T08:16:16.000Z</published>
+    <updated>2018-09-16T08:26:17.749Z</updated>
+    
+    <content type="html"><![CDATA[<p>sbb是带减法指令，它利于了CF位上记录的错位置。<br>指令格式：sbb 操作对象1，操作对象2<br>功能：操作对象1=操作对象1-操作对象2-CF<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov bx,1000H</span><br><span class="line">mov ax,003EH</span><br><span class="line">sub bx,2000H</span><br><span class="line">sbb ax,0020H</span><br></pre></td></tr></table></figure></p><p>sbb指令执行后，将对CF进行设置。利用sbb指令可以对任意大的数据进行减法运算。上面程序，就是计算003E1000H-00202000H</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;sbb是带减法指令，它利于了CF位上记录的错位置。&lt;br&gt;指令格式：sbb 操作对象1，操作对象2&lt;br&gt;功能：操作对象1=操作对象1-操作对象2-CF&lt;br&gt;例如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td cla
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>adc指令 </title>
+    <link href="http://yoursite.com/2018/09/16/abc%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/09/16/abc指令/</id>
+    <published>2018-09-16T06:52:54.000Z</published>
+    <updated>2018-09-16T08:53:59.773Z</updated>
+    
+    <content type="html"><![CDATA[<p>adc是带进位加法指令<br>指令格式：adc 操作对象1，操作对象2<br>功能：操作对象1=操作对象1+操作对象2+CF</p><p>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov ax,2</span><br><span class="line">mov bx,1</span><br><span class="line">sub bx,ax</span><br><span class="line">adc ax,1</span><br></pre></td></tr></table></figure></p><p>执行后，（ax）=4,abc执行时想，相当于计算：（ax）+1+CF=2+1+1=4<br>adc指令的目的，就是来进行假发的第二步运算的。adc指令和add指令相配合就可以对更大的数据进行加法运算。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;adc是带进位加法指令&lt;br&gt;指令格式：adc 操作对象1，操作对象2&lt;br&gt;功能：操作对象1=操作对象1+操作对象2+CF&lt;/p&gt;
+&lt;p&gt;例如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>检测点11.1 </title>
+    <link href="http://yoursite.com/2018/09/16/%E6%A3%80%E6%B5%8B%E7%82%B911-1/"/>
+    <id>http://yoursite.com/2018/09/16/检测点11-1/</id>
+    <published>2018-09-16T06:29:30.000Z</published>
+    <updated>2018-09-16T06:51:06.208Z</updated>
+    
+    <content type="html"><![CDATA[<p>写出下面每条指令执行后，ZF、PF、SF、等标志位的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">sub al,al     al=0h        ZF=1        PF=1        SF=0 </span><br><span class="line"></span><br><span class="line">mov al,1      al=1h        ZF=1        PF=1        SF=0 </span><br><span class="line"></span><br><span class="line">push ax       ax=1h        ZF=1        PF=1        SF=0 </span><br><span class="line"></span><br><span class="line">pop bx        bx=1h        ZF=1        PF=1        SF=0 </span><br><span class="line"></span><br><span class="line">add al,bl     al=2h        ZF=0        PF=0        SF=0 </span><br><span class="line"></span><br><span class="line">add al,10     al=12h       ZF=0        PF=1        SF=0 </span><br><span class="line"></span><br><span class="line">mul al        ax=144h      ZF=0        PF=1        SF=0</span><br></pre></td></tr></table></figure></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;写出下面每条指令执行后，ZF、PF、SF、等标志位的值。&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span c
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>标志寄存器 </title>
+    <link href="http://yoursite.com/2018/09/16/%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/"/>
+    <id>http://yoursite.com/2018/09/16/标志寄存器/</id>
+    <published>2018-09-16T03:55:49.000Z</published>
+    <updated>2018-09-16T08:53:51.172Z</updated>
+    
+    <content type="html"><![CDATA[<p>标志寄存器（简称flag）的作用：<br>（1）用来存储相关指令的某些执行结果。<br>（2）用来为CPU执行相关指令提供行为依据。<br>（3）用来控制CPU的相关工作方式。<br>flag和其他寄存器不一样，其他寄存器是用来存放数据的，都是整个寄存器具有一个含义。而flag寄存器死按位起作用的，它的每一位都有专门的含义，记录特定的信息。<img src="https://i.imgur.com/p2T0oAQ.png" alt=""></p><p>flag的1,3,5,12,13,14,15位在8086CPU中没有使用，不具有任何含义</p><h2 id="ZF标志"><a href="#ZF标志" class="headerlink" title="ZF标志"></a>ZF标志</h2><p>flag的第六位是ZF，零标志位。它记录相关指令执行后，其结果是否为0.如果结果为0，那么zf=1，如果结果不为0，那么zf=0</p><p>例如指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">sub ax,1</span><br></pre></td></tr></table></figure></p><p>执行后，结果为0，则zf=1</p><h2 id="PF标志"><a href="#PF标志" class="headerlink" title="PF标志"></a>PF标志</h2><p>flag的第二位是PF，奇偶标志位，它记录相关指令执行后，其结果的所有bit位中1的个数是否位偶数。如果1的个数为偶数，pf=1，如果为奇数，那么pf=0<br>比如指令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov ax,1</span><br><span class="line">add al,10</span><br></pre></td></tr></table></figure></p><p>执行后，结果为00001011B，其中有3个1，则pf=0</p><h2 id="SF标志"><a href="#SF标志" class="headerlink" title="SF标志"></a>SF标志</h2><p>flag的第七位是SF，符号标志位，它记录相关指令后，其结果是否为负。如果结果为负，sf=1，如果不为负，sf=0<br>计算机通常用补码来表示有符号数据。计算机的UI个数据可以看做是由富豪书，也可以看做成无符号数。比如：<br>00000001B，可以看做无符号数1，或有符号数+1；<br>10000001B，可以看做无符号数129，也可以看作有符号数-127<br>不管我们如何看待，CPU在执行add等指令的时候，就已经包含了两种含义，也将得到同一种信息来记录的两种结果。关键在于我们的程序需要哪一种结果。<br>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov al,10000001B</span><br><span class="line">add al,1</span><br></pre></td></tr></table></figure></p><p>执行后，结果为10000010B，sf=1，表示：如果指令进行的是有符号数运算，那么结果为负；<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov al,100000001B</span><br><span class="line">add al,011111111B</span><br></pre></td></tr></table></figure></p><p>执行后，结果为0，sf=0，表示：如果指令进行的是有符号数运算，那么结果为非负。<br>某些指令将影响寄存器中的多个标记为，这些被影响的标记位比较全面地记录了指令的执行结果，为相关的处理提供了所需的依据。比如指令sub，al，al执行后，ZF、PF、SF等标志位都要受到影响，它们分别为：1,1,0。</p><h2 id="CF标志位"><a href="#CF标志位" class="headerlink" title="CF标志位"></a>CF标志位</h2><p>flag的第0位是CF，进位标志位，一般情况下，在进行无符号运算的时候，它记录了运算结果的最高有效位向更高位的进位值，或从更高位的借位值。<br>比如，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,98H</span><br><span class="line">add al,al执行后：（al）=30H，CF=1，CF记录了从最高有效位向更高位的进位值</span><br><span class="line">add al,al执行后：（al）=60H，CF=0</span><br></pre></td></tr></table></figure></p><p>而当两个数据做减法的时候，有可能向更高位借位，比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,97H</span><br><span class="line">sub al,98H；执行后（al）=FFH，CF=1，CF记录了向更高位的借位值</span><br><span class="line">sub al,al：执行后（al）=0，CF=0，CF记录了向更高位借位值</span><br></pre></td></tr></table></figure></p><h2 id="OF标志位"><a href="#OF标志位" class="headerlink" title="OF标志位"></a>OF标志位</h2><p>flag的第十一位是OF，溢出标志位。一般情况下，OF记录了有符号数运算的结果是否发生了溢出。如果发生溢出，OF=1；如果没有，OF=0.<br>对于无符号数运算，98+99没有进位，CF=0；<br>对于有符号数运算，98+99发生溢出，OF=1<br>例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mov al,F0H</span><br><span class="line">add al,88H</span><br></pre></td></tr></table></figure></p><p>add指令执行后：CF=1，OF=0.对于无符号运算，F0H+78H有进位，CF=1；<br>对于有符号数运算，F0H+78H不发生溢出，OF=0</p><h2 id="DF标志位"><a href="#DF标志位" class="headerlink" title="DF标志位"></a>DF标志位</h2><p>flag的第10位是DF，方向标志位。在串处理指令中，控制每次操作后si，di的增减。<br>df=0 每次操作后si、di递增<br>df=1 每次操作后si、di递减</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;标志寄存器（简称flag）的作用：&lt;br&gt;（1）用来存储相关指令的某些执行结果。&lt;br&gt;（2）用来为CPU执行相关指令提供行为依据。&lt;br&gt;（3）用来控制CPU的相关工作方式。&lt;br&gt;flag和其他寄存器不一样，其他寄存器是用来存放数据的，都是整个寄存器具有一个含义。而fl
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mul指令</title>
+    <link href="http://yoursite.com/2018/09/16/mul%E6%8C%87%E4%BB%A4/"/>
+    <id>http://yoursite.com/2018/09/16/mul指令/</id>
+    <published>2018-09-16T02:58:12.000Z</published>
+    <updated>2018-09-16T03:22:06.182Z</updated>
+    
+    <content type="html"><![CDATA[<p>mul指令是乘法指令<br>规定：<br>（1）两个项城的数，要么都是8位，要么都是16位，如果是8位，一个默认放在AL中，另一个放在8位reg或内存字单元中：如果是16位，一个默认放在AX中，另一个放在16位reg或内存子单元中。<br>（2）结果：如果是8位乘法，结果默认放在AX中；如果是16位乘法，结果高位默认放在DX中存放，低位在AX中放。</p><p>例如：<br>（1）计算100*10<br>100和10 都小于255，可以做8位陈发，程序如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov al,100</span><br><span class="line">mov bl,10</span><br><span class="line">mul bl</span><br></pre></td></tr></table></figure></p><p>结果（ax）=1000（03E8H）<br>（2）计算100*10000<br>100小于255，可10000大于255，所以必须做16位乘法，程序如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mov ax,100</span><br><span class="line">mov bx,10000</span><br><span class="line">mul bx</span><br></pre></td></tr></table></figure></p><p>结果：(ax)=4240H,(dx)=000FH (F4240H=100000)</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;mul指令是乘法指令&lt;br&gt;规定：&lt;br&gt;（1）两个项城的数，要么都是8位，要么都是16位，如果是8位，一个默认放在AL中，另一个放在8位reg或内存字单元中：如果是16位，一个默认放在AX中，另一个放在16位reg或内存子单元中。&lt;br&gt;（2）结果：如果是8位乘法，结果默
+      
+    
+    </summary>
+    
+    
+      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+  </entry>
+  
+  <entry>
     <title>call指令</title>
     <link href="http://yoursite.com/2018/09/12/call%E6%8C%87%E4%BB%A4/"/>
     <id>http://yoursite.com/2018/09/12/call指令/</id>
     <published>2018-09-12T12:12:52.000Z</published>
-    <updated>2018-09-12T13:52:20.196Z</updated>
+    <updated>2018-09-16T08:09:45.700Z</updated>
     
-    <content type="html"><![CDATA[<p>CPU执行call指令时，进行两步操作：<br>（1）将当前的IP或CS和IP压入栈中；<br>（2）转移<br>call指令不能实现短转移，除此之外，call指令实现转移的方法和jmp指令的原理相同。</p><h2 id="call-标号"><a href="#call-标号" class="headerlink" title="call 标号"></a>call 标号</h2><h3 id="依据位移进行转移的call指令"><a href="#依据位移进行转移的call指令" class="headerlink" title="依据位移进行转移的call指令"></a>依据位移进行转移的call指令</h3><p>CPU执行 “call 标号”指令时，进行如下操作：<br>（1）(sp)=(sp)-2<br>((ss)*16+(sp))=(IP)<br>(2) (IP)=(IP)+16位位移。</p><p>16位位移=标号处的地址-call指令后的第一个直接的地址；<br>16位位移的范围为-32768~32767，用补码表示；<br>16位位移由编译程序在编译时算出。</p><p>CPU执行”call 标号”时，用汇编语言解释，相当于进行：<br>push IP<br>jmp near ptr 标号</p><h2 id="call-far-ptr-标号"><a href="#call-far-ptr-标号" class="headerlink" title="call far ptr 标号"></a>call far ptr 标号</h2><h3 id="转移的目的之地在指令中的call指令"><a href="#转移的目的之地在指令中的call指令" class="headerlink" title="转移的目的之地在指令中的call指令"></a>转移的目的之地在指令中的call指令</h3><p>CPU执行”call far ptr 标号”指令时，进行如下的操作：<br>(1) (sp)=(sp)-2<br>((ss)*16+（sp))=(CS)</p><p>(sp)=(sp)-2<br>((ss)*16+(sp0=（IP）<br>(2)(CS)=标号所在段的段地址<br>（IP）=标号在段中的偏移地址</p><p>CPU执行”call far ptr 标号”时，用汇编语言解释，相当于进行：<br>push CS<br>push IP<br>jmp far ptr 标号</p><h2 id="call-16-位-reg"><a href="#call-16-位-reg" class="headerlink" title="call 16 位 reg"></a>call 16 位 reg</h2><h3 id="转移地址在寄存器中的call指令"><a href="#转移地址在寄存器中的call指令" class="headerlink" title="转移地址在寄存器中的call指令"></a>转移地址在寄存器中的call指令</h3><p>功能：<br>(sp)=(sp)-2<br>((ss)*16+(sp))=(IP)<br>(IP)=(16位reg)</p><p>用汇编语言解释，相当于进行：<br>push IP<br>jmp 16位 reg</p><h2 id="call-word-ptr-内存单元地址"><a href="#call-word-ptr-内存单元地址" class="headerlink" title="call word ptr 内存单元地址"></a>call word ptr 内存单元地址</h2><p>转移地址在内存中的call指令</p><p>用汇编语言解释，相当于进行：<br>push IP<br>jmp word ptr 内存单元地址</p><p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov as,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">call word ptr ds:[0]</span><br></pre></td></tr></table></figure></p><p>执行后，（IP）=0123H，（sp）=0EH</p><h2 id="call-dword-ptr-内存单元地址"><a href="#call-dword-ptr-内存单元地址" class="headerlink" title="call dword ptr 内存单元地址"></a>call dword ptr 内存单元地址</h2><p>转移地址在内存中的call指令</p><p>用汇编语言解释，相当于进行：<br>push CS<br>push IP<br>jmp word ptr 内存单元地址</p><p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov as,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">call dword ptr ds:[0]</span><br></pre></td></tr></table></figure></p><p>执行后，（CS）=0，（IP）=0123H，（sp）=0CH</p>]]></content>
+    <content type="html"><![CDATA[<p>CPU执行call指令时，进行两步操作：<br>（1）将当前的IP或CS和IP压入栈中；<br>（2）转移<br>call指令不能实现短转移，除此之外，call指令实现转移的方法和jmp指令的原理相同。</p><h2 id="call-标号"><a href="#call-标号" class="headerlink" title="call 标号"></a>call 标号</h2><h3 id="依据位移进行转移的call指令"><a href="#依据位移进行转移的call指令" class="headerlink" title="依据位移进行转移的call指令"></a>依据位移进行转移的call指令</h3><p>CPU执行 “call 标号”指令时，进行如下操作：<br>（1）(sp)=(sp)-2<br>((ss)*16+(sp))=(IP)<br>(2) (IP)=(IP)+16位位移。</p><p>16位位移=标号处的地址-call指令后的第一个直接的地址；<br>16位位移的范围为-32768~32767，用补码表示；<br>16位位移由编译程序在编译时算出。</p><p>CPU执行”call 标号”时，用汇编语言解释，相当于进行：<br>push IP<br>jmp near ptr 标号</p><h2 id="call-far-ptr-标号"><a href="#call-far-ptr-标号" class="headerlink" title="call far ptr 标号"></a>call far ptr 标号</h2><h3 id="转移的目的之地在指令中的call指令"><a href="#转移的目的之地在指令中的call指令" class="headerlink" title="转移的目的之地在指令中的call指令"></a>转移的目的之地在指令中的call指令</h3><p>CPU执行”call far ptr 标号”指令时，进行如下的操作：<br>(1) (sp)=(sp)-2<br>((ss)*16+（sp))=(CS)</p><p>(sp)=(sp)-2<br>((ss)*16+(sp0=（IP）<br>(2)(CS)=标号所在段的段地址<br>（IP）=标号在段中的偏移地址</p><p>CPU执行”call far ptr 标号”时，用汇编语言解释，相当于进行：<br>push CS<br>push IP<br>jmp far ptr 标号</p><h2 id="call-16-位-reg"><a href="#call-16-位-reg" class="headerlink" title="call 16 位 reg"></a>call 16 位 reg</h2><h3 id="转移地址在寄存器中的call指令"><a href="#转移地址在寄存器中的call指令" class="headerlink" title="转移地址在寄存器中的call指令"></a>转移地址在寄存器中的call指令</h3><p>功能：<br>(sp)=(sp)-2<br>((ss)*16+(sp))=(IP)<br>(IP)=(16位reg)</p><p>用汇编语言解释，相当于进行：<br>push IP<br>jmp 16位 reg</p><h2 id="call-word-ptr-内存单元地址"><a href="#call-word-ptr-内存单元地址" class="headerlink" title="call word ptr 内存单元地址"></a>call word ptr 内存单元地址</h2><p>转移地址在内存中的call指令</p><p>用汇编语言解释，相当于进行：<br>push IP<br>jmp word ptr 内存单元地址</p><p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov as,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">call word ptr ds:[0]</span><br></pre></td></tr></table></figure></p><p>执行后，（IP）=0123H，（sp）=0EH</p><h2 id="call-dword-ptr-内存单元地址"><a href="#call-dword-ptr-内存单元地址" class="headerlink" title="call dword ptr 内存单元地址"></a>call dword ptr 内存单元地址</h2><p>转移地址在内存中的call指令</p><p>用汇编语言解释，相当于进行：<br>push CS<br>push IP<br>jmp word ptr 内存单元地址</p><p>比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov sp,10h</span><br><span class="line">mov as,0123h</span><br><span class="line">mov ds:[0],ax</span><br><span class="line">mov word ptr ds:[2],0</span><br><span class="line">call dword ptr ds:[0]</span><br></pre></td></tr></table></figure></p><p>执行后，（CS）=0，（IP）=0123H，（sp）=0CH</p><h2 id="call和ret的配合使用"><a href="#call和ret的配合使用" class="headerlink" title="call和ret的配合使用"></a>call和ret的配合使用</h2><p>call和ret配合使用来实现子程序<br>先分析一下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">start: mov ax,1</span><br><span class="line">   mov cx,3</span><br><span class="line">   call s</span><br><span class="line">   mov bx,ax</span><br><span class="line">   mov ax,4c00h</span><br><span class="line">   int 21h</span><br><span class="line">    s: add ax,bx</span><br><span class="line">   loops</span><br><span class="line">   ret</span><br><span class="line">code ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p><p>CPU执行这个程序的主要过程<br><img src="https://i.imgur.com/hzLJVqo.png" alt=""><br>可以写一个具有一定功能的程序段，我们称其为子程序，在需要的时候，用call指令去执行。可是执行完子程序后，如何让CPU接着call指令向下执行？call指令去执行子程序之前，call指令后面的指令的地址将存储在栈中，所以可在子程序后面使用ret指令，用栈中的数据设置IP的值，从而转到call指令后面的代码处继续执行。</p><p>具有子程序的源程序的框架如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line">code segment</span><br><span class="line">main: :</span><br><span class="line">  :</span><br><span class="line">  call sub1</span><br><span class="line">  :</span><br><span class="line">  :</span><br><span class="line">  mov ax,4c00h</span><br><span class="line">  int 21h</span><br><span class="line">sub1: :</span><br><span class="line">  :</span><br><span class="line">  call sub2</span><br><span class="line">  :</span><br><span class="line">  :</span><br><span class="line">  ret</span><br><span class="line">sub2: :</span><br><span class="line">  :</span><br><span class="line">  ret</span><br><span class="line"></span><br><span class="line">code ends</span><br><span class="line">end main</span><br></pre></td></tr></table></figure></p>]]></content>
     
     <summary type="html">
     
@@ -45,9 +185,9 @@
     <link href="http://yoursite.com/2018/09/12/%E6%A3%80%E6%B5%8B%E7%82%B910-1-10-5/"/>
     <id>http://yoursite.com/2018/09/12/检测点10-1-10-5/</id>
     <published>2018-09-12T12:08:33.000Z</published>
-    <updated>2018-09-12T13:49:40.589Z</updated>
+    <updated>2018-09-16T02:21:35.910Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="10-1"><a href="#10-1" class="headerlink" title="10.1"></a>10.1</h2><p>补全程序，实现从内存1000:0000处开始执行指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">db 16 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">start: mov ax,stack</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,16</span><br><span class="line">mov ax,0</span><br><span class="line">push ax</span><br><span class="line">mov ax,1000h</span><br><span class="line">retf</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p><p>程序分析：</p><ol><li><p>retf指令作用（CPU角度）：从栈中弹出2个字单元，并修改CS（第二个字）和IP（第一个字）；首先它弹出的是IP，其次是CS，故在压栈时，CS的值首先入栈，IP再入栈。</p><p> 在汇编编程角度，retf实现了远转移。</p></li></ol><p>讲解：在汇编代码这个层次，retf指令作用是修改CS和IP的值，进而使指令从修改后的地址处开始执行。由于它所依赖的是栈中存储的内容，故在压栈过程中要搞清楚入栈的顺序、入栈的值。</p><p>2.熟悉ret指令和RETF指令执行的操作。</p><p>我们编译链接后，debug跟踪check10-1.exe</p><p>-d ss:0</p><p>0B66:0000  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00   …………….</p><p>在stack数据区中初始化了16个0，此时它未成为栈结构。直到初始化栈的结构。</p><p>执行代码t t（二次）</p><p>AX=0B66  BX=0000  CX=0026  DX=0000  SP=0010  BP=0000  SI=0000  DI=0000</p><p>DS=0B56  ES=0B56  SS=0B66  CS=0B67  IP=0008   NV UP EI PL NZ NA PO NC</p><p>0B67:0008 B80010        MOV     AX,1000</p><p>-d ss:00</p><p>0B66:0000  00 00 00 00 00 00 66 0B-00 00 08 00 67 0B 68 05   ……f…..g.h.</p><p>初始化一个栈sp=0010H（16），栈地址：ss=0b66，这里我们发现一些不应该有的数据（不理会它，它是中断的信息）</p><p>继续执行代码：</p><p>-d ss:0</p><p>0B66:0000  00 00 00 00 00 00 10 00-67 0B 68 05 00 00 00 10   ……..g.h…..</p><p>发现从高位开始存储10 00 00 00四个字节的数据，（体会栈是从高地址向低地址发展的，sp指针从10H减少到了0cH）</p><p>此时的CS=0B67  IP=0010</p><p>执行retf代码：</p><p>我们发现：CS=1000  IP=0000，CS和IP的值改变了。</p><p>总结：ret和RETF依赖于栈的结构存储一个程序执行点（IP或CS和IP），当执行这个代码时，可以恢复到这个程序的执行点（将栈中的数据修改IP或CS和IP，使CPU指向新的CS：IP）</p><h2 id="10-2"><a href="#10-2" class="headerlink" title="10.2"></a>10.2</h2><p>下面的程序执行后，ax中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">内存地址    机器码      汇编指令       执行后情况</span><br><span class="line"></span><br><span class="line">1000:0     b8 00 00     mov ax,0     ax=0 ip指向1000:3</span><br><span class="line"></span><br><span class="line">1000:3     e8 01 00     call s       读取指令后IP指向下一条指令IP为6;push 6</span><br><span class="line"></span><br><span class="line">1000:6     40           inc ax</span><br><span class="line"></span><br><span class="line">1000:7     58         s:pop ax       ax=6</span><br></pre></td></tr></table></figure></p><p> “call 标号”是将该指令后的第一个字节偏移地址入栈，再转到标号处执行指令。</p><h2 id="10-3"><a href="#10-3" class="headerlink" title="10.3"></a>10.3</h2><p>下面的程序执行后，AX中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">内存地址        机器码               汇编指令  </span><br><span class="line"></span><br><span class="line">1000：0       b8 00 00             mov ax,0  </span><br><span class="line"></span><br><span class="line">1000：3       9A 09 00 00 10       call far ptr s    ;cs为1000h，ip为8，</span><br><span class="line">                                                      push 1000h，push 8</span><br><span class="line">1000：8       40                   inc ax   </span><br><span class="line">1000：9       58                   s:  pop ax        ;ax=8h  </span><br><span class="line">                                       add ax,ax     ;ax=10h  </span><br><span class="line">                                       pop bx        ;bx=1000h  </span><br><span class="line">                                       add ax,bx     ;ax=1010h</span><br></pre></td></tr></table></figure></p><p>执行call far ptr s时，取IP为8,add ax,ax    ax=16<br>BX=CS=1000H 相加转16进制ax=1010H</p><h2 id="10-4"><a href="#10-4" class="headerlink" title="10.4"></a>10.4</h2><p>下面的程序执行后，AX中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">内存地址        机器码          汇编指令   </span><br><span class="line">1000：0       b8 06 00        mov ax,6   </span><br><span class="line">1000：3       ff d0           call ax</span><br><span class="line">1000：5       40              inc ax   </span><br><span class="line">1000：6                       mov bp,sp  </span><br><span class="line">                              add ax,[bp]</span><br></pre></td></tr></table></figure></p><p>在执行了<br>call ax<br>的时候<br>指令寄存器会指向下一条指令的起始地址，也就是<br>1000:5 inc ax<br>然后指令寄存器ip=5要压入堆栈<br>然后跳转到cs:ax指定的地址执行<br>又因为此时ax中的值为6 ,cs=1000<br>所以跳转到1000:6执行<br>于是修改 ip为6<br>到此时call ax指令才执行完毕</p><p>然后就执行<br>mov bp,sp<br>因为sp里面放的是堆顶的地址，所以bp也是栈顶的地址了<br>之后<br>add ax,[bp]<br>因为，bp里面放的是栈顶的地址，所以 [bp] 寄存器寻址后 [bp]实际是代表该地址单元的内容，也就是栈顶的内容，因为先前我把ip压入了堆栈，所以[bp]得到的内容就是5(先前在call ax时候压入的ip的值)</p><p>所以 ax=ax+[bp]<br>也就是 ax=6+5=0BH</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="10-1"><a href="#10-1" class="headerlink" title="10.1"></a>10.1</h2><p>补全程序，实现从内存1000:0000处开始执行指令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code</span><br><span class="line"></span><br><span class="line">stack segment</span><br><span class="line">db 16 dup (0)</span><br><span class="line">stack ends</span><br><span class="line"></span><br><span class="line">code segment</span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line"></span><br><span class="line">start: mov ax,stack</span><br><span class="line">mov ss,ax</span><br><span class="line">mov sp,16</span><br><span class="line">mov ax,0</span><br><span class="line">push ax</span><br><span class="line">mov ax,1000h</span><br><span class="line">retf</span><br><span class="line">code ends</span><br><span class="line"></span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p><p>程序分析：</p><ol><li><p>retf指令作用（CPU角度）：从栈中弹出2个字单元，并修改CS（第二个字）和IP（第一个字）；首先它弹出的是IP，其次是CS，故在压栈时，CS的值首先入栈，IP再入栈。</p><p> 在汇编编程角度，retf实现了远转移。</p></li></ol><p>讲解：在汇编代码这个层次，retf指令作用是修改CS和IP的值，进而使指令从修改后的地址处开始执行。由于它所依赖的是栈中存储的内容，故在压栈过程中要搞清楚入栈的顺序、入栈的值。</p><p>2.熟悉ret指令和RETF指令执行的操作。</p><p>我们编译链接后，debug跟踪check10-1.exe</p><p>-d ss:0</p><p>0B66:0000  00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00   …………….</p><p>在stack数据区中初始化了16个0，此时它未成为栈结构。直到初始化栈的结构。</p><p>执行代码t t（二次）</p><p>AX=0B66  BX=0000  CX=0026  DX=0000  SP=0010  BP=0000  SI=0000  DI=0000</p><p>DS=0B56  ES=0B56  SS=0B66  CS=0B67  IP=0008   NV UP EI PL NZ NA PO NC</p><p>0B67:0008 B80010        MOV     AX,1000</p><p>-d ss:00</p><p>0B66:0000  00 00 00 00 00 00 66 0B-00 00 08 00 67 0B 68 05   ……f…..g.h.</p><p>初始化一个栈sp=0010H（16），栈地址：ss=0b66，这里我们发现一些不应该有的数据（不理会它，它是中断的信息）</p><p>继续执行代码：</p><p>-d ss:0</p><p>0B66:0000  00 00 00 00 00 00 10 00-67 0B 68 05 00 00 00 10   ……..g.h…..</p><p>发现从高位开始存储10 00 00 00四个字节的数据，（体会栈是从高地址向低地址发展的，sp指针从10H减少到了0cH）</p><p>此时的CS=0B67  IP=0010</p><p>执行retf代码：</p><p>我们发现：CS=1000  IP=0000，CS和IP的值改变了。</p><p>总结：ret和RETF依赖于栈的结构存储一个程序执行点（IP或CS和IP），当执行这个代码时，可以恢复到这个程序的执行点（将栈中的数据修改IP或CS和IP，使CPU指向新的CS：IP）</p><h2 id="10-2"><a href="#10-2" class="headerlink" title="10.2"></a>10.2</h2><p>下面的程序执行后，ax中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">内存地址    机器码      汇编指令       执行后情况</span><br><span class="line"></span><br><span class="line">1000:0     b8 00 00     mov ax,0     ax=0 ip指向1000:3</span><br><span class="line"></span><br><span class="line">1000:3     e8 01 00     call s       读取指令后IP指向下一条指令IP为6;push 6</span><br><span class="line"></span><br><span class="line">1000:6     40           inc ax</span><br><span class="line"></span><br><span class="line">1000:7     58         s:pop ax       ax=6</span><br></pre></td></tr></table></figure></p><p> “call 标号”是将该指令后的第一个字节偏移地址入栈，再转到标号处执行指令。</p><h2 id="10-3"><a href="#10-3" class="headerlink" title="10.3"></a>10.3</h2><p>下面的程序执行后，AX中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">内存地址        机器码               汇编指令  </span><br><span class="line"></span><br><span class="line">1000：0       b8 00 00             mov ax,0  </span><br><span class="line"></span><br><span class="line">1000：3       9A 09 00 00 10       call far ptr s    ;cs为1000h，ip为8，</span><br><span class="line">                                                      push 1000h，push 8</span><br><span class="line">1000：8       40                   inc ax   </span><br><span class="line">1000：9       58                   s:  pop ax        ;ax=8h  </span><br><span class="line">                                       add ax,ax     ;ax=10h  </span><br><span class="line">                                       pop bx        ;bx=1000h  </span><br><span class="line">                                       add ax,bx     ;ax=1010h</span><br></pre></td></tr></table></figure></p><p>执行call far ptr s时，取IP为8,add ax,ax    ax=16<br>BX=CS=1000H 相加转16进制ax=1010H</p><h2 id="10-4"><a href="#10-4" class="headerlink" title="10.4"></a>10.4</h2><p>下面的程序执行后，AX中的数值为多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">内存地址        机器码          汇编指令   </span><br><span class="line">1000：0       b8 06 00        mov ax,6   </span><br><span class="line">1000：3       ff d0           call ax</span><br><span class="line">1000：5       40              inc ax   </span><br><span class="line">1000：6                       mov bp,sp  </span><br><span class="line">                              add ax,[bp]</span><br></pre></td></tr></table></figure></p><p>在执行了<br>call ax<br>的时候<br>指令寄存器会指向下一条指令的起始地址，也就是<br>1000:5 inc ax<br>然后指令寄存器ip=5要压入堆栈<br>然后跳转到cs:ax指定的地址执行<br>又因为此时ax中的值为6 ,cs=1000<br>所以跳转到1000:6执行<br>于是修改 ip为6<br>到此时call ax指令才执行完毕</p><p>然后就执行<br>mov bp,sp<br>因为sp里面放的是堆顶的地址，所以bp也是栈顶的地址了<br>之后<br>add ax,[bp]<br>因为，bp里面放的是栈顶的地址，所以 [bp] 寄存器寻址后 [bp]实际是代表该地址单元的内容，也就是栈顶的内容，因为先前我把ip压入了堆栈，所以[bp]得到的内容就是5(先前在call ax时候压入的ip的值)</p><p>所以 ax=ax+[bp]<br>也就是 ax=6+5=0BH</p><h2 id="10-5"><a href="#10-5" class="headerlink" title="10.5"></a>10.5</h2><p>题目：下面的程序执行后，ax中的数据是多少？<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">assume cs:code </span><br><span class="line">stack segment </span><br><span class="line">dw 8 dup (0) </span><br><span class="line">stack ends </span><br><span class="line"></span><br><span class="line">code segment </span><br><span class="line">start :mov ax,stack </span><br><span class="line">       mov ss,ax </span><br><span class="line">      mov sp,16        </span><br><span class="line"></span><br><span class="line">      mov ds,ax       </span><br><span class="line">      mov ax,0  </span><br><span class="line">      call word ptr ds:[0eH]     </span><br><span class="line">      inc ax </span><br><span class="line">      inc ax </span><br><span class="line">      inc ax </span><br><span class="line">code ends </span><br><span class="line">end start</span><br></pre></td></tr></table></figure></p><p>解答：刚开始时mov ax,stack到mov sp,10h是分别设置ss：sp指向程序中定义的栈段stack。mov ds,ax也把数据段的段地址也设置成了stack段的段地址。call word prt ds:[0Eh]相当于是sp=sp-2，push ip，jmp word ptr ds:[0Eh]这三条指令。而sp-2就是0Eh了，push ip就是把第一条inc ax对应的ip值给压入栈。存放在ss:[0Eh]和ss:[0Fh]里面。接下来是jmp word ptr ds:[0Eh]了，它的功能就是把stack段的[0eh]子单元的值付给ip，很巧的是stack中[0eh]字单元的值就是刚刚压入的ip值。所以ip值没有改变。程序继续执行inc ax后面的程序。所以ax的值是3.</p>]]></content>
     
     <summary type="html">
     
@@ -343,153 +483,6 @@
     
     
       <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Cookie和Session</title>
-    <link href="http://yoursite.com/2018/08/09/Cookie%E5%92%8CSession/"/>
-    <id>http://yoursite.com/2018/08/09/Cookie和Session/</id>
-    <published>2018-08-09T01:51:41.000Z</published>
-    <updated>2018-08-10T12:55:17.783Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="1、Cookie"><a href="#1、Cookie" class="headerlink" title="1、Cookie"></a>1、Cookie</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>   Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。</p><p>   简单来说，Cookie 是保存在浏览器的一个键值对，每次的HTTP请求都会携带 Cookie 。</p><h2 id="cookie的作用"><a href="#cookie的作用" class="headerlink" title="cookie的作用"></a>cookie的作用</h2><p>　　服务器可以利用Cookies包含信息的任意性来筛选并经常性维护这些信息，以判断在HTTP传输中的状态。Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。</p><h2 id="Django框架的下cookie"><a href="#Django框架的下cookie" class="headerlink" title="Django框架的下cookie"></a>Django框架的下cookie</h2><h3 id="1、-获取Cookie："><a href="#1、-获取Cookie：" class="headerlink" title="1、 获取Cookie："></a>1、 获取Cookie：</h3><p>  获取已经设置好的cookies极其简单。 每一个<code>HttpRequest</code> 对象都有一个<code>COOKIES</code> 对象，该对象的行为类似一个字典，你可以使用它读取任何浏览器发送给视图（view）的cookies。</p><pre><code>获取普通cookierequest.COOKIES[&apos;key&apos;]request.COOKIES.get(&apos;key&apos;)解密带签名的cookierequest.get_signed_cookie(key, default=RAISE_ERROR, salt=&apos;&apos;, max_age=None)       参数：           default: 默认值               salt: 加密盐            max_age: 后台控制过期时间</code></pre><h3 id="2、设置Cookie："><a href="#2、设置Cookie：" class="headerlink" title="2、设置Cookie："></a>2、设置Cookie：</h3><pre><code>rep = HttpResponse(...) 或 rep ＝ render(request, ...)#设置cookie需要使用 HttpResponse对象的 set_cookie()方法#设置普通cookierep.set_cookie(key,value,...)#设置带签名的cookierep.set_signed_cookie(key,value,salt=&apos;加密盐&apos;,...)   #参数：        key,              键        value=&apos;&apos;,         值        max_age=None,     超时时间        expires=None,     超时时间(IE requires expires, so set it if hasn&apos;t been already.)        path=&apos;/&apos;,         Cookie生效的路径，/ 表示根路径，特殊的：跟路径的cookie可以被任何url的页面访问        domain=None,      Cookie生效的域名        secure=False,     https传输        httponly=False    只能http协议传输，无法被JavaScript获取（不是绝对，底层抓包可以获取到也可以被覆盖）</code></pre><p>由于cookie保存在客户端的电脑上，所以，JavaScript和jquery也可以操作cookie。</p><pre><code>&lt;script src=&apos;/static/js/jquery.cookie.js&apos;&gt;&lt;/script&gt;$.cookie(&quot;list_pager_num&quot;, 30,{ path: &apos;/&apos; });</code></pre><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><p>　　Cookie(特别是那些没通过HTTPS传输的)是非常不安全的。 因为HTTP数据是以明文发送的，所以 特别容易受到嗅探攻击。 也就是说，嗅探攻击者可以在网络中拦截并读取cookies，因此你要 绝对避免在cookies中存储敏感信息。 这就意味着您不应该使用cookie来在存储任何敏感信息。</p><p>   因此不能在cookies中存储可能会被篡改的敏感数据。 在cookies中存储 IsLoggedIn=1 ，以标识用户已经登录。 犯这类错误的站点数量多的令人难以置信； 绕过这些网站的安全系统也是易如反掌。</p><h1 id="2、Session"><a href="#2、Session" class="headerlink" title="2、Session"></a>2、Session</h1><h2 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h2><p>　　在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。</p><h3 id="Session与Cookie的区别："><a href="#Session与Cookie的区别：" class="headerlink" title="Session与Cookie的区别："></a>Session与Cookie的区别：</h3><p>　　Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。</p><p>　　Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。</p><p>　　Session 必须要依赖 Cookie ，因为 Cookie的值就等于 Session 的Key</p><p>###Session的工作原理:</p><p>　　当用户第一次访问时，服务器会给其创建一个session，并且把session的Id(本质是随机字符串)以cookie的形式发送给客户端浏览器，下次再去访问服务器时，客户机浏览器会把存储到cookie中的session的Id一起传递到服务器端，服务器发现客户机浏览器带session id过来了，就会使用内存中与之对应的session为之服务</p><h2 id="2、Django下的-Session-框架"><a href="#2、Django下的-Session-框架" class="headerlink" title="2、Django下的 Session 框架"></a>2、Django下的 Session 框架</h2><p>　　由于存在的限制与安全漏洞，cookies和持续性会话已经成为Web开发中令人头疼的典范。 好消息是，Django的目标正是高效的“头疼杀手”，它自带的session框架会帮你搞定这些问题。</p><p>　　你可以用session 框架来存取每个访问者任意数据， 这些数据在服务器端存储，并对cookie的收发进行了抽象。 Cookies只存储数据的哈希会话ID，而不是数据本身，从而避免了大部分的常见cookie问题。</p><p>Django中默认支持Session，其内部提供了5种类型的Session供开发者使用：</p><ul><li>数据库（默认）</li><li>缓存</li><li>文件</li><li>缓存+数据库</li><li>加密cookie</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;1、Cookie&quot;&gt;&lt;a href=&quot;#1、Cookie&quot; class=&quot;headerlink&quot; title=&quot;1、Cookie&quot;&gt;&lt;/a&gt;1、Cookie&lt;/h1&gt;&lt;h2 id=&quot;介绍&quot;&gt;&lt;a href=&quot;#介绍&quot; class=&quot;headerlink&quot; titl
-      
-    
-    </summary>
-    
-    
-      <category term="cookie" scheme="http://yoursite.com/tags/cookie/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>黑客游戏</title>
-    <link href="http://yoursite.com/2018/08/07/%E9%BB%91%E5%AE%A2%E6%B8%B8%E6%88%8F/"/>
-    <id>http://yoursite.com/2018/08/07/黑客游戏/</id>
-    <published>2018-08-07T09:15:00.000Z</published>
-    <updated>2018-08-07T09:55:21.892Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li>第一关网址：<a href="http://www.cn-hack.cn/qs/5.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/5.htm</a></li></ul><p>进来可以看到要求输入密码进入下一关，<img src="https://i.imgur.com/E9u1Cwn.png" alt=""><br>可以先看下页面源代码发现下一关的网址，如图：<img src="https://i.imgur.com/nkDdttl.png" alt=""></p><ul><li>那就进入<a href="http://www.cn-hack.cn/qs/2sdfadf.htm来到第二关" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/2sdfadf.htm来到第二关</a></li></ul><p>第二关是一张图片，提示密码在图片中，<br><img src="https://i.imgur.com/uQA0xto.png" alt="">那就把图片下载下来，改为txt文档，打开看看，发现第三关的网址，如图：<img src="https://i.imgur.com/GtIzWA6.png" alt=""></p><ul><li>进入第三关的网址<a href="http://www.cn-hack.cn/qs/or3.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/or3.htm</a><br><img src="https://i.imgur.com/wvtdJwK.png" alt=""></li></ul><p>第三关就直接给出密码：%68%74%74%70%3A%2F%2F%77%77%77%2E%63%6E%2D%68%61%63%6B%2E%63%6E%2F%71%73%2F%34%64%66%73%61%2E%68%74%6D ，不过是经过URL加密过的，进行URL解密得到网址：<a href="http://www.cn-hack.cn/qs/4dfsa.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/4dfsa.htm</a></p><ul><li>进入第四关<a href="http://www.cn-hack.cn/qs/4dfsa.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/4dfsa.htm</a><br><img src="https://i.imgur.com/AR5OmrN.png" alt=""></li></ul><p>需要输入用户名和密码，先看看页面源代码，没发现什么，那就随便输入用户名和密码，然后跳转到一个页面，那就在看看源代码，<img src="https://i.imgur.com/R5V5WR1.jpg" alt=""></p><ul><li>发现第五关的地址<br>进入第五关<a href="http://www.cn-hack.cn/qs/789.htm" target="_blank" rel="noopener">http://www.cn-hack.cn/qs/789.htm</a><br><img src="https://i.imgur.com/JfwzJTa.png" alt=""></li></ul><p>进来就让你输入通用密码中的两个字母，想看页面源代码也看不了，上网搜搜SQL通用密码，知道了密码为 or ,输入进去就通关了<img src="https://i.imgur.com/McRCcr2.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;第一关网址：&lt;a href=&quot;http://www.cn-hack.cn/qs/5.htm&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://www.cn-hack.cn/qs/5.htm&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;进来可以
-      
-    
-    </summary>
-    
-    
-      <category term="html 前端" scheme="http://yoursite.com/tags/html-%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>python替换敏感词</title>
-    <link href="http://yoursite.com/2018/07/31/python%E6%9B%BF%E6%8D%A2%E6%95%8F%E6%84%9F%E8%AF%8D/"/>
-    <id>http://yoursite.com/2018/07/31/python替换敏感词/</id>
-    <published>2018-07-31T10:25:26.000Z</published>
-    <updated>2018-07-31T11:17:44.498Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="思路如下"><a href="#思路如下" class="headerlink" title="思路如下:"></a>思路如下:</h3><ul><li>首先，从敏感词文件中读取到敏感词汇，放入容器中</li><li>如果有标点符号，则把一些没用的标点符号去掉</li><li>然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def filter_words(path):</span><br><span class="line">    if os.path.isfile(path):</span><br><span class="line">        with open(path, &apos;r&apos;) as f:</span><br><span class="line">            words = f.read()</span><br><span class="line">            words = words.replace(&apos;，&apos;, &apos;&apos;)</span><br><span class="line">            words = words.replace(&apos;\n&apos;, &apos;&apos;)</span><br><span class="line">            return words</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def sense_words():</span><br><span class="line">    words = filter_words(&apos;filter.txt&apos;)</span><br><span class="line">    print(&quot;敏感字内容如下:&quot;)</span><br><span class="line">    print(&quot;------------------------------------------------------------------&quot;)</span><br><span class="line">    print(words)</span><br><span class="line">    print(&quot;------------------------------------------------------------------&quot;)</span><br><span class="line">    while True:</span><br><span class="line">        sentence = input(&quot;请输入：&quot;)</span><br><span class="line">        if sentence == &apos;0&apos;:</span><br><span class="line">            print(&apos;exit&apos;)</span><br><span class="line">            break</span><br><span class="line">        for i in words:</span><br><span class="line">            if i in sentence:</span><br><span class="line">                replace = &apos;&apos;</span><br><span class="line">                for j in range(len(i)):</span><br><span class="line">                    replace = replace + &apos;*&apos;</span><br><span class="line"></span><br><span class="line">                sentence = sentence.replace(i, replace)</span><br><span class="line">        print(sentence)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    sense_words()</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;思路如下&quot;&gt;&lt;a href=&quot;#思路如下&quot; class=&quot;headerlink&quot; title=&quot;思路如下:&quot;&gt;&lt;/a&gt;思路如下:&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;首先，从敏感词文件中读取到敏感词汇，放入容器中&lt;/li&gt;
-&lt;li&gt;如果有标点符号，则把一些没用的标点符号去掉
-      
-    
-    </summary>
-    
-    
-      <category term="python" scheme="http://yoursite.com/tags/python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>南邮ctf-PY交易</title>
-    <link href="http://yoursite.com/2018/07/27/%E5%8D%97%E9%82%AEctf-PY%E4%BA%A4%E6%98%93/"/>
-    <id>http://yoursite.com/2018/07/27/南邮ctf-PY交易/</id>
-    <published>2018-07-27T13:03:52.000Z</published>
-    <updated>2018-07-27T13:21:49.135Z</updated>
-    
-    <content type="html"><![CDATA[<p>下载后是一个pyc文件 选择<a href="https://tool.lu/pyc/" target="_blank" rel="noopener">https://tool.lu/pyc/</a> 进行解密 如下：</p><p><img src="https://i.imgur.com/jlQnQRO.png" alt=""></p><p>只是一个简单的base64加密，得到的py脚本如下：</p><pre><code>import base64c = &apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&apos;m = c.decode(&quot;base64&quot;)s = &apos;&apos;for i in m:        x = ord(i) - 16        x = x ^ 32        s=s+chr(x)print s</code></pre><p>只能在python2.X下运行 得到flag：nctf{d3c0mpil1n9_PyC}</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;下载后是一个pyc文件 选择&lt;a href=&quot;https://tool.lu/pyc/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://tool.lu/pyc/&lt;/a&gt; 进行解密 如下：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.
-      
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="http://yoursite.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>南邮攻防训练平台逆向第四题WxyVM1</title>
-    <link href="http://yoursite.com/2018/07/27/WxyVM1/"/>
-    <id>http://yoursite.com/2018/07/27/WxyVM1/</id>
-    <published>2018-07-27T11:51:51.000Z</published>
-    <updated>2018-07-27T13:31:58.299Z</updated>
-    
-    <content type="html"><![CDATA[<p>下载文件elf文件，运行输入flag，用ida打开逆向算法：</p><p><img src="https://i.imgur.com/LPsRbJE.png" alt=""></p><p>不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进行比较，<br>一致则成功，那么现在只需要看上面的sub_4005B6()函数了：<br><img src="https://i.imgur.com/S0pjIrz.png" alt=""></p><p>跟进两个地址进去看一下，发现有已经给出的处理所需数据，只是比较多，有15000个，想了想最后还是决定把数据提出来（其实是没其他办法了==）</p><p>最后是逆推py脚本：</p><p>那个15000的数组太长了，不好复制，要导出在一个文档里，才能复制完</p><pre><code>tmp=[1,  16,  37,   3,  13,  10,   2,  11,  40,   2 ]    //太长了只写前十个 final=[196, 52, 34, 177, 211, 17,   151, 7,   219,   55,       196, 6,  29,  252, 91, 237, 152,  223, 148,  216,       179,  132,   204, 8]i = 14997while i&gt;0:v0 = tmp[i]v3 = tmp[i+2]result =  tmp[i+1]if v0 == 1:    final[result] -= v3elif v0 == 2:    final[result] += v3elif v0 == 3:    final[result] ^= v3elif v0 == 4:    final[result] /= v3!elif v0 == 5:    final[result] ^= final[v3]final[result]&amp;=0xFF     //需要注意的地方，因为ascii字符码范围为0~127，可能发生越界i -= 3for x in final:    print(chr(x), end = &apos;&apos;)</code></pre><p>得到flag：nctf{Embr4ce_Vm_j0in_R3}</p><p>如果不加final[result]&amp;=0xFF 这句话就会越界，如图：<br><img src="https://i.imgur.com/qRMGM9J.png" alt=""></p><p>&amp;0xFF到底是什么意思</p><p>举个简单的例子:</p><p>byte[]  b = new byte[5];</p><p>b[0] = -12;</p><p>byte   8位二进制   =   1个字节    char   2个字节   short (2个字节)    int（4个字节） long（8个字节） float  （4个字节） double（8个字节）</p><p>计算机存储数据机制：正数存储的二进制原码,负数存储的是二进制的补码。  补码是负数的绝对值反码加1。</p><p>比如-12，-12 的绝对值原码是：0000 1100  取反： 1111 0011  加1：  1111 0100</p><p>byte –&gt; int   就是由8位变 32 位 高24位全部补1： 1111 1111 1111 1111 1111 1111 1111 0100 ;</p><p>0xFF 是计算机十六进制的表示： 0x就是代表十六进制，A B C D E F  分别代表10 11 12 13 14 15   F就是15  一个F 代表4位二进制：可以看做 是   8  4  2  1。</p><p>0xFF的二进制表示就是：1111 1111。   高24位补0：0000 0000 0000 0000 0000 0000 1111 1111;</p><p>-12的补码与0xFF 进行与（&amp;）操作  最后就是0000 0000 0000 0000 0000 0000 1111 0100 </p><p>转换为十进制就是 244。</p><p>byte类型的数字要&amp;0xff再赋值给int类型，其本质原因就是想保持二进制补码的一致性。</p><p>当byte要转化为int的时候，高的24位必然会补1，这样，其二进制补码其实已经不一致了，&amp;0xff可以将高的24位置为0，低8位保持原样。这样做的目的就是为了保证二进制数据的一致性。</p><p>有人问为什么上面的式子中b[0]不是8位而是32位，因为当系统检测到byte可能会转化成int或者说byte与int类型进行运算的时候，就会将byte的内存空间高位补1（也就是按符号位补位）扩充到32位，再参与运算。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;下载文件elf文件，运行输入flag，用ida打开逆向算法：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;https://i.imgur.com/LPsRbJE.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;p&gt;不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进
-      
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="http://yoursite.com/tags/ctf/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>BurpSuite系列----Intruder模块(暴力破解口令)</title>
-    <link href="http://yoursite.com/2018/07/27/BurpSuit%20%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%8F%A3%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/07/27/BurpSuit 暴力破解口令/</id>
-    <published>2018-07-27T11:51:51.000Z</published>
-    <updated>2018-09-08T12:33:40.635Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>一、简介</strong></p><p>Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。</p><p><strong>二、模块说明</strong></p><p>Burp Intruder主要有四个模块组成:<br>1：Target 用于配置目标服务器进行攻击的详细信息。<br>2：Positions  设置Payloads的插入点以及攻击类型（攻击模式）。<br>3：Payloads  设置payload，配置字典<br>4：Opetions   此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。</p><p>1：Target 目标选项(Target tab)<br>这个选项是用来配置目标服务器的细节：<br><img src="https://i.imgur.com/p8GVQVW.png" alt=""></p><p>2：Positions 位置选项(Positions tab)<br>这个选项是用来配置在攻击里产生的所有 HTTP 请求的模板：<br><img src="https://i.imgur.com/beDxqN4.png" alt=""></p><p>使用一对§字符来标记出有效负荷的位置，在这两个符号直接包含了模板文本的内容。当把一个有效负荷放置到一个给出的请求的特殊位置上时，就把这§符号放到这个位置，然后在两个符号之间的出现的文本都会被有效负荷替换。当有个特殊位置没有为一个给出的请求安排有效负荷时(这只适用”sniper”攻击类型)，那个位置的§字符会被删除，出现在它们之间的文本不会变化。</p><p>当使用 Burp Suite 发送一个其他地方的请求时，Burp Intruder 会对你最想放置有效负荷的位置做一个最好的猜测，并且它把这些放置在每个 URL 和主体参数的值里，以及每个cookie 里。每个标记和它中间的文本都会被加亮以显得更清晰。你可以使用 Intruder 菜单上的选项标记的位置是要替换还是附加现有的参数值。在上面的请求编辑器里，指出了定义位置的数量和文本模板的大小。</p><p>你可以使用选项上的按钮来控制位置上的标记：</p><ol><li>add § — 在当前光标位置插入一个位置标记。</li><li>clear § — 删除整个模板或选中的部分模板里的位置标记。</li><li>auto § — 这会对放置标记的位置做一个猜测，放哪里会有用，然后就把标记放到相应位置。这是一个为攻击常规漏洞(SQL 注入)快速标记出合适位置的有用的功能，然后人工标记是为自定义攻击的。<br>4.refresh — 如果需要，可以刷新编辑器里有颜色的代码。<br>5.clear — 删除整个编辑器内容。</li></ol><p>3：Payloads 有效负荷选项(Payloads tab)<br>这个选项是用来配置一个或多个有效负荷的集合。如果定义了”cluster bomb”和”pitchfork”攻击类型，然后必须为每定义的有效负荷位置(最多8个)配置一个单独的有效负荷。使用”payload set”下拉菜单选择要配置的有效负荷。</p><p>选项1：Payload Sets Payload数量类型设置</p><p>选项2：Payload Opetions[Simple list]  该选项会根据选项1中Payload type的设置而改变<br><img src="https://i.imgur.com/q8CMHwD.png" alt=""></p><p>选项3：Payload Processing 对生成的Payload进行编码、加密、截取等操作</p><p><img src="https://i.imgur.com/KRTkbEF.png" alt=""></p><p>选项4：Payload Encoding 你可以配置哪些有效载荷中的字符应该是URL编码的HTTP请求中的安全传输。任何已配置的URL编码最后应用，任何有效载荷处理规则执行之后。 这是推荐使用此设置进行最终URL编码，而不是一个有效载荷处理规则，因为可以用来有效载荷的grep选项来检查响应为呼应有效载荷的最终URL编码应用之前。<br><img src="https://i.imgur.com/FdBhyoE.png" alt=""></p><p>4：Opetions  选项卡(Options tab) 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。</p><p>选项1：Request Headers 这些设置控制在Intruder是否更新配置请求头。</p><p><img src="https://i.imgur.com/eIZokRo.png" alt=""></p><p>如果选中‘update Content-Length header’框，Burp Intruder 会使用每个请求的 HTTP 主体长度的正确值，添加或更新这个请求里 HTTP 消息头的内容长度。这个功能对一些需要把可变长度的有效载荷插入到 HTTP 请求模板主体的攻击是很有必要的。这个 HTTP 规范和大多数 web 服务器一样，需要使用消息头内容长度来指定 HTTP 主体长度的正确值。如果没有指定正确值，目标服务器会返回一个错误，也可能返回一个未完成的请求，也可能无限期地等待接收请求里的进一步数据。</p><p>如果选中‘set Connection: close’框，则 Burp Intruder 会添加或更新 HTTP 消息头的连接来请求在每个请求后已关闭的连接。在多数情况下，这个选项会让攻击执行得更快。</p><p>选项2：Request Engine 设置发送请求的线程、超时重试等。</p><p><img src="https://i.imgur.com/Trc0xgE.png" alt=""></p><p>选项3：Attack Results 设置攻击结果的显示。<br><img src="https://i.imgur.com/v7erb9v.png" alt=""></p><p>选项4：Grep - Match 在响应中找出存在指定的内容的一项。<br><img src="https://i.imgur.com/RssN1mz.png" alt=""></p><p>选项5：Grep - Extract 通过正则提取返回信息中的内容。</p><p><img src="https://i.imgur.com/s3WCB2B.png" alt=""></p><p>选项6：Grep - Payloads  这些设置可以用于包含已提交的有效负载的反射的标志结果项目。如果启用了此选项，BurpSuite会添加包含一个复选框指示当前负载的值在每个响应发现新的结果列。</p><p><img src="https://i.imgur.com/gemBP5N.png" alt=""></p><p>选项7：Redirections 重定向响应，控制Burp在进行攻击时如何处理重定向。</p><p><img src="https://i.imgur.com/l0FtAXK.png" alt=""></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;一、简介&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任
-      
-    
-    </summary>
-    
-    
-      <category term="ctf" scheme="http://yoursite.com/tags/ctf/"/>
     
   </entry>
   
