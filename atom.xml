@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-09-16T08:54:02.352Z</updated>
+  <updated>2018-09-19T14:00:58.418Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>pwntools</title>
+    <link href="http://yoursite.com/2018/09/19/pwntools/"/>
+    <id>http://yoursite.com/2018/09/19/pwntools/</id>
+    <published>2018-09-19T13:32:24.000Z</published>
+    <updated>2018-09-19T14:00:58.418Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。<br>python2安装方法： sudo pip install pwntools<br>python3安装方法： sudo pip install pwntools</p><h2 id="IO模块"><a href="#IO模块" class="headerlink" title="IO模块"></a>IO模块</h2><p>下面给出了PwnTools中的主要IO函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">send(data) : 发送数据</span><br><span class="line">sendline(data) : 发送一行数据，相当于在末尾加\n</span><br><span class="line"></span><br><span class="line">recv(numb=4096, timeout=default) : 给出接收字节数,timeout指定超时</span><br><span class="line">recvuntil(delims, drop=False) : 接收到delims的pattern</span><br><span class="line">（以下可以看作until的特例）</span><br><span class="line">recvline(keepends=True) : 接收到\n，keepends指定保留\n</span><br><span class="line">recvall() : 接收到EOF</span><br><span class="line">recvrepeat(timeout=default) : 接收到EOF或timeout</span><br><span class="line"></span><br><span class="line">interactive() : 与shell交互</span><br></pre></td></tr></table></figure></p><h2 id="ELF模块"><a href="#ELF模块" class="headerlink" title="ELF模块"></a>ELF模块</h2><p>ELF模块用于获取ELF文件的信息，首先使用ELF()获取这个文件的句柄，然后使用这个句柄调用函数，和IO模块很相似。</p><p>下面演示了：获取基地址、获取函数地址（基于符号）、获取函数got地址、获取函数plt地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; e = ELF(&apos;/bin/cat&apos;)</span><br><span class="line">&gt;&gt;&gt; print hex(e.address)  # 文件装载的基地址</span><br><span class="line">0x400000</span><br><span class="line">&gt;&gt;&gt; print hex(e.symbols[&apos;write&apos;]) # 函数地址</span><br><span class="line">0x401680</span><br><span class="line">&gt;&gt;&gt; print hex(e.got[&apos;write&apos;]) # GOT表的地址</span><br><span class="line">0x60b070</span><br><span class="line">&gt;&gt;&gt; print hex(e.plt[&apos;write&apos;]) # PLT的地址</span><br><span class="line">0x401680</span><br></pre></td></tr></table></figure></p><h2 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h2><p>主要是对整数进行打包，就是转换成二进制的形式，比如转换成地址。p32、p64是打包，u32、u64是解包。<br>数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便</p><p>用法: </p><ul><li>p32/p64: 打包一个整数,分别打包为32或64位 </li><li>u32/u64: 解包一个字符串,得到整数</li></ul><h2 id="大致框架"><a href="#大致框架" class="headerlink" title="大致框架"></a>大致框架</h2><p>官网的一个简单样例</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">context(arch = &apos;i386&apos;, os = &apos;linux&apos;)   ;设置目标机的信息</span><br><span class="line"></span><br><span class="line">r = remote(&apos;exploitme.example.com&apos;, 31337)  ;用来建立一个远程连接，url或者ip作为地址</span><br><span class="line">                                  然后指明端口,这里也可以仅仅使用本地文件,调试时方便:</span><br><span class="line"></span><br><span class="line">r.send(asm(shellcraft.sh()))       ;r.send()将shellcode发送到远程连接</span><br><span class="line"></span><br><span class="line">r.interactive()                    ;将控制权交给用户，这样就可以使用打开的shell了</span><br></pre></td></tr></table></figure><h2 id="Context设置"><a href="#Context设置" class="headerlink" title="Context设置"></a>Context设置</h2><p>context是pwntools用来设置环境的功能。在很多时候，由于二进制文件的情况不同，我们可能需要进行一些环境设置才能够正常运行exp，比如有一些需要进行汇编，但是32的汇编和64的汇编不同，如果不设置context会导致一些问题。</p><p>一般来说我们设置context只需要简单的一句话:</p><p>context(os=’linux’, arch=’amd64’, log_level=’debug’)</p><p>这句话的意思是： </p><ol><li>os设置系统为linux系统，在完成ctf题目的时候，大多数pwn题目的系统都是linux </li><li>arch设置架构为amd64，可以简单的认为设置为64位的模式，对应的32位模式是’i386’ </li><li>log_level设置日志输出的等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便，可以避免在完成CTF题目时出现一些和IO相关的错误。</li></ol><h2 id="汇编与shellcode"><a href="#汇编与shellcode" class="headerlink" title="汇编与shellcode"></a>汇编与shellcode</h2><p>有的时候我们需要在写exp的时候用到简单的shellcode，pwntools提供了对简单的shellcode的支持。<br>首先，常用的，也是最简单的shellcode，即调用/bin/sh可以通过shellcraft得到：</p><p>注意，由于各个平台，特别是32位和64位的shellcode不一样，所以最好先设置context。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(shellcraft.sh()) # 打印出shellcode</span><br></pre></td></tr></table></figure></p><p>不过，现在我们看到的shellcode还是汇编代码，不是能用的机器码，所以还需要进行一次汇编<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">print(asm(shellcraft.sh())) # 打印出汇编后的shellcode</span><br></pre></td></tr></table></figure></p><p>asm可以对汇编代码进行汇编，不过pwntools目前的asm实现还有一些缺陷，比如不能支持相对跳转等等，只可以进行简单的汇编操作。如果需要更复杂一些的汇编功能，可以使用keystone-engine项目，这里就不再赘述了。</p><p>asm也是架构相关，所以一定要先设置context，避免一些意想不到的错误。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;pwntools&quot;&gt;&lt;a href=&quot;#pwntools&quot; class=&quot;headerlink&quot; title=&quot;pwntools&quot;&gt;&lt;/a&gt;pwntools&lt;/h2&gt;&lt;p&gt;pwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的
+      
+    
+    </summary>
+    
+    
+      <category term="ctf pwn" scheme="http://yoursite.com/tags/ctf-pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>cmp指令 </title>
@@ -454,29 +477,6 @@
         &lt;h1 id=&quot;寄存器&quot;&gt;&lt;a href=&quot;#寄存器&quot; class=&quot;headerlink&quot; title=&quot;寄存器&quot;&gt;&lt;/a&gt;寄存器&lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;一个典型的CPU有运算器、控制器、寄存器等器件构成&lt;/li&gt;
 &lt;li&gt;寄存器是CPU中程序员可以用执行读写的部件。程序员
-      
-    
-    </summary>
-    
-    
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>cpu与存储器</title>
-    <link href="http://yoursite.com/2018/09/07/cpu/"/>
-    <id>http://yoursite.com/2018/09/07/cpu/</id>
-    <published>2018-09-07T12:37:33.000Z</published>
-    <updated>2018-09-07T14:05:50.581Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="cpu"><a href="#cpu" class="headerlink" title="cpu"></a>cpu</h1><p>中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。<br>中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控制及状态的总线（Bus）。它与内部存储器（Memory）和输入/输出（I/O）设备合称为电子计算机三大核心部件。</p><h2 id="物理结构"><a href="#物理结构" class="headerlink" title="物理结构"></a>物理结构</h2><p>CPU包括运算逻辑部件、寄存器部件和控制部件等。</p><h2 id="逻辑部件"><a href="#逻辑部件" class="headerlink" title="逻辑部件"></a>逻辑部件</h2><p>运算逻辑部件。可以执行定点或浮点算术运算操作、移位操作以及逻辑操作，也可执行地址运算和转换。</p><h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>寄存器部件，包括寄存器、专用寄存器和控制寄存器。 通用寄存器又可分定点数和浮点数两类，它们用来保存指令执行过程中临时存放的寄存器操作数和中间（或最终）的操作结果。 通用寄存器是中央处理器的重要部件之一。</p><h2 id="工作过程"><a href="#工作过程" class="headerlink" title="工作过程"></a>工作过程</h2><p>CPU从存储器或高速缓冲存储器中取出指令，放入指令寄存器，并对指令译码。它把指令分解成一系列的微操作，然后发出各种控制命令，执行微操作系列，从而完成一条指令的执行。指令是计算机规定执行操作的类型和操作数的基本命令。指令是由一个字节或者多个字节组成，其中包括操作码字段、一个或多个有关操作数地址的字段以及一些表征机器状态的状态字以及特征码。有的指令中也直接包含操作数本身。</p><h1 id="存储器"><a href="#存储器" class="headerlink" title="存储器"></a>存储器</h1><p>CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。</p><h2 id="存储单元"><a href="#存储单元" class="headerlink" title="存储单元"></a>存储单元</h2><ul><li>存储器被划分若干个存储单元，每个存储单元从0开始循序编号</li><li>这些编号可以看作存储单元在存储器中的地址</li><li>一个存储单元可以存储一个Byte，即8个二进制位（bit）</li></ul><h2 id="CPU对存储器的读写"><a href="#CPU对存储器的读写" class="headerlink" title="CPU对存储器的读写"></a>CPU对存储器的读写</h2><p><img src="https://i.imgur.com/148QNti.png" alt=""></p><ul><li>CPU通过地址线将地址信息3发出</li><li>CPU通过控制线发出内存读命令，选中存储器芯片，并通知它，将要从中读取数据</li><li>存储器将三号单元中的数据8通过数据线送入CPU。写操作与读操作的步骤相似。如向3号单元写入数据26</li></ul><h2 id="地址总线"><a href="#地址总线" class="headerlink" title="地址总线"></a>地址总线</h2><ul><li>若一个CPU有N根地址总线，也就是说这个CPU的地址总线的宽度为N，这样的CPU最多可以寻找2的N次方个内存单位</li></ul><h2 id="数据总线"><a href="#数据总线" class="headerlink" title="数据总线"></a>数据总线</h2><ul><li>数据总线的宽度决定了CPU和外界的数据传送速度。8根数据总线 一次可传送一个8位二进制数据（即一个字节）。16根数据总线一次可传送两个字节</li><li>8088CPU的数据总线宽度为8,8086CPU的为16<br><img src="https://i.imgur.com/Eat6XIM.png" alt=""><br><img src="https://i.imgur.com/Nk7DLsB.png" alt=""></li></ul><h2 id="控制总线"><a href="#控制总线" class="headerlink" title="控制总线"></a>控制总线</h2><ul><li>CPU对外部器件的控制是通过控制总线来进行的</li><li>控制总线的跨度决定了CPU对外部器件的控制能力</li></ul><h2 id="检测点1-1"><a href="#检测点1-1" class="headerlink" title="检测点1.1"></a>检测点1.1</h2><ol><li><p>一个CPU的寻址能力为8KB，那么他的地址总线宽度为13。<br>2^n=1024*8<br>n为总线宽度。<br>已知2^10 = 1024<br>因此n=13</p></li><li><p>1KB的存储器有1024个存储单元。存储单元的编号从0到1023 。<br>2^10=1KB=1024</p></li><li><p>1KB的存储器可以存储 8192个bit, 1024 个Byte。<br>1Byte=8bit</p></li><li><p>1GB、1MB、1KB分别是2^30 Byte,2^20 Byte,2^10 Byte。<br>1024<em>1024</em>1024=2^30<br>1024*1024=2^20<br>1024=2^10</p></li><li><p>8080、8088、80286、80386的地址总线宽度分别为16根、20根、24根、32根，则他们的寻址能力分别为： 64 （KB）、 1 （MB）、 16 （MB）、 4 （GB）。<br>2^10=1K 2^6=64<br>2^20=1M<br>2^4=16<br>2^30=1G 2^2=4</p></li><li><p>8080、8088、8086、80286、80386的数据总线宽度分别为8根、8根、16根、16根、32根。则它们一次可以传送的数据为： 1 （B）、 1 （B）、 2 （B）、 2 （B） 4 （B）。<br>1Byte=8bit<br>每8根总线一次最多可传递一字节数据。</p></li><li><p>从内存中读取1024字节的数据，8086至少要读 512 次，80386至少要读 256 次。<br>8086每次读2字节数据<br>80386每次读4字节数据</p></li><li><p>在存储器中，数据和程序以 二进制 形式存放。<br>数据与程序在存储器中以无差别的二进制数据形式存放</p></li></ol><h2 id="存储器芯片"><a href="#存储器芯片" class="headerlink" title="存储器芯片"></a>存储器芯片</h2><ul><li>一台PC机上，装有多个存储器芯片，从读写属性上看分为两类：随机存储器（RAM）和只读存储器（ROM）</li><li>随机存储器用于放供CPU使用的绝大部分程序和数据<br><img src="https://i.imgur.com/Qhqj8C7.png" alt=""></li></ul><h2 id="内存地址空间"><a href="#内存地址空间" class="headerlink" title="内存地址空间"></a>内存地址空间</h2><p><img src="https://i.imgur.com/NQ7MMMa.png" alt=""></p><ul><li>所有的物理存储器被看作一个由若干存储单元组成的的逻辑存储器</li><li>每个物理存储器在这个逻辑存储器中占有一个地址段，即一段地址空间</li><li>CPU在这段地址空间中读写数据，实际上就是在相对于的物理存储器中读写数据</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;cpu&quot;&gt;&lt;a href=&quot;#cpu&quot; class=&quot;headerlink&quot; title=&quot;cpu&quot;&gt;&lt;/a&gt;cpu&lt;/h1&gt;&lt;p&gt;中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控
       
     
     </summary>
