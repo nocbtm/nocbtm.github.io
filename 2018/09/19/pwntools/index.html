@@ -121,18 +121,18 @@
 
 
 
-  <meta name="description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据sen">
+  <meta name="description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip3 install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据se">
 <meta name="keywords" content="ctf pwn">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pwntools">
 <meta property="og:url" content="http://yoursite.com/2018/09/19/pwntools/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据sen">
+<meta property="og:description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip3 install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据se">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-19T14:00:58.418Z">
+<meta property="og:updated_time" content="2018-09-25T10:32:32.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pwntools">
-<meta name="twitter:description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据sen">
+<meta name="twitter:description" content="pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip3 install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据se">
 
 
 
@@ -406,12 +406,24 @@
                 
               
 
-              <time title="创建时间：2018-09-19 21:32:24 / 修改时间：22:00:58" itemprop="dateCreated datePublished" datetime="2018-09-19T21:32:24+08:00">2018-09-19</time>
+              <time title="创建时间：2018-09-19 21:32:24" itemprop="dateCreated datePublished" datetime="2018-09-19T21:32:24+08:00">2018-09-19</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-09-25 18:32:32" itemprop="dateModified" datetime="2018-09-25T18:32:32+08:00">2018-09-25</time>
               
             
           </span>
@@ -493,7 +505,7 @@
       
 
       
-        <h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。<br>python2安装方法： sudo pip install pwntools<br>python3安装方法： sudo pip install pwntools</p>
+        <h2 id="pwntools"><a href="#pwntools" class="headerlink" title="pwntools"></a>pwntools</h2><p>pwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。<br>python2安装方法： sudo pip install pwntools<br>python3安装方法： sudo pip3 install pwntools</p>
 <h2 id="IO模块"><a href="#IO模块" class="headerlink" title="IO模块"></a>IO模块</h2><p>下面给出了PwnTools中的主要IO函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">send(data) : 发送数据</span><br><span class="line">sendline(data) : 发送一行数据，相当于在末尾加\n</span><br><span class="line"></span><br><span class="line">recv(numb=4096, timeout=default) : 给出接收字节数,timeout指定超时</span><br><span class="line">recvuntil(delims, drop=False) : 接收到delims的pattern</span><br><span class="line">（以下可以看作until的特例）</span><br><span class="line">recvline(keepends=True) : 接收到\n，keepends指定保留\n</span><br><span class="line">recvall() : 接收到EOF</span><br><span class="line">recvrepeat(timeout=default) : 接收到EOF或timeout</span><br><span class="line"></span><br><span class="line">interactive() : 与shell交互</span><br></pre></td></tr></table></figure></p>
 <h2 id="ELF模块"><a href="#ELF模块" class="headerlink" title="ELF模块"></a>ELF模块</h2><p>ELF模块用于获取ELF文件的信息，首先使用ELF()获取这个文件的句柄，然后使用这个句柄调用函数，和IO模块很相似。</p>
 <p>下面演示了：获取基地址、获取函数地址（基于符号）、获取函数got地址、获取函数plt地址<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; e = ELF(&apos;/bin/cat&apos;)</span><br><span class="line">&gt;&gt;&gt; print hex(e.address)  # 文件装载的基地址</span><br><span class="line">0x400000</span><br><span class="line">&gt;&gt;&gt; print hex(e.symbols[&apos;write&apos;]) # 函数地址</span><br><span class="line">0x401680</span><br><span class="line">&gt;&gt;&gt; print hex(e.got[&apos;write&apos;]) # GOT表的地址</span><br><span class="line">0x60b070</span><br><span class="line">&gt;&gt;&gt; print hex(e.plt[&apos;write&apos;]) # PLT的地址</span><br><span class="line">0x401680</span><br></pre></td></tr></table></figure></p>
