@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-10-28T11:56:59.398Z</updated>
+  <updated>2018-11-07T10:17:17.974Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>缓冲文件系统和非缓冲文件系统</title>
+    <link href="http://yoursite.com/2018/11/05/%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    <id>http://yoursite.com/2018/11/05/缓冲文件系统和非缓冲文件系统/</id>
+    <published>2018-11-05T10:31:52.000Z</published>
+    <updated>2018-11-07T10:17:17.974Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将缓冲文件系统扩充为可以处理二进制文件。</p><h2 id="缓冲文件系统"><a href="#缓冲文件系统" class="headerlink" title="缓冲文件系统"></a>缓冲文件系统</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。</p><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。</p><h3 id="代表函数"><a href="#代表函数" class="headerlink" title="代表函数"></a>代表函数</h3><p>缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等</p><h2 id="非缓冲文件系统"><a href="#非缓冲文件系统" class="headerlink" title="非缓冲文件系统"></a>非缓冲文件系统</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><p>非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。</p><h3 id="代表函数-1"><a href="#代表函数-1" class="headerlink" title="代表函数"></a>代表函数</h3><p>缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将
+      
+    
+    </summary>
+    
+    
+      <category term="c" scheme="http://yoursite.com/tags/c/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>栈溢出常见函数</title>
+    <link href="http://yoursite.com/2018/11/04/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/2018/11/04/栈溢出常见函数/</id>
+    <published>2018-11-04T11:17:08.000Z</published>
+    <updated>2018-11-07T09:20:14.951Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="0x00-read"><a href="#0x00-read" class="headerlink" title="0x00 read()"></a>0x00 read()</h2><h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t read (int fd, void *buf, size_t nbyte)</span><br></pre></td></tr></table></figure><p>fd：文件描述符；<br>buf：指定的缓冲区，即指针，指向一段内存单元；<br>nbyte：要读入文件指定的字节数；</p><h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>read()会把参数fd所指的文件传送nbyte个字节到buf指针所指的内存中。若参数nbyte为0，则read()不会有作用并返回0。</p><h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>成功时,read返回实际所读的字节数,如果返回的值是0,表示已经读到文件的结束了.<br>小于0表示出现了错误.如果错误为EINTR说明读是由中断引起的, 如果是ECONNREST表示网络连接出了问题.</p><h2 id="0x01-write"><a href="#0x01-write" class="headerlink" title="0x01 write()"></a>0x01 write()</h2><h3 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t write(int fd,const void *buf,size_t nbytes)</span><br></pre></td></tr></table></figure><p>fd：文件描述符；<br>buf：指定的缓冲区，即指针，指向一段内存单元；<br>nbyte：要写入文件指定的字节数；</p><h3 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h3><p>write()会把参数buf 所指的内存写入nbytes 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动.</p><h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>如果顺利write()会返回实际写入的字节数.<br>当有错误发生时则返回-1, 错误代码存入errno 中.</p><p>错误代码：</p><ul><li>EINTR 此调用被信号所中断.</li><li>EAGAIN 当使用不可阻断I/O 时 (O_NONBLOCK), 若无数据可读取则返回此值.</li><li>EADF 参数fd 非有效的文件描述词, 或该文件已关闭</li></ul><h2 id="0x02-gets"><a href="#0x02-gets" class="headerlink" title="0x02 gets()"></a>0x02 gets()</h2><h3 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">char *gets(char *str);</span><br></pre></td></tr></table></figure><h3 id="功能-2"><a href="#功能-2" class="headerlink" title="功能"></a>功能</h3><p>gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。</p><h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>使用 gets() 时，系统会将最后“敲”的换行符从缓冲区中取出来，然后丢弃，所以缓冲区中不会遗留换行符。这就意味着，如果前面使用过 gets()，而后面又要从键盘给字符变量赋值的话就不需要吸收回车清空缓冲区了，因为缓冲区的回车已经被 gets() 取出来扔掉了</p><p>gets() 时有空格也可以直接输入，但是 gets() 有一个非常大的缺陷，即它不检查预留存储区是否能够容纳实际输入的数据，换句话说，如果输入的字符数目大于数组的长度，gets 无法检测到这个问题，就会发生内存越界。</p><h2 id="0x03-strcpy-和memcpy"><a href="#0x03-strcpy-和memcpy" class="headerlink" title="0x03 strcpy()和memcpy()"></a>0x03 strcpy()和memcpy()</h2><h3 id="函数原型-3"><a href="#函数原型-3" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char* strcpy(char* dest, const char* src)</span><br><span class="line"></span><br><span class="line">void *memcpy( void *dest, const void *src, size_t count );</span><br></pre></td></tr></table></figure><p>dest:指向用于存储复制内容的目标数组。<br>src:要复制的字符串。<br>count：要读入文件指定的字节数；</p><h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><ul><li>strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符’\0’。</li><li>复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。</li><li>复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。</li><li>用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;0x00-read&quot;&gt;&lt;a href=&quot;#0x00-read&quot; class=&quot;headerlink&quot; title=&quot;0x00 read()&quot;&gt;&lt;/a&gt;0x00 read()&lt;/h2&gt;&lt;h3 id=&quot;函数原型&quot;&gt;&lt;a href=&quot;#函数原型&quot; class=&quot;head
+      
+    
+    </summary>
+    
+    
+      <category term="c ctf pwn" scheme="http://yoursite.com/tags/c-ctf-pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>stack canary绕过思路</title>
@@ -437,51 +483,6 @@
     
     
       <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在代码段中使用栈</title>
-    <link href="http://yoursite.com/2018/09/10/%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%AE%B5%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%A0%88/"/>
-    <id>http://yoursite.com/2018/09/10/在代码段中使用栈/</id>
-    <published>2018-09-10T12:14:07.000Z</published>
-    <updated>2018-09-10T13:01:16.912Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">assum cs:codesg</span><br><span class="line">code segement</span><br><span class="line"></span><br><span class="line">dw 0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H</span><br><span class="line">dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0    ;用dw定义16个字型数据，在程序加载后，将取得</span><br><span class="line">                                          16个字的内存空间，存放着6个数据。在后面的程</span><br><span class="line">                                          序中将这段空间当作栈来使用</span><br><span class="line">start: mov ax,cs</span><br><span class="line">   mov ss,ax</span><br><span class="line">   mv sp,30h                         ;设置栈顶ss：sp指向CS：30</span><br><span class="line"></span><br><span class="line">       mov bx,0</span><br><span class="line">   mov cz,8</span><br><span class="line"></span><br><span class="line">   s: push cs:[bx]</span><br><span class="line">   add bx,2</span><br><span class="line">   loop s</span><br><span class="line"></span><br><span class="line">   s0: pop cs[bx]</span><br><span class="line">   add bx,2</span><br><span class="line">   loop s0                          ;将定义的数据逆序存放</span><br><span class="line"></span><br><span class="line">   mov ax,4c00h</span><br><span class="line">   int 21h</span><br><span class="line">codesg ends</span><br><span class="line">end start</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class
-      
-    
-    </summary>
-    
-    
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>在代码段中使用数据</title>
-    <link href="http://yoursite.com/2018/09/10/%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%AE%B5%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE/"/>
-    <id>http://yoursite.com/2018/09/10/在代码段中使用数据/</id>
-    <published>2018-09-10T12:13:37.000Z</published>
-    <updated>2018-09-10T13:16:45.559Z</updated>
-    
-    <content type="html"><![CDATA[<p>编程计算以下8个数据的和，结果存在ax寄存器中：</p><p>0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">assum cs:code </span><br><span class="line">code segement</span><br><span class="line"></span><br><span class="line">dw 0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H</span><br><span class="line">mov bx,0</span><br><span class="line">mov ax,0</span><br><span class="line">mov cz,8</span><br><span class="line">s: add ax,cs:[bx]</span><br><span class="line">add bx,2</span><br><span class="line">loop s</span><br><span class="line"></span><br><span class="line">mov ax,4c00h</span><br><span class="line">int 21h</span><br><span class="line">code ends</span><br><span class="line">end</span><br></pre></td></tr></table></figure></p><p>dw的含义是定义字型数据，dw即“define word”，在这里，使用dw定义了8个字型数据，它们所占的内存空间的大小为16个字节。<br>程序在运行的时候cs中存放代码段的段地址，所以可以从cs中得到它们的段地址</p><p>因为用dw定义的数据处于代码段的最开始，所以偏移地址为0，这8个数据就在代码段的偏移0、2、4、6、8、A、C、E处。程序运行时，它们的地址就是CS：0、CS：2、CS：4、CS：6、CS：8、CS：A、CS：C、CS：E。<br>用bx存放加2递增的偏移地址用循环来进行累加。在循环开始前,设置（bx）=0，CS：BX指向第一个数据存放的字单元。每次循环中（bx）=（bx）+2，CS：BX指向下一个数据所在的字单元。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;编程计算以下8个数据的和，结果存在ax寄存器中：&lt;/p&gt;
-&lt;p&gt;0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;
-      
-    
-    </summary>
-    
     
   </entry>
   

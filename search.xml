@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[缓冲文件系统和非缓冲文件系统]]></title>
+    <url>%2F2018%2F11%2F05%2F%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%2F</url>
+    <content type="text"><![CDATA[前言1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将缓冲文件系统扩充为可以处理二进制文件。 缓冲文件系统特点自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。 作用用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。 代表函数缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等 非缓冲文件系统特点非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。 代表函数缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等]]></content>
+      <tags>
+        <tag>c</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[栈溢出常见函数]]></title>
+    <url>%2F2018%2F11%2F04%2F%E6%A0%88%E6%BA%A2%E5%87%BA%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[0x00 read()函数原型12#include &lt;unistd.h&gt;ssize_t read (int fd, void *buf, size_t nbyte) fd：文件描述符；buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要读入文件指定的字节数； 功能read()会把参数fd所指的文件传送nbyte个字节到buf指针所指的内存中。若参数nbyte为0，则read()不会有作用并返回0。 返回值成功时,read返回实际所读的字节数,如果返回的值是0,表示已经读到文件的结束了.小于0表示出现了错误.如果错误为EINTR说明读是由中断引起的, 如果是ECONNREST表示网络连接出了问题. 0x01 write()函数原型12#include &lt;unistd.h&gt;ssize_t write(int fd,const void *buf,size_t nbytes) fd：文件描述符；buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要写入文件指定的字节数； 功能write()会把参数buf 所指的内存写入nbytes 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动. 返回值如果顺利write()会返回实际写入的字节数.当有错误发生时则返回-1, 错误代码存入errno 中. 错误代码： EINTR 此调用被信号所中断. EAGAIN 当使用不可阻断I/O 时 (O_NONBLOCK), 若无数据可读取则返回此值. EADF 参数fd 非有效的文件描述词, 或该文件已关闭 0x02 gets()函数原型12# include &lt;stdio.h&gt;char *gets(char *str); 功能gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。 注意使用 gets() 时，系统会将最后“敲”的换行符从缓冲区中取出来，然后丢弃，所以缓冲区中不会遗留换行符。这就意味着，如果前面使用过 gets()，而后面又要从键盘给字符变量赋值的话就不需要吸收回车清空缓冲区了，因为缓冲区的回车已经被 gets() 取出来扔掉了 gets() 时有空格也可以直接输入，但是 gets() 有一个非常大的缺陷，即它不检查预留存储区是否能够容纳实际输入的数据，换句话说，如果输入的字符数目大于数组的长度，gets 无法检测到这个问题，就会发生内存越界。 0x03 strcpy()和memcpy()函数原型123char* strcpy(char* dest, const char* src)void *memcpy( void *dest, const void *src, size_t count ); dest:指向用于存储复制内容的目标数组。src:要复制的字符串。count：要读入文件指定的字节数； 注意 strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符’\0’。 复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。 复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。 用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy]]></content>
+      <tags>
+        <tag>c ctf pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[stack canary绕过思路]]></title>
     <url>%2F2018%2F10%2F24%2Fstack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%2F</url>
     <content type="text"><![CDATA[0x00 canary保护机制我们知道，通常栈溢出的利用方式是通过溢出存在于栈上的局部变量，从而让多出来的数据覆盖ebp、eip等，从而达到劫持控制流的目的。然而stack canary这一技术的应用使得这种利用手段变得难以实现。 canary保护机制是在栈保护上则是在初始化一个栈帧时在栈底设置一个随机的canary值（最后两位必须是00），栈帧销毁前测试该值是否“死掉”，即是否被改变，若被改变则说明栈溢出发生，程序走另一个流程结束，以免漏洞利用成功。 如图var-c就是canary的地址，如果触发了栈溢出漏洞，还不知道canary的值，就会执行__stack_chk_fail函数。 0x01 泄露canary泄露canary的方法有： 通过格式化字符串漏洞来泄露canary的值 通过栈溢出漏洞来泄露canary的值 多进程程序的canary爆破 利用__stack_chk_fail函数泄露信息当然具体问题还要具体分析 未完待续。。。]]></content>
