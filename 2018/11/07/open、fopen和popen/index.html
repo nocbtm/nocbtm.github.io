@@ -121,18 +121,18 @@
 
 
 
-  <meta name="description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 ###函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode)">
+  <meta name="description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);所需">
 <meta name="keywords" content="c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="open、fopen和popen">
 <meta property="og:url" content="http://yoursite.com/2018/11/07/open、fopen和popen/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 ###函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode)">
+<meta property="og:description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);所需">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-07T13:00:36.890Z">
+<meta property="og:updated_time" content="2018-11-07T13:09:53.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="open、fopen和popen">
-<meta name="twitter:description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 ###函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode)">
+<meta name="twitter:description" content="open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);所需">
 
 
 
@@ -406,7 +406,7 @@
                 
               
 
-              <time title="创建时间：2018-11-07 20:44:23 / 修改时间：21:00:36" itemprop="dateCreated datePublished" datetime="2018-11-07T20:44:23+08:00">2018-11-07</time>
+              <time title="创建时间：2018-11-07 20:44:23 / 修改时间：21:09:53" itemprop="dateCreated datePublished" datetime="2018-11-07T20:44:23+08:00">2018-11-07</time>
             
 
             
@@ -494,9 +494,9 @@
 
       
         <h2 id="open"><a href="#open" class="headerlink" title="open"></a>open</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>打开设备文件<br>不带缓冲区<br>非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快</p>
-<p>###函数原型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int open(const char *pathname, int flags);</span><br><span class="line">int open(const char *pathname, int flags, mode_t mode);</span><br><span class="line"></span><br><span class="line">所需库：</span><br><span class="line">#include &lt;sys/types.h&gt;    </span><br><span class="line">#include &lt;sys/stat.h&gt;    </span><br><span class="line">#include &lt;fcntl.h&gt;</span><br></pre></td></tr></table></figure></p>
-<p>###返回值<br>成功则返回文件描述符，否则返回 -1;</p>
-<p>###参数说明<br>参数 pathname 指向欲打开的文件路径字符串. 下列是参数flags 所能使用的旗标:</p>
+<h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int open(const char *pathname, int flags);</span><br><span class="line">int open(const char *pathname, int flags, mode_t mode);</span><br><span class="line"></span><br><span class="line">所需库：</span><br><span class="line">#include &lt;sys/types.h&gt;    </span><br><span class="line">#include &lt;sys/stat.h&gt;    </span><br><span class="line">#include &lt;fcntl.h&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>成功则返回文件描述符，否则返回 -1;</p>
+<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><p>参数 pathname 指向欲打开的文件路径字符串. 下列是参数flags 所能使用的旗标:</p>
 <ul>
 <li>O_RDONLY 以只读方式打开文件</li>
 <li>O_WRONLY 以只写方式打开文件</li>
@@ -541,14 +541,13 @@
 <li>ELOOP 参数pathname 有过多符号连接问题.</li>
 <li>EIO I/O 存取错误.</li>
 </ul>
-<p>##fopen  </p>
-<h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>打开普通文件<br>带缓冲区<br>缓冲文件系统是借助文件结构体指针来对文件进行管理，通过文件指针来对文件进行访问，既可以读写字符、字符串、格式化数据，也可以读写二进制数据。</p>
-<h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">FILE * fopen(const char * path,const char * mode);</span><br></pre></td></tr></table></figure>
-<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>文件顺利打开后，指向该流的文件指针就会被返回。如果文件打开失败则返回NULL，并把错误代码存在errno 中。</p>
-<p>###参数说明<br>参数path字符串包含欲打开的文件路径及文件名，参数mode字符串则代表着流形态。<br>mode有下列几种形态字符串:<br>r 以只读方式打开文件，该文件必须存在。<br>r+ 以可读写方式打开文件，该文件必须存在。<br>rb+ 读写打开一个二进制文件，允许读写数据。<br>rw+ 读写打开一个文本文件，允许读和写。<br>w 打开只写文件，若文件存在则文件长度清为0，即该文件内容会消失。若文件不存在则建立该文件。<br>w+ 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件。<br>a 以附加的方式打开只写文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾，即文件原先的内容会被保留。（EOF符保留）<br>a+ 以附加方式打开可读写的文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾后，即文件原先的内容会被保留。 （原来的EOF符不保留）<br>wb 只写打开或新建一个二进制文件；只允许写数据。<br>wb+ 读写打开或建立一个二进制文件，允许读和写。<br>ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。<br>at+ 打开一个叫string的文件，a表示append,就是说写入处理的时候是接着原来文件已有内容写入，不是从头写入覆盖掉，t表示打开文件的类型是文本文件，+号表示对文件既可以读也可以写。<br>上述的形态字符串都可以再加一个b字符，如rb、w+b或ab+等组合，加入b 字符用来告诉函数库以二进制模式打开文件。如果不加b，表示默认加了t，即rt,wt,其中t表示以文本模式打开文件。由fopen()所建立的新文件会具有S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH(0666)权限，此文件权限也会参考umask 值。<br>有些C编译系统可能不完全提供所有这些功能，有的C版本不用”r+”,”w+”,”a+”,而用”rw”,”wr”,”ar”等，读者注意所用系统的规定。</p>
-<h2 id="popen"><a href="#popen" class="headerlink" title="popen"></a>popen</h2><h3 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">FILE * popen ( const char * command , const char * type );</span><br></pre></td></tr></table></figure>
-<h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>如果调用 fork() 或 pipe() 失败，或者不能分配内存将返回NULL，否则返回标准 I/O 流。</p>
-<p>###参数说明<br>type 参数只能是读或者写中的一种，得到的返回值（标准 I/O 流）也具有和 type 相应的只读或只写类型。如果 type 是 “r” 则文件指针连接到 command 的标准输出；如果 type 是 “w” 则文件指针连接到 command 的标准输入。<br>command 参数是一个指向以 NULL 结束的 shell 命令字符串的指针。这行命令将被传到 bin/sh 并使用-c 标志，shell 将执行这个命令。</p>
+<h2 id="fopen"><a href="#fopen" class="headerlink" title="fopen"></a>fopen</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>打开普通文件<br>带缓冲区<br>缓冲文件系统是借助文件结构体指针来对文件进行管理，通过文件指针来对文件进行访问，既可以读写字符、字符串、格式化数据，也可以读写二进制数据。</p>
+<h3 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">FILE * fopen(const char * path,const char * mode);</span><br></pre></td></tr></table></figure>
+<h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>文件顺利打开后，指向该流的文件指针就会被返回。如果文件打开失败则返回NULL，并把错误代码存在errno 中。</p>
+<h3 id="参数说明-1"><a href="#参数说明-1" class="headerlink" title="参数说明"></a>参数说明</h3><p>参数path字符串包含欲打开的文件路径及文件名，参数mode字符串则代表着流形态。<br>mode有下列几种形态字符串:<br>r 以只读方式打开文件，该文件必须存在。<br>r+ 以可读写方式打开文件，该文件必须存在。<br>rb+ 读写打开一个二进制文件，允许读写数据。<br>rw+ 读写打开一个文本文件，允许读和写。<br>w 打开只写文件，若文件存在则文件长度清为0，即该文件内容会消失。若文件不存在则建立该文件。<br>w+ 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件。<br>a 以附加的方式打开只写文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾，即文件原先的内容会被保留。（EOF符保留）<br>a+ 以附加方式打开可读写的文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾后，即文件原先的内容会被保留。 （原来的EOF符不保留）<br>wb 只写打开或新建一个二进制文件；只允许写数据。<br>wb+ 读写打开或建立一个二进制文件，允许读和写。<br>ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。<br>at+ 打开一个叫string的文件，a表示append,就是说写入处理的时候是接着原来文件已有内容写入，不是从头写入覆盖掉，t表示打开文件的类型是文本文件，+号表示对文件既可以读也可以写。<br>上述的形态字符串都可以再加一个b字符，如rb、w+b或ab+等组合，加入b 字符用来告诉函数库以二进制模式打开文件。如果不加b，表示默认加了t，即rt,wt,其中t表示以文本模式打开文件。由fopen()所建立的新文件会具有S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH(0666)权限，此文件权限也会参考umask 值。<br>有些C编译系统可能不完全提供所有这些功能，有的C版本不用”r+”,”w+”,”a+”,而用”rw”,”wr”,”ar”等，读者注意所用系统的规定。</p>
+<h2 id="popen"><a href="#popen" class="headerlink" title="popen"></a>popen</h2><h3 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;stdio.h&gt;</span><br><span class="line">FILE * popen ( const char * command , const char * type );</span><br></pre></td></tr></table></figure>
+<h3 id="返回值-2"><a href="#返回值-2" class="headerlink" title="返回值"></a>返回值</h3><p>如果调用 fork() 或 pipe() 失败，或者不能分配内存将返回NULL，否则返回标准 I/O 流。</p>
+<h3 id="参数说明-2"><a href="#参数说明-2" class="headerlink" title="参数说明"></a>参数说明</h3><p>type 参数只能是读或者写中的一种，得到的返回值（标准 I/O 流）也具有和 type 相应的只读或只写类型。如果 type 是 “r” 则文件指针连接到 command 的标准输出；如果 type 是 “w” 则文件指针连接到 command 的标准输入。<br>command 参数是一个指向以 NULL 结束的 shell 命令字符串的指针。这行命令将被传到 bin/sh 并使用-c 标志，shell 将执行这个命令。</p>
 
       
     </div>
@@ -799,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">1.</span> <span class="nav-text">open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">1.2.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型"><span class="nav-number">1.3.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">1.4.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#popen"><span class="nav-number">2.</span> <span class="nav-text">popen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-1"><span class="nav-number">2.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值-1"><span class="nav-number">2.2.</span> <span class="nav-text">返回值</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#open"><span class="nav-number">1.</span> <span class="nav-text">open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型"><span class="nav-number">1.2.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">1.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明"><span class="nav-number">1.4.</span> <span class="nav-text">参数说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fopen"><span class="nav-number">2.</span> <span class="nav-text">fopen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介-1"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-1"><span class="nav-number">2.2.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值-1"><span class="nav-number">2.3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明-1"><span class="nav-number">2.4.</span> <span class="nav-text">参数说明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#popen"><span class="nav-number">3.</span> <span class="nav-text">popen</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-2"><span class="nav-number">3.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值-2"><span class="nav-number">3.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数说明-2"><span class="nav-number">3.3.</span> <span class="nav-text">参数说明</span></a></li></ol></li></ol></div>
             
 
           </div>
