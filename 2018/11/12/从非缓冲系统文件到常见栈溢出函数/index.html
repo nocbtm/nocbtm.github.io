@@ -121,16 +121,21 @@
 
 
 
-  <meta name="description" content="Happy Everyday">
-<meta property="og:type" content="website">
-<meta property="og:title" content="nocbtm&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/ctf/index.html">
+  <meta name="description" content="要想知道什么是非缓冲文件系统，就先了解一下缓冲文件系统。 什么是缓冲文件系统？程序在运行过程中，会自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从非缓冲系统文件到常见栈溢出函数">
+<meta property="og:url" content="http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/index.html">
 <meta property="og:site_name" content="nocbtm&#39;s Blog">
-<meta property="og:description" content="Happy Everyday">
+<meta property="og:description" content="要想知道什么是非缓冲文件系统，就先了解一下缓冲文件系统。 什么是缓冲文件系统？程序在运行过程中，会自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/frca7C7.png">
+<meta property="og:image" content="https://i.imgur.com/Rf8iJUJ.png">
+<meta property="og:image" content="https://i.imgur.com/s49ZZ2I.jpg">
+<meta property="og:updated_time" content="2018-11-13T07:35:29.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nocbtm&#39;s Blog">
-<meta name="twitter:description" content="Happy Everyday">
+<meta name="twitter:title" content="从非缓冲系统文件到常见栈溢出函数">
+<meta name="twitter:description" content="要想知道什么是非缓冲文件系统，就先了解一下缓冲文件系统。 什么是缓冲文件系统？程序在运行过程中，会自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数">
+<meta name="twitter:image" content="https://i.imgur.com/frca7C7.png">
 
 
 
@@ -139,7 +144,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/ctf/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/"/>
 
 
 
@@ -149,7 +154,7 @@
   };
 </script>
 
-  <title>标签: ctf | nocbtm's Blog</title>
+  <title>从非缓冲系统文件到常见栈溢出函数 | nocbtm's Blog</title>
   
 
 
@@ -196,7 +201,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
    <a href="https://github.com/nocbtm"><img style="position: absolute; top: 0; right: 0; border: 0;"
     src="https://s3.amazonaws.com/github/ribbons/forkme_right_white_ffffff.png" alt="Fork me on GitHub"></a>
@@ -254,7 +259,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
   </li>
@@ -298,31 +303,6 @@
 
   
     
-
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 
   
 
@@ -371,142 +351,359 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>ctf<small>标签</small>
-        </h1>
-      </div>
-
-      
-        
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Nocbtm">
+      <meta itemprop="description" content="Happy Everyday">
+      <meta itemprop="image" content="/images/header1.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="nocbtm's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/10/13/中工萌新赛/" itemprop="url">
-              
-                <span itemprop="name">萌新赛</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">从非缓冲系统文件到常见栈溢出函数
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-10-13T20:09:51+08:00"
-              content="2018-10-13" >
-          10-13
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-12 22:15:12" itemprop="dateCreated datePublished" datetime="2018-11-12T22:15:12+08:00">2018-11-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-13 15:35:29" itemprop="dateModified" datetime="2018-11-13T15:35:29+08:00">2018-11-13</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/11/12/从非缓冲系统文件到常见栈溢出函数/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/2018/11/12/从非缓冲系统文件到常见栈溢出函数/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/11/12/从非缓冲系统文件到常见栈溢出函数/" class="leancloud_visitors" data-flag-title="从非缓冲系统文件到常见栈溢出函数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">2.8k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body han-init-context" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/27/南邮ctf-PY交易/" itemprop="url">
-              
-                <span itemprop="name">南邮ctf-PY交易</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-27T21:03:52+08:00"
-              content="2018-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/27/WxyVM1/" itemprop="url">
-              
-                <span itemprop="name">南邮攻防训练平台逆向第四题WxyVM1</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-27T19:51:51+08:00"
-              content="2018-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/07/27/BurpSuit 暴力破解口令/" itemprop="url">
-              
-                <span itemprop="name">BurpSuite系列----Intruder模块(暴力破解口令)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-07-27T19:51:51+08:00"
-              content="2018-07-27" >
-          07-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>要想知道什么是非缓冲文件系统，就先了解一下缓冲文件系统。</p>
+<h2 id="什么是缓冲文件系统？"><a href="#什么是缓冲文件系统？" class="headerlink" title="什么是缓冲文件系统？"></a>什么是缓冲文件系统？</h2><p>程序在运行过程中，会自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。</p>
+<h3 id="代表函数-c语言"><a href="#代表函数-c语言" class="headerlink" title="代表函数(c语言)"></a>代表函数(c语言)</h3><p>缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等</p>
+<h2 id="非缓冲文件系统"><a href="#非缓冲文件系统" class="headerlink" title="非缓冲文件系统"></a>非缓冲文件系统</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。</p>
+<h3 id="代表函数"><a href="#代表函数" class="headerlink" title="代表函数"></a>代表函数</h3><p>缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等</p>
+<h2 id="栈溢出常见函数"><a href="#栈溢出常见函数" class="headerlink" title="栈溢出常见函数"></a>栈溢出常见函数</h2><table>
+<thead>
+<tr>
+<th style="text-align:left">函数</th>
+<th style="text-align:right">功能</th>
+<th style="text-align:center">可利用漏洞</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">read()</td>
+<td style="text-align:right">读取文件内容到缓冲区</td>
+<td style="text-align:center">读到\x00和指定字节</td>
+</tr>
+<tr>
+<td style="text-align:left">write()</td>
+<td style="text-align:right">把缓冲区的内容写入到文件内</td>
+<td style="text-align:center">写到\x00和指定字节</td>
+</tr>
+<tr>
+<td style="text-align:left">gets()</td>
+<td style="text-align:right">从输入缓冲区中读取一个字符串存储到字符指针</td>
+<td style="text-align:center">可无限输入</td>
+</tr>
+<tr>
+<td style="text-align:left">puts()</td>
+<td style="text-align:right">输出字符串,相当于printf(“%s\n”,s)</td>
+<td style="text-align:center">输出直到\x00</td>
+</tr>
+<tr>
+<td style="text-align:left">strcpy()</td>
+<td style="text-align:right">只能复制字符串</td>
+<td style="text-align:center">一直复制直到遇到\x00</td>
+</tr>
+<tr>
+<td style="text-align:left">memcpy()</td>
+<td style="text-align:right">复制任意内容</td>
+<td style="text-align:center">指定字节</td>
+</tr>
+<tr>
+<td style="text-align:left">strncpy()</td>
+<td style="text-align:right">复制指定字节字符</td>
+<td style="text-align:center">指定字节</td>
+</tr>
+<tr>
+<td style="text-align:left">printf()</td>
+<td style="text-align:right">格式化输出</td>
+<td style="text-align:center">输出直到\x00</td>
+</tr>
+<tr>
+<td style="text-align:left">scanf()</td>
+<td style="text-align:right">格式化输入</td>
+<td style="text-align:center">输入与定义不同的类型或输入多与定义的数组元素</td>
+</tr>
+</tbody>
+</table>
+<p>下面是详细内容:</p>
+<h2 id="0x00-read"><a href="#0x00-read" class="headerlink" title="0x00 read()"></a>0x00 read()</h2><h3 id="函数原型"><a href="#函数原型" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t read (int fd, void *buf, size_t nbyte)</span><br></pre></td></tr></table></figure>
+<p>fd：文件描述符；fd为0从键盘读取<br>buf：指定的缓冲区，即指针，指向一段内存单元；<br>nbyte：要读入文件指定的字节数；</p>
+<h3 id="功能"><a href="#功能" class="headerlink" title="功能"></a>功能</h3><p>read()会把参数fd所指的文件传送nbyte个字节到buf指针所指的内存中。若参数nbyte为0，则read()不会有作用并返回0。</p>
+<h3 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h3><p>成功时,read返回实际所读的字节数,如果返回的值是0,表示已经读到文件的结束了.<br>小于0表示出现了错误.如果错误为EINTR说明读是由中断引起的, 如果是ECONNREST表示网络连接出了问题.</p>
+<h2 id="0x01-write"><a href="#0x01-write" class="headerlink" title="0x01 write()"></a>0x01 write()</h2><h3 id="函数原型-1"><a href="#函数原型-1" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line">ssize_t write(int fd,const void *buf,size_t nbytes)</span><br></pre></td></tr></table></figure>
+<p>fd：文件描述符；fd为1输出到显示器<br>buf：指定的缓冲区，即指针，指向一段内存单元；<br>nbyte：要写入文件指定的字节数；</p>
+<h3 id="功能-1"><a href="#功能-1" class="headerlink" title="功能"></a>功能</h3><p>write()会把参数buf 所指的内存写入nbytes 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动.</p>
+<h3 id="返回值-1"><a href="#返回值-1" class="headerlink" title="返回值"></a>返回值</h3><p>如果顺利write()会返回实际写入的字节数.<br>当有错误发生时则返回-1, 错误代码存入errno 中.</p>
+<p>错误代码：</p>
+<ul>
+<li>EINTR 此调用被信号所中断.</li>
+<li>EAGAIN 当使用不可阻断I/O 时 (O_NONBLOCK), 若无数据可读取则返回此值.</li>
+<li>EADF 参数fd 非有效的文件描述词, 或该文件已关闭</li>
+</ul>
+<h2 id="0x02-gets"><a href="#0x02-gets" class="headerlink" title="0x02 gets()"></a>0x02 gets()</h2><h3 id="函数原型-2"><a href="#函数原型-2" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># include &lt;stdio.h&gt;</span><br><span class="line">char *gets(char *str);</span><br></pre></td></tr></table></figure>
+<h3 id="功能-2"><a href="#功能-2" class="headerlink" title="功能"></a>功能</h3><p>gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>使用 gets() 时，系统会将最后“敲”的换行符从缓冲区中取出来，然后丢弃，所以缓冲区中不会遗留换行符。这就意味着，如果前面使用过 gets()，而后面又要从键盘给字符变量赋值的话就不需要吸收回车清空缓冲区了，因为缓冲区的回车已经被 gets() 取出来扔掉了</p>
+<p>gets() 时有空格也可以直接输入，但是 gets() 有一个非常大的缺陷，即它不检查预留存储区是否能够容纳实际输入的数据，换句话说，如果输入的字符数目大于数组的长度，gets 无法检测到这个问题，就会发生内存越界。</p>
+<h2 id="0x03-strcpy-和memcpy-和strncpy"><a href="#0x03-strcpy-和memcpy-和strncpy" class="headerlink" title="0x03 strcpy()和memcpy()和strncpy()"></a>0x03 strcpy()和memcpy()和strncpy()</h2><h3 id="函数原型-3"><a href="#函数原型-3" class="headerlink" title="函数原型"></a>函数原型</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">char* strcpy(char* dest, const char* src)</span><br><span class="line">void *memcpy( void *dest, const void *src, size_t count );</span><br><span class="line">char *strncpy(char *dest,char *src,int size_t n);</span><br></pre></td></tr></table></figure>
+<p>dest:指向用于存储复制内容的目标数组。<br>src:要复制的字符串。<br>count：要读入文件指定的字节数；</p>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><ul>
+<li>strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符’\0’。</li>
+<li>复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。</li>
+<li>复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。</li>
+<li>用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy</li>
+<li>strncpy函数，只是将src的前n个字符复制到dest的前n个字符，不自动添加’\0’。如果src的长度小于n个字节，则以NULL填充dest直到复制完n个字节</li>
+</ul>
+<h2 id="0x04-printf-和scanf"><a href="#0x04-printf-和scanf" class="headerlink" title="0x04 printf()和scanf()"></a>0x04 printf()和scanf()</h2><p>引入：华为的一道经典面试</p>
+<p><img src="https://i.imgur.com/frca7C7.png" alt=""></p>
+<p>i的值输出是多少呢，没有考虑栈溢出的话，i就是5。可这里栈溢出了，i=6776421 ，这是为什么呢？<br>进入到内存中分析：<br>连续定义的变量，内存地址一般也相邻<br>首先依次在栈区为变量开辟空间（注意方式，整形是4个字节以计算，char型一字节一计算）<br>a,b,c,d,e对应的ASCII码对照表的16进制为0x61,0x62,0x63,0x64,0x65<br><img src="https://i.imgur.com/Rf8iJUJ.png" alt=""></p>
+<p>越界后：<br><img src="https://i.imgur.com/s49ZZ2I.jpg" alt=""></p>
+<p>所以最后的结果是0x676665的十进制6776421</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Adhere to original technology sharing, your support will encourage me to continue to create!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Nocbtm 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Nocbtm</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/" title="从非缓冲系统文件到常见栈溢出函数">http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/07/open、fopen和popen/" rel="next" title="open、fopen和popen">
+                <i class="fa fa-chevron-left"></i> open、fopen和popen
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -527,8 +724,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -631,6 +837,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是缓冲文件系统？"><span class="nav-number">1.</span> <span class="nav-text">什么是缓冲文件系统？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">1.1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代表函数-c语言"><span class="nav-number">1.2.</span> <span class="nav-text">代表函数(c语言)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非缓冲文件系统"><span class="nav-number">2.</span> <span class="nav-text">非缓冲文件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点"><span class="nav-number">2.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代表函数"><span class="nav-number">2.2.</span> <span class="nav-text">代表函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈溢出常见函数"><span class="nav-number">3.</span> <span class="nav-text">栈溢出常见函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-read"><span class="nav-number">4.</span> <span class="nav-text">0x00 read()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型"><span class="nav-number">4.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能"><span class="nav-number">4.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值"><span class="nav-number">4.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-write"><span class="nav-number">5.</span> <span class="nav-text">0x01 write()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-1"><span class="nav-number">5.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能-1"><span class="nav-number">5.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值-1"><span class="nav-number">5.3.</span> <span class="nav-text">返回值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-gets"><span class="nav-number">6.</span> <span class="nav-text">0x02 gets()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-2"><span class="nav-number">6.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能-2"><span class="nav-number">6.2.</span> <span class="nav-text">功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意"><span class="nav-number">6.3.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-strcpy-和memcpy-和strncpy"><span class="nav-number">7.</span> <span class="nav-text">0x03 strcpy()和memcpy()和strncpy()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数原型-3"><span class="nav-number">7.1.</span> <span class="nav-text">函数原型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意-1"><span class="nav-number">7.2.</span> <span class="nav-text">注意</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x04-printf-和scanf"><span class="nav-number">8.</span> <span class="nav-text">0x04 printf()和scanf()</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -801,6 +1023,10 @@ id="busuanzi_container_site_uv">
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
