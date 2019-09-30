@@ -5,12 +5,12 @@
   <subtitle>xixi</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://yoursite.com/"/>
+  <link href="https://nocbtm.github.io/"/>
   <updated>2018-12-04T09:56:33.108Z</updated>
-  <id>http://yoursite.com/</id>
+  <id>https://nocbtm.github.io/</id>
   
   <author>
-    <name>Nocbtm</name>
+    <name>nocbtm</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>格式化字符串漏洞</title>
-    <link href="http://yoursite.com/2018/11/29/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/"/>
-    <id>http://yoursite.com/2018/11/29/格式化字符串漏洞/</id>
+    <link href="https://nocbtm.github.io/2018/11/29/%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E/"/>
+    <id>https://nocbtm.github.io/2018/11/29/格式化字符串漏洞/</id>
     <published>2018-11-29T08:41:56.000Z</published>
     <updated>2018-12-04T09:56:33.108Z</updated>
     
@@ -35,14 +35,14 @@
     </summary>
     
     
-      <category term="pwn" scheme="http://yoursite.com/tags/pwn/"/>
+      <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
     
   </entry>
   
   <entry>
     <title>从非缓冲系统文件到常见栈溢出函数</title>
-    <link href="http://yoursite.com/2018/11/12/%E4%BB%8E%E9%9D%9E%E7%BC%93%E5%86%B2%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%88%B0%E5%B8%B8%E8%A7%81%E6%A0%88%E6%BA%A2%E5%87%BA%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/2018/11/12/从非缓冲系统文件到常见栈溢出函数/</id>
+    <link href="https://nocbtm.github.io/2018/11/12/%E4%BB%8E%E9%9D%9E%E7%BC%93%E5%86%B2%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%88%B0%E5%B8%B8%E8%A7%81%E6%A0%88%E6%BA%A2%E5%87%BA%E5%87%BD%E6%95%B0/"/>
+    <id>https://nocbtm.github.io/2018/11/12/从非缓冲系统文件到常见栈溢出函数/</id>
     <published>2018-11-12T14:15:12.000Z</published>
     <updated>2018-11-13T10:04:06.898Z</updated>
     
@@ -63,8 +63,8 @@
   
   <entry>
     <title>open、fopen和popen</title>
-    <link href="http://yoursite.com/2018/11/07/open%E3%80%81fopen%E5%92%8Cpopen/"/>
-    <id>http://yoursite.com/2018/11/07/open、fopen和popen/</id>
+    <link href="https://nocbtm.github.io/2018/11/07/open%E3%80%81fopen%E5%92%8Cpopen/"/>
+    <id>https://nocbtm.github.io/2018/11/07/open、fopen和popen/</id>
     <published>2018-11-07T12:44:23.000Z</published>
     <updated>2018-11-07T13:09:53.158Z</updated>
     
@@ -80,14 +80,14 @@
     </summary>
     
     
-      <category term="c" scheme="http://yoursite.com/tags/c/"/>
+      <category term="c" scheme="https://nocbtm.github.io/tags/c/"/>
     
   </entry>
   
   <entry>
     <title>缓冲文件系统和非缓冲文件系统</title>
-    <link href="http://yoursite.com/2018/11/05/%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
-    <id>http://yoursite.com/2018/11/05/缓冲文件系统和非缓冲文件系统/</id>
+    <link href="https://nocbtm.github.io/2018/11/05/%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    <id>https://nocbtm.github.io/2018/11/05/缓冲文件系统和非缓冲文件系统/</id>
     <published>2018-11-05T10:31:52.000Z</published>
     <updated>2018-11-07T10:17:17.974Z</updated>
     
@@ -103,14 +103,14 @@
     </summary>
     
     
-      <category term="c" scheme="http://yoursite.com/tags/c/"/>
+      <category term="c" scheme="https://nocbtm.github.io/tags/c/"/>
     
   </entry>
   
   <entry>
     <title>栈溢出常见函数</title>
-    <link href="http://yoursite.com/2018/11/04/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/2018/11/04/栈溢出常见函数/</id>
+    <link href="https://nocbtm.github.io/2018/11/04/%E6%A0%88%E6%BA%A2%E5%87%BA%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0/"/>
+    <id>https://nocbtm.github.io/2018/11/04/栈溢出常见函数/</id>
     <published>2018-11-04T11:17:08.000Z</published>
     <updated>2018-11-09T13:58:09.805Z</updated>
     
@@ -126,14 +126,14 @@
     </summary>
     
     
-      <category term="c ctf pwn" scheme="http://yoursite.com/tags/c-ctf-pwn/"/>
+      <category term="c ctf pwn" scheme="https://nocbtm.github.io/tags/c-ctf-pwn/"/>
     
   </entry>
   
   <entry>
     <title>stack canary绕过思路</title>
-    <link href="http://yoursite.com/2018/10/24/stack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/"/>
-    <id>http://yoursite.com/2018/10/24/stack-canary绕过思路/</id>
+    <link href="https://nocbtm.github.io/2018/10/24/stack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF/"/>
+    <id>https://nocbtm.github.io/2018/10/24/stack-canary绕过思路/</id>
     <published>2018-10-24T10:59:43.000Z</published>
     <updated>2018-10-28T11:56:59.398Z</updated>
     
@@ -149,14 +149,14 @@
     </summary>
     
     
-      <category term="ctf pwn" scheme="http://yoursite.com/tags/ctf-pwn/"/>
+      <category term="ctf pwn" scheme="https://nocbtm.github.io/tags/ctf-pwn/"/>
     
   </entry>
   
   <entry>
     <title>萌新赛</title>
-    <link href="http://yoursite.com/2018/10/13/%E4%B8%AD%E5%B7%A5%E8%90%8C%E6%96%B0%E8%B5%9B/"/>
-    <id>http://yoursite.com/2018/10/13/中工萌新赛/</id>
+    <link href="https://nocbtm.github.io/2018/10/13/%E4%B8%AD%E5%B7%A5%E8%90%8C%E6%96%B0%E8%B5%9B/"/>
+    <id>https://nocbtm.github.io/2018/10/13/中工萌新赛/</id>
     <published>2018-10-13T12:09:51.000Z</published>
     <updated>2018-10-28T11:46:25.054Z</updated>
     
@@ -173,14 +173,14 @@
     </summary>
     
     
-      <category term="ctf" scheme="http://yoursite.com/tags/ctf/"/>
+      <category term="ctf" scheme="https://nocbtm.github.io/tags/ctf/"/>
     
   </entry>
   
   <entry>
     <title>oj level0和level1总结</title>
-    <link href="http://yoursite.com/2018/09/21/oj-level0%E5%92%8Clevel1%E6%80%BB%E7%BB%93/"/>
-    <id>http://yoursite.com/2018/09/21/oj-level0和level1总结/</id>
+    <link href="https://nocbtm.github.io/2018/09/21/oj-level0%E5%92%8Clevel1%E6%80%BB%E7%BB%93/"/>
+    <id>https://nocbtm.github.io/2018/09/21/oj-level0和level1总结/</id>
     <published>2018-09-21T11:42:51.000Z</published>
     <updated>2018-09-21T13:29:34.872Z</updated>
     
@@ -197,14 +197,14 @@
     </summary>
     
     
-      <category term="ctf pwn" scheme="http://yoursite.com/tags/ctf-pwn/"/>
+      <category term="ctf pwn" scheme="https://nocbtm.github.io/tags/ctf-pwn/"/>
     
   </entry>
   
   <entry>
     <title>pwntools</title>
-    <link href="http://yoursite.com/2018/09/19/pwntools/"/>
-    <id>http://yoursite.com/2018/09/19/pwntools/</id>
+    <link href="https://nocbtm.github.io/2018/09/19/pwntools/"/>
+    <id>https://nocbtm.github.io/2018/09/19/pwntools/</id>
     <published>2018-09-19T13:32:24.000Z</published>
     <updated>2018-09-25T10:32:32.462Z</updated>
     
@@ -220,14 +220,14 @@
     </summary>
     
     
-      <category term="ctf pwn" scheme="http://yoursite.com/tags/ctf-pwn/"/>
+      <category term="ctf pwn" scheme="https://nocbtm.github.io/tags/ctf-pwn/"/>
     
   </entry>
   
   <entry>
     <title>cmp指令 </title>
-    <link href="http://yoursite.com/2018/09/16/cmp%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/16/cmp指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/cmp%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/16/cmp指令/</id>
     <published>2018-09-16T08:16:31.000Z</published>
     <updated>2018-09-16T08:54:02.352Z</updated>
     
@@ -244,14 +244,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>sbb指令 </title>
-    <link href="http://yoursite.com/2018/09/16/sbb%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/16/sbb指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/sbb%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/16/sbb指令/</id>
     <published>2018-09-16T08:16:16.000Z</published>
     <updated>2018-09-16T08:26:17.749Z</updated>
     
@@ -267,14 +267,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>adc指令 </title>
-    <link href="http://yoursite.com/2018/09/16/adc%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/16/adc指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/adc%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/16/adc指令/</id>
     <published>2018-09-16T06:52:54.000Z</published>
     <updated>2018-09-16T08:53:59.773Z</updated>
     
@@ -291,14 +291,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>检测点11.1 </title>
-    <link href="http://yoursite.com/2018/09/16/%E6%A3%80%E6%B5%8B%E7%82%B911-1/"/>
-    <id>http://yoursite.com/2018/09/16/检测点11-1/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/%E6%A3%80%E6%B5%8B%E7%82%B911-1/"/>
+    <id>https://nocbtm.github.io/2018/09/16/检测点11-1/</id>
     <published>2018-09-16T06:29:30.000Z</published>
     <updated>2018-09-16T06:51:06.208Z</updated>
     
@@ -314,14 +314,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>标志寄存器 </title>
-    <link href="http://yoursite.com/2018/09/16/%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/"/>
-    <id>http://yoursite.com/2018/09/16/标志寄存器/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8/"/>
+    <id>https://nocbtm.github.io/2018/09/16/标志寄存器/</id>
     <published>2018-09-16T03:55:49.000Z</published>
     <updated>2018-09-16T08:53:51.172Z</updated>
     
@@ -337,14 +337,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>mul指令</title>
-    <link href="http://yoursite.com/2018/09/16/mul%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/16/mul指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/16/mul%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/16/mul指令/</id>
     <published>2018-09-16T02:58:12.000Z</published>
     <updated>2018-09-16T03:22:06.182Z</updated>
     
@@ -360,14 +360,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>call指令</title>
-    <link href="http://yoursite.com/2018/09/12/call%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/12/call指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/12/call%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/12/call指令/</id>
     <published>2018-09-12T12:12:52.000Z</published>
     <updated>2018-09-16T08:09:45.700Z</updated>
     
@@ -384,14 +384,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>检测点10.1-10.5</title>
-    <link href="http://yoursite.com/2018/09/12/%E6%A3%80%E6%B5%8B%E7%82%B910-1-10-5/"/>
-    <id>http://yoursite.com/2018/09/12/检测点10-1-10-5/</id>
+    <link href="https://nocbtm.github.io/2018/09/12/%E6%A3%80%E6%B5%8B%E7%82%B910-1-10-5/"/>
+    <id>https://nocbtm.github.io/2018/09/12/检测点10-1-10-5/</id>
     <published>2018-09-12T12:08:33.000Z</published>
     <updated>2018-09-16T02:21:35.910Z</updated>
     
@@ -407,14 +407,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>ret和retf</title>
-    <link href="http://yoursite.com/2018/09/12/ret%E5%92%8Cretf/"/>
-    <id>http://yoursite.com/2018/09/12/ret和retf/</id>
+    <link href="https://nocbtm.github.io/2018/09/12/ret%E5%92%8Cretf/"/>
+    <id>https://nocbtm.github.io/2018/09/12/ret和retf/</id>
     <published>2018-09-12T11:44:58.000Z</published>
     <updated>2018-09-12T12:41:28.642Z</updated>
     
@@ -431,14 +431,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>操作符offset</title>
-    <link href="http://yoursite.com/2018/09/11/%E6%93%8D%E4%BD%9C%E7%AC%A6offset/"/>
-    <id>http://yoursite.com/2018/09/11/操作符offset/</id>
+    <link href="https://nocbtm.github.io/2018/09/11/%E6%93%8D%E4%BD%9C%E7%AC%A6offset/"/>
+    <id>https://nocbtm.github.io/2018/09/11/操作符offset/</id>
     <published>2018-09-11T13:26:03.000Z</published>
     <updated>2018-09-11T13:44:54.175Z</updated>
     
@@ -454,14 +454,14 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
   <entry>
     <title>dup指令</title>
-    <link href="http://yoursite.com/2018/09/11/dup%E6%8C%87%E4%BB%A4/"/>
-    <id>http://yoursite.com/2018/09/11/dup指令/</id>
+    <link href="https://nocbtm.github.io/2018/09/11/dup%E6%8C%87%E4%BB%A4/"/>
+    <id>https://nocbtm.github.io/2018/09/11/dup指令/</id>
     <published>2018-09-11T13:04:52.000Z</published>
     <updated>2018-09-11T13:15:28.797Z</updated>
     
@@ -477,7 +477,7 @@
     </summary>
     
     
-      <category term="汇编语言" scheme="http://yoursite.com/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   
