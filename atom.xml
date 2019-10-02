@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nocbtm.github.io/"/>
-  <updated>2019-10-02T04:09:51.452Z</updated>
+  <updated>2019-10-02T04:22:17.169Z</updated>
   <id>https://nocbtm.github.io/</id>
   
   <author>
@@ -17,23 +17,51 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>IO_FILE结构及利用</title>
-    <link href="https://nocbtm.github.io/2019/10/02/IO-FILE%E7%BB%93%E6%9E%84%E5%8F%8A%E5%88%A9%E7%94%A8/"/>
-    <id>https://nocbtm.github.io/2019/10/02/IO-FILE结构及利用/</id>
-    <published>2019-10-02T01:56:23.000Z</published>
-    <updated>2019-10-02T04:09:51.452Z</updated>
+    <title>学习pwn的心理路程</title>
+    <link href="https://nocbtm.github.io/2019/10/02/%E5%AD%A6%E4%B9%A0pwn%E7%9A%84%E5%BF%83%E7%90%86%E8%B7%AF%E7%A8%8B/"/>
+    <id>https://nocbtm.github.io/2019/10/02/学习pwn的心理路程/</id>
+    <published>2019-10-02T04:21:32.000Z</published>
+    <updated>2019-10-02T04:22:17.169Z</updated>
     
-    <content type="html"><![CDATA[<p>(o≖◡≖)<br>(๑•̀ㅂ•́)و✧<br>w(ﾟДﾟ)w<br>(*￣ω￣)<br>o(≧口≦)o<br>Σ( ° △ °|||)︴</p>]]></content>
+    <content type="html"><![CDATA[<p>(o≖◡≖)<br>(๑•̀ㅂ•́)و✧<br>(*￣ω￣)<br>w(ﾟДﾟ)w<br>o(≧口≦)o<br>Σ( ° △ °|||)︴</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;(o≖◡≖)&lt;br&gt;(๑•̀ㅂ•́)و✧&lt;br&gt;w(ﾟДﾟ)w&lt;br&gt;(*￣ω￣)&lt;br&gt;o(≧口≦)o&lt;br&gt;Σ( ° △ °|||)︴&lt;/p&gt;
+        &lt;p&gt;(o≖◡≖)&lt;br&gt;(๑•̀ㅂ•́)و✧&lt;br&gt;(*￣ω￣)&lt;br&gt;w(ﾟДﾟ)w&lt;br&gt;o(≧口≦)o&lt;br&gt;Σ( ° △ °|||)︴&lt;/p&gt;
 
       
     
     </summary>
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/categories/pwn/"/>
+    
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IO_FILE结构及利用</title>
+    <link href="https://nocbtm.github.io/2019/10/02/IO-FILE%E7%BB%93%E6%9E%84%E5%8F%8A%E5%88%A9%E7%94%A8/"/>
+    <id>https://nocbtm.github.io/2019/10/02/IO-FILE结构及利用/</id>
+    <published>2019-10-02T01:56:23.000Z</published>
+    <updated>2019-10-02T04:18:08.578Z</updated>
+    
+    <content type="html"><![CDATA[<p>(o≖◡≖)<br>(๑•̀ㅂ•́)و✧<br>(*￣ω￣)<br>w(ﾟДﾟ)w<br>o(≧口≦)o<br>Σ( ° △ °|||)︴</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;(o≖◡≖)&lt;br&gt;(๑•̀ㅂ•́)و✧&lt;br&gt;(*￣ω￣)&lt;br&gt;w(ﾟДﾟ)w&lt;br&gt;o(≧口≦)o&lt;br&gt;Σ( ° △ °|||)︴&lt;/p&gt;
+
+      
+    
+    </summary>
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/categories/pwn/"/>
     
     
       <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
@@ -484,31 +512,6 @@
       
       
         &lt;p&gt;操作符offest在汇编语言中是由编译器处理的符号，它的功能是取得标号的偏移地址。比如：&lt;br&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/
-      
-    
-    </summary>
-    
-      <category term="汇编语言" scheme="https://nocbtm.github.io/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-    
-      <category term="汇编语言" scheme="https://nocbtm.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>dup指令</title>
-    <link href="https://nocbtm.github.io/2018/09/11/dup%E6%8C%87%E4%BB%A4/"/>
-    <id>https://nocbtm.github.io/2018/09/11/dup指令/</id>
-    <published>2018-09-11T13:04:52.000Z</published>
-    <updated>2019-10-01T08:41:07.392Z</updated>
-    
-    <content type="html"><![CDATA[<p>dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。<br>dup的使用格式如下：<br>db 重复的次数 dup （重复的字节型数据）<br>dw 重复的次数 dup （重复的字型数据）<br>dd 重复的次数 dup （重复的双字符数据）</p><p>比如：<br>1、<br><figure class="highlight plain"><figcaption><span>3 dup (0)```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">定义了三个字节，它们的值都是0，相当于db 0,0,0。</span><br><span class="line"></span><br><span class="line">2、</span><br></pre></td></tr></table></figure></p><p>stack segment<br>db 200 dup (0)<br>stack ends<br><code>`</code><br>定义了一个容量为200个字节的栈段</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;dup是一个操作符，在汇编语言中同db、dw、dd、等一样。它是和db、dw、dd、等数据定义伪指令配合使用的，用来数据的重复。&lt;br&gt;dup的使用格式如下：&lt;br&gt;db 重复的次数 dup （重复的字节型数据）&lt;br&gt;dw 重复的次数 dup （重复的字型数据）&lt;br&gt;d
       
     
     </summary>
