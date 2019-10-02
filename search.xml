@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[angr符号执行]]></title>
+    <url>%2F2019%2F10%2F02%2Fangr%E7%AC%A6%E5%8F%B7%E6%89%A7%E8%A1%8C%2F</url>
+    <content type="text"><![CDATA[简介符号执行简单来说就是用符号来模拟程序执行，在我看来就相当于暴力破解，比如一个程序要求你进行一个复杂的运算，每次动态调试只能输入一次，然而符合执行可以尽可能的遍历每一条路径，这样就方便了许多。 安装这里不建议实体机安装，坑太多，直接上docker，安装教程]]></content>
+      <categories>
+        <category>reverse</category>
+      </categories>
+      <tags>
+        <tag>reverse</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[docker安装angr]]></title>
+    <url>%2F2019%2F10%2F02%2Fdocker%E5%AE%89%E8%A3%85angr%2F</url>
+    <content type="text"><![CDATA[前言angr不建议在实体机上安装，所以就安装到docker里面，官方容器里已经集成了angr，但安装的太慢。这里我选择了阿里云的容器镜像，本地环境为ubuntu16.64。 配置镜像加速器申请阿里云，修改daemon配置文件/etc/docker/daemon.json来使用加速器，把下方的registry-mirrors换成你的加速器地址。12345678sudo mkdir -p /etc/dockersudo tee /etc/docker/daemon.json &lt;&lt;-'EOF'&#123; "registry-mirrors": ["https://culfukli.mirror.aliyuncs.com"]&#125;EOFsudo systemctl daemon-reloadsudo systemctl restart docker 安装angr1docker pull registry.cn-hangzhou.aliyuncs.com/liujunjie/angr 安装完执行docker images 查看镜像，运行angr1docker run -it registry.cn-hangzhou.aliyuncs.com/liujunjie/angr 上述命令可以执行angr，但不会保存你在其中做的修改，应该用下列命令123456$docker run -itd registry.cn-hangzhou.aliyuncs.com/liujunjie/angr1d443841326281a8c5aee9cfad74893a5eded421eadc3eac2222f91bf15e3eb9$docker exec -it 1d44 bash #1d44为你的id的前四位root@1d4438413262:/# lsbin dev home lib64 mnt proc run srv tmp varboot etc lib media opt root sbin sys usr 这时可以输入命令了，与在linux中操作一样。但在root用户下import angr会失败，用su angr命令切换到angr用户即可。 测试进入到有例子的目录下，执行脚本,可以看到flag。1234567$cd /home/angr/angr-dev/angr-doc/examples/ais3_crackme$ lsais3_crackme solve.py$python solve.py 'ais3&#123;I_tak3_g00d_n0t3s&#125;\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'ais3&#123;I_tak3_g00d_n0t3s&#125;'ais3&#123;I_tak3_g00d_n0t3s&#125;' 拷贝文件主机向docker中拷贝：1docker cp (本地文件路径) (docker container id):(容器中路径) docker向主机中拷贝：1docker cp (docker container id):(容器中路径) (本地文件路径)]]></content>
+      <categories>
+        <category>reverse</category>
+      </categories>
+      <tags>
+        <tag>reverse</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[学习pwn的心理路程]]></title>
     <url>%2F2019%2F10%2F02%2F%E5%AD%A6%E4%B9%A0pwn%E7%9A%84%E5%BF%83%E7%90%86%E8%B7%AF%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[(o≖◡≖)(๑•̀ㅂ•́)و✧(*￣ω￣)w(ﾟДﾟ)wo(≧口≦)oΣ( ° △ °|||)︴]]></content>
@@ -375,17 +397,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[南邮攻防训练平台逆向第四题WxyVM1]]></title>
-    <url>%2F2018%2F07%2F27%2FWxyVM1%2F</url>
-    <content type="text"><![CDATA[下载文件elf文件，运行输入flag，用ida打开逆向算法： 不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进行比较，一致则成功，那么现在只需要看上面的sub_4005B6()函数了： 跟进两个地址进去看一下，发现有已经给出的处理所需数据，只是比较多，有15000个，想了想最后还是决定把数据提出来（其实是没其他办法了==） 最后是逆推py脚本： 那个15000的数组太长了，不好复制，要导出在一个文档里，才能复制完 tmp=[1, 16, 37, 3, 13, 10, 2, 11, 40, 2 ] //太长了只写前十个 final=[196, 52, 34, 177, 211, 17, 151, 7, 219, 55, 196, 6, 29, 252, 91, 237, 152, 223, 148, 216, 179, 132, 204, 8] i = 14997 while i&gt;0: v0 = tmp[i] v3 = tmp[i+2] result = tmp[i+1] if v0 == 1: final[result] -= v3 elif v0 == 2: final[result] += v3 elif v0 == 3: final[result] ^= v3 elif v0 == 4: final[result] /= v3! elif v0 == 5: final[result] ^= final[v3] final[result]&amp;=0xFF //需要注意的地方，因为ascii字符码范围为0~127，可能发生越界 i -= 3 for x in final: print(chr(x), end = &apos;&apos;) 得到flag：nctf{Embr4ce_Vm_j0in_R3} 如果不加final[result]&amp;=0xFF 这句话就会越界，如图： &amp;0xFF到底是什么意思 举个简单的例子: byte[] b = new byte[5]; b[0] = -12; byte 8位二进制 = 1个字节 char 2个字节 short (2个字节) int（4个字节） long（8个字节） float （4个字节） double（8个字节） 计算机存储数据机制：正数存储的二进制原码,负数存储的是二进制的补码。 补码是负数的绝对值反码加1。 比如-12，-12 的绝对值原码是：0000 1100 取反： 1111 0011 加1： 1111 0100 byte –&gt; int 就是由8位变 32 位 高24位全部补1： 1111 1111 1111 1111 1111 1111 1111 0100 ; 0xFF 是计算机十六进制的表示： 0x就是代表十六进制，A B C D E F 分别代表10 11 12 13 14 15 F就是15 一个F 代表4位二进制：可以看做 是 8 4 2 1。 0xFF的二进制表示就是：1111 1111。 高24位补0：0000 0000 0000 0000 0000 0000 1111 1111; -12的补码与0xFF 进行与（&amp;）操作 最后就是0000 0000 0000 0000 0000 0000 1111 0100 转换为十进制就是 244。 byte类型的数字要&amp;0xff再赋值给int类型，其本质原因就是想保持二进制补码的一致性。 当byte要转化为int的时候，高的24位必然会补1，这样，其二进制补码其实已经不一致了，&amp;0xff可以将高的24位置为0，低8位保持原样。这样做的目的就是为了保证二进制数据的一致性。 有人问为什么上面的式子中b[0]不是8位而是32位，因为当系统检测到byte可能会转化成int或者说byte与int类型进行运算的时候，就会将byte的内存空间高位补1（也就是按符号位补位）扩充到32位，再参与运算。]]></content>
-      <categories>
-        <category>reverse</category>
-      </categories>
-      <tags>
-        <tag>reverse</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[BurpSuite系列----Intruder模块(暴力破解口令)]]></title>
     <url>%2F2018%2F07%2F27%2FBurpSuit%20%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%8F%A3%E4%BB%A4%2F</url>
     <content type="text"><![CDATA[一、简介 Burp Intruder是一个强大的工具，用于自动对Web应用程序自定义的攻击，Burp Intruder 是高度可配置的，并被用来在广范围内进行自动化攻击。你可以使用 Burp Intruder 方便地执行许多任务，包括枚举标识符，获取有用数据，漏洞模糊测试。合适的攻击类型取决于应用程序的情况，可能包括：缺陷测试：SQL 注入，跨站点脚本，缓冲区溢出，路径遍历；暴力攻击认证系统；枚举；操纵参数；拖出隐藏的内容和功能；会话令牌测序和会话劫持；数据挖掘；并发攻击；应用层的拒绝服务式攻击。 二、模块说明 Burp Intruder主要有四个模块组成:1：Target 用于配置目标服务器进行攻击的详细信息。2：Positions 设置Payloads的插入点以及攻击类型（攻击模式）。3：Payloads 设置payload，配置字典4：Opetions 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。 1：Target 目标选项(Target tab)这个选项是用来配置目标服务器的细节： 2：Positions 位置选项(Positions tab)这个选项是用来配置在攻击里产生的所有 HTTP 请求的模板： 使用一对§字符来标记出有效负荷的位置，在这两个符号直接包含了模板文本的内容。当把一个有效负荷放置到一个给出的请求的特殊位置上时，就把这§符号放到这个位置，然后在两个符号之间的出现的文本都会被有效负荷替换。当有个特殊位置没有为一个给出的请求安排有效负荷时(这只适用”sniper”攻击类型)，那个位置的§字符会被删除，出现在它们之间的文本不会变化。 当使用 Burp Suite 发送一个其他地方的请求时，Burp Intruder 会对你最想放置有效负荷的位置做一个最好的猜测，并且它把这些放置在每个 URL 和主体参数的值里，以及每个cookie 里。每个标记和它中间的文本都会被加亮以显得更清晰。你可以使用 Intruder 菜单上的选项标记的位置是要替换还是附加现有的参数值。在上面的请求编辑器里，指出了定义位置的数量和文本模板的大小。 你可以使用选项上的按钮来控制位置上的标记： add § — 在当前光标位置插入一个位置标记。 clear § — 删除整个模板或选中的部分模板里的位置标记。 auto § — 这会对放置标记的位置做一个猜测，放哪里会有用，然后就把标记放到相应位置。这是一个为攻击常规漏洞(SQL 注入)快速标记出合适位置的有用的功能，然后人工标记是为自定义攻击的。4.refresh — 如果需要，可以刷新编辑器里有颜色的代码。5.clear — 删除整个编辑器内容。 3：Payloads 有效负荷选项(Payloads tab)这个选项是用来配置一个或多个有效负荷的集合。如果定义了”cluster bomb”和”pitchfork”攻击类型，然后必须为每定义的有效负荷位置(最多8个)配置一个单独的有效负荷。使用”payload set”下拉菜单选择要配置的有效负荷。 选项1：Payload Sets Payload数量类型设置 选项2：Payload Opetions[Simple list] 该选项会根据选项1中Payload type的设置而改变 选项3：Payload Processing 对生成的Payload进行编码、加密、截取等操作 选项4：Payload Encoding 你可以配置哪些有效载荷中的字符应该是URL编码的HTTP请求中的安全传输。任何已配置的URL编码最后应用，任何有效载荷处理规则执行之后。 这是推荐使用此设置进行最终URL编码，而不是一个有效载荷处理规则，因为可以用来有效载荷的grep选项来检查响应为呼应有效载荷的最终URL编码应用之前。 4：Opetions 选项卡(Options tab) 此选项卡包含了request headers，request engine，attack results ，grep match，grep_extrack，grep payloads和redirections。你可以发动攻击之前，在主要Intruder的UI上编辑这些选项，大部分设置也可以在攻击时对已在运行的窗口进行修改。 选项1：Request Headers 这些设置控制在Intruder是否更新配置请求头。 如果选中‘update Content-Length header’框，Burp Intruder 会使用每个请求的 HTTP 主体长度的正确值，添加或更新这个请求里 HTTP 消息头的内容长度。这个功能对一些需要把可变长度的有效载荷插入到 HTTP 请求模板主体的攻击是很有必要的。这个 HTTP 规范和大多数 web 服务器一样，需要使用消息头内容长度来指定 HTTP 主体长度的正确值。如果没有指定正确值，目标服务器会返回一个错误，也可能返回一个未完成的请求，也可能无限期地等待接收请求里的进一步数据。 如果选中‘set Connection: close’框，则 Burp Intruder 会添加或更新 HTTP 消息头的连接来请求在每个请求后已关闭的连接。在多数情况下，这个选项会让攻击执行得更快。 选项2：Request Engine 设置发送请求的线程、超时重试等。 选项3：Attack Results 设置攻击结果的显示。 选项4：Grep - Match 在响应中找出存在指定的内容的一项。 选项5：Grep - Extract 通过正则提取返回信息中的内容。 选项6：Grep - Payloads 这些设置可以用于包含已提交的有效负载的反射的标志结果项目。如果启用了此选项，BurpSuite会添加包含一个复选框指示当前负载的值在每个响应发现新的结果列。 选项7：Redirections 重定向响应，控制Burp在进行攻击时如何处理重定向。]]></content>
@@ -394,6 +405,17 @@
       </categories>
       <tags>
         <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[南邮攻防训练平台逆向第四题WxyVM1]]></title>
+    <url>%2F2018%2F07%2F27%2FWxyVM1%2F</url>
+    <content type="text"><![CDATA[下载文件elf文件，运行输入flag，用ida打开逆向算法： 不是很复杂，可以看出flag长度需要24，最终会和已给出dword_601060进行比较，一致则成功，那么现在只需要看上面的sub_4005B6()函数了： 跟进两个地址进去看一下，发现有已经给出的处理所需数据，只是比较多，有15000个，想了想最后还是决定把数据提出来（其实是没其他办法了==） 最后是逆推py脚本： 那个15000的数组太长了，不好复制，要导出在一个文档里，才能复制完 tmp=[1, 16, 37, 3, 13, 10, 2, 11, 40, 2 ] //太长了只写前十个 final=[196, 52, 34, 177, 211, 17, 151, 7, 219, 55, 196, 6, 29, 252, 91, 237, 152, 223, 148, 216, 179, 132, 204, 8] i = 14997 while i&gt;0: v0 = tmp[i] v3 = tmp[i+2] result = tmp[i+1] if v0 == 1: final[result] -= v3 elif v0 == 2: final[result] += v3 elif v0 == 3: final[result] ^= v3 elif v0 == 4: final[result] /= v3! elif v0 == 5: final[result] ^= final[v3] final[result]&amp;=0xFF //需要注意的地方，因为ascii字符码范围为0~127，可能发生越界 i -= 3 for x in final: print(chr(x), end = &apos;&apos;) 得到flag：nctf{Embr4ce_Vm_j0in_R3} 如果不加final[result]&amp;=0xFF 这句话就会越界，如图： &amp;0xFF到底是什么意思 举个简单的例子: byte[] b = new byte[5]; b[0] = -12; byte 8位二进制 = 1个字节 char 2个字节 short (2个字节) int（4个字节） long（8个字节） float （4个字节） double（8个字节） 计算机存储数据机制：正数存储的二进制原码,负数存储的是二进制的补码。 补码是负数的绝对值反码加1。 比如-12，-12 的绝对值原码是：0000 1100 取反： 1111 0011 加1： 1111 0100 byte –&gt; int 就是由8位变 32 位 高24位全部补1： 1111 1111 1111 1111 1111 1111 1111 0100 ; 0xFF 是计算机十六进制的表示： 0x就是代表十六进制，A B C D E F 分别代表10 11 12 13 14 15 F就是15 一个F 代表4位二进制：可以看做 是 8 4 2 1。 0xFF的二进制表示就是：1111 1111。 高24位补0：0000 0000 0000 0000 0000 0000 1111 1111; -12的补码与0xFF 进行与（&amp;）操作 最后就是0000 0000 0000 0000 0000 0000 1111 0100 转换为十进制就是 244。 byte类型的数字要&amp;0xff再赋值给int类型，其本质原因就是想保持二进制补码的一致性。 当byte要转化为int的时候，高的24位必然会补1，这样，其二进制补码其实已经不一致了，&amp;0xff可以将高的24位置为0，低8位保持原样。这样做的目的就是为了保证二进制数据的一致性。 有人问为什么上面的式子中b[0]不是8位而是32位，因为当系统检测到byte可能会转化成int或者说byte与int类型进行运算的时候，就会将byte的内存空间高位补1（也就是按符号位补位）扩充到32位，再参与运算。]]></content>
+      <categories>
+        <category>reverse</category>
+      </categories>
+      <tags>
+        <tag>reverse</tag>
       </tags>
   </entry>
 </search>
