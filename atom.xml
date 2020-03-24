@@ -68,6 +68,31 @@
   </entry>
   
   <entry>
+    <title>skysider/pwndocker 正确使用姿势</title>
+    <link href="https://nocbtm.github.io/2020/02/24/skysider-pwndocker-%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8%E5%A7%BF%E5%8A%BF/"/>
+    <id>https://nocbtm.github.io/2020/02/24/skysider-pwndocker-正确使用姿势/</id>
+    <published>2020-02-24T03:27:00.000Z</published>
+    <updated>2020-03-24T04:17:31.457Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现在pwn题是越来越高版本的libc，一场比赛ubuntu16.04，ubuntu18.04切来切去的十分难受。<br>一种可行的方案就是，装个16.04的虚拟机，然后在此之上装个18.04的docker，而且这个docker已经集成pwn常用工具以及各个版本libc。<br>具体参考 <a href="https://github.com/skysider/pwndocker" target="_blank" rel="noopener">https://github.com/skysider/pwndocker</a></p><h2 id="18-04-pwndocker-安装"><a href="#18-04-pwndocker-安装" class="headerlink" title="18.04 pwndocker 安装"></a>18.04 pwndocker 安装</h2><p>docker hub 可以直接pull<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull skysider/pwndocker</span><br></pre></td></tr></table></figure></p><p>但是pull的太慢了，我已经把他传到了阿里云上,用下面这条命令即可</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry.cn-hangzhou.aliyuncs.com/pwndocker/pwndocker-nocbtm:1.0</span><br></pre></td></tr></table></figure><p>pull完之后重命名一下</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag registry.cn-hangzhou.aliyuncs.com/pwndocker/pwndocker-nocbtm:1.0 skysider/pwndocker</span><br></pre></td></tr></table></figure><h2 id="使用姿势"><a href="#使用姿势" class="headerlink" title="使用姿势"></a>使用姿势</h2><p>建议用官方的使用姿势，用如下命令run起来</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">--rm \</span><br><span class="line">-h $&#123;ctf_name&#125; \</span><br><span class="line">--name $&#123;ctf_name&#125; \</span><br><span class="line">-v $(pwd)/$&#123;ctf_name&#125;:/ctf/work \</span><br><span class="line">-p 23946:23946 \</span><br><span class="line">--cap-add=SYS_PTRACE \</span><br><span class="line">skysider/pwndocker</span><br></pre></td></tr></table></figure><p>其中有两个重要的参数<br>-v $(pwd)/${ctf_name}:/ctf/work 是将当前目录下的文件映射到 docker /ctf/work目录下<br>这样你在物理机修改文件，docker里面也会发生变化，就不用再docker cp了</p><p>–cap-add=SYS_PTRACE 这个参数也是要一定加的，不然docker里面没法用gdb调试。</p><p>可以把上述命令放到 pwndocker_run.sh里面 方便下次使用<br><img alt="" data-src="https://i.loli.net/2020/03/24/vI96aPY1eGxFkoh.png" class="lozad"></p><p>然后调试脚本时，要先进去tmux ，python脚本里面指定终端为 tmux<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.terminal = [&apos;tmux&apos;, &apos;sp&apos;, &apos;-h&apos;]</span><br></pre></td></tr></table></figure></p><p>就可以 gdb.attach(p)了 如下图</p><p><img alt="" data-src="https://i.loli.net/2020/03/24/PjF1aCKm3fxHbgU.png" class="lozad"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;现在pwn题是越来越高版本的libc，一场比赛ubuntu16.04，ubuntu18.04切来切去的十分难受。&lt;br&gt;一种可行的方案就是，
+      
+    
+    </summary>
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/categories/pwn/"/>
+    
+    
+      <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
+    
+  </entry>
+  
+  <entry>
     <title>2020 i春秋公益赛pwn writeup</title>
     <link href="https://nocbtm.github.io/2020/02/22/2020-i%E6%98%A5%E7%A7%8B%E5%85%AC%E7%9B%8A%E8%B5%9Bpwn-writeup/"/>
     <id>https://nocbtm.github.io/2020/02/22/2020-i春秋公益赛pwn-writeup/</id>
@@ -492,32 +517,6 @@
     
     
       <category term="reverse" scheme="https://nocbtm.github.io/tags/reverse/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>学习pwn的心理路程</title>
-    <link href="https://nocbtm.github.io/2019/10/02/%E5%AD%A6%E4%B9%A0pwn%E7%9A%84%E5%BF%83%E7%90%86%E8%B7%AF%E7%A8%8B/"/>
-    <id>https://nocbtm.github.io/2019/10/02/学习pwn的心理路程/</id>
-    <published>2019-10-02T04:21:32.000Z</published>
-    <updated>2019-10-02T10:57:24.281Z</updated>
-    
-    <content type="html"><![CDATA[<p>(o≖◡≖)<br>(๑•̀ㅂ•́)و✧<br>(*￣ω￣)<br>w(ﾟДﾟ)w<br>o(≧口≦)o<br>Σ( ° △ °|||)︴    </p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;(o≖◡≖)&lt;br&gt;(๑•̀ㅂ•́)و✧&lt;br&gt;(*￣ω￣)&lt;br&gt;w(ﾟДﾟ)w&lt;br&gt;o(≧口≦)o&lt;br&gt;Σ( ° △ °|||)︴    &lt;/p&gt;
-
-      
-    
-    </summary>
-    
-      <category term="随笔" scheme="https://nocbtm.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
-    
-    
-      <category term="pwn" scheme="https://nocbtm.github.io/tags/pwn/"/>
     
   </entry>
   
