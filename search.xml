@@ -399,7 +399,7 @@
   <entry>
     <title><![CDATA[stack canary绕过思路]]></title>
     <url>%2F2018%2F10%2F24%2Fstack-canary%E7%BB%95%E8%BF%87%E6%80%9D%E8%B7%AF%2F</url>
-    <content type="text"><![CDATA[0x00 canary保护机制我们知道，通常栈溢出的利用方式是通过溢出存在于栈上的局部变量，从而让多出来的数据覆盖ebp、eip等，从而达到劫持控制流的目的。然而stack canary这一技术的应用使得这种利用手段变得难以实现。 canary保护机制是在栈保护上则是在初始化一个栈帧时在栈底设置一个随机的canary值（最后两位必须是00），栈帧销毁前测试该值是否“死掉”，即是否被改变，若被改变则说明栈溢出发生，程序走另一个流程结束，以免漏洞利用成功。 如图var-c就是canary的地址，如果触发了栈溢出漏洞，还不知道canary的值，就会执行__stack_chk_fail函数。 0x01 泄露canary泄露canary的方法有： 通过格式化字符串漏洞来泄露canary的值 通过栈溢出漏洞来泄露canary的值 多进程程序的canary爆破 利用__stack_chk_fail函数泄露信息当然具体问题还要具体分析 未完待续。。。]]></content>
+    <content type="text"><![CDATA[0x00 canary保护机制我们知道，通常栈溢出的利用方式是通过溢出存在于栈上的局部变量，从而让多出来的数据覆盖ebp、eip等，从而达到劫持控制流的目的。然而stack canary这一技术的应用使得这种利用手段变得难以实现。 canary保护机制是在栈保护上则是在初始化一个栈帧时在栈底设置一个随机的canary值（最后两位必须是00），栈帧销毁前测试该值是否“死掉”，即是否被改变，若被改变则说明栈溢出发生，程序走另一个流程结束，以免漏洞利用成功。 如图var-c就是canary的地址，如果触发了栈溢出漏洞，还不知道canary的值，就会执行__stack_chk_fail函数。 0x01 泄露canary泄露canary的方法有： 通过格式化字符串漏洞来泄露canary的值 通过栈溢出漏洞来泄露canary的值 多进程程序的canary爆破 利用__stack_chk_fail函数泄露信息 当然具体问题还要具体分析 0x02 修改canarytls结构里面存储着 canary ，程序退出时，比对的就是tls结构里面的canary 修改 tls 里面的 canary 为我们伪造的即可绕过。]]></content>
       <categories>
         <category>pwn</category>
       </categories>
