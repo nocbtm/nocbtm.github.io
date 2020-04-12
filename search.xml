@@ -397,6 +397,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[python的文件移动和复制]]></title>
+    <url>%2F2018%2F12%2F20%2Fpython%E7%9A%84%E6%96%87%E4%BB%B6%E7%A7%BB%E5%8A%A8%E5%92%8C%E5%A4%8D%E5%88%B6%2F</url>
+    <content type="text"><![CDATA[os模块os.sep 可以取代操作系统特定的路径分隔符。windows下为 ‘\‘os.name 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是 ‘posix’os.getcwd() 函数得到当前工作目录，即当前Python脚本工作的目录路径os.getenv() 获取一个环境变量，如果没有返回noneos.putenv(key, value) 设置一个环境变量值os.listdir(path) 返回指定目录下的所有文件和目录名os.remove(path) 函数用来删除一个文件os.system(command) 函数用来运行shell命令os.linesep 字符串给出当前平台使用的行终止符。例如，Windows使用 ‘\r\n’，Linux使用 ‘\n’ 而Mac使用 ‘\r’os.path.split(path) 函数返回一个路径的目录名和文件名os.path.isfile() 和os.path.isdir()函数分别检验给出的路径是一个文件还是目录os.path.exists() 函数用来检验给出的路径是否真地存在os.curdir 返回当前目录 (‘.’)os.mkdir(path) 创建一个目录os.makedirs(path) 递归的创建目录os.chdir(dirname) 改变工作目录到dirnameos.path.getsize(name) 获得文件大小，如果name是目录返回0Los.path.abspath(name) 获得绝对路径os.path.normpath(path) 规范path字符串形式os.path.splitext() 分离文件名与扩展名os.path.join(path,name) 连接目录与文件名或目录os.path.basename(path) 返回文件名os.path.dirname(path) 返回文件路径os.walk(top,topdown=True,onerror=None) 遍历迭代目录os.rename(src, dst) 重命名file或者directory src到dst 如果dst是一个存在的directory, 将抛出OSError. 在Unix, 如果dst在存且是一个file, 如果用户有权限的话，它将被安静的替换. 操作将会失败在某些Unix 中如果src和dst在不同的文件系统中. 如果成功, 这命名操作将会是一个原子操作 (这是POSIX 需要). 在 Windows上, 如果dst已经存在, 将抛出OSError，即使它是一个文件. 在unix，Windows中有效。os.renames(old, new) 递归重命名文件夹或者文件。像rename() shutil 模块shutil.copyfile( src, dst) 从源src复制到dst中去。当然前提是目标地址是具备可写权限。抛出的异常信息为IOException. 如果当前的dst已存在的话就会被覆盖掉shutil.move( src, dst) 移动文件或重命名shutil.copymode( src, dst) 只是会复制其权限其他的东西是不会被复制的shutil.copystat( src, dst) 复制权限、最后访问时间、最后修改时间shutil.copy( src, dst) 复制一个文件到一个文件或一个目录shutil.copy2( src, dst) 在copy上的基础上再复制文件最后访问时间与修改时间也复制过来了，类似于cp –p的东西shutil.copy2( src, dst) 如果两个位置的文件系统是一样的话相当于是rename操作，只是改名；如果是不在相同的文件系统的话就是做move操作shutil.copytree( olddir, newdir, True/Flase)把olddir拷贝一份newdir，如果第3个参数是True，则复制目录时将保持文件夹下的符号连接，如果第3个参数是False，则将在复制的目录下生成物理副本来替代符号连接shutil.rmtree( src ) 递归删除一个目录以及目录内的所有内容 例子1移动文件，将某一文件夹下的文件移至另一个文件夹下 这个是在做检测识别时要将xml文件和jpg文件移到单独的文件夹里，原来是在一个文件夹里 12345678910111213141516171819202122232425# -*- coding: utf-8 -*-#!/usr/bin/python#将特定文件夹下的文件移动到另一个文件夹import osimport shutilpath_xml = "D://5"#windows系统用双斜线filelist = os.listdir(path_xml)path1 = "D:\\5"path2 = "D:\\5\\jpg\\"for files in filelist: filename1 = os.path.splitext(files)[1] # 读取文件后缀名 filename0 = os.path.splitext(files)[0] #读取文件名 print(filename1) m = filename1 == '.jpg' print(m) if m : full_path = os.path.join(path1, files) despath = path2 + filename0+'.jpg' #.jpg为你的文件类型，即后缀名，读者自行修改 shutil.move(full_path, despath) else : continue 例子2用python实现将某代码文件复制／移动到指定路径下。场景例如：mv ./xxx/git/project1/test.sh ./xxx/tmp/tmp/1/test.sh （相对路径./xxx/tmp/tmp/1/不一定存在） 123456789101112131415161718192021222324252627282930# -*- coding: utf-8 -*-#!/usr/bin/python#test_copyfile.pyimport os,shutildef mymovefile(srcfile,dstfile): if not os.path.isfile(srcfile): print "%s not exist!"%(srcfile) else: fpath,fname=os.path.split(dstfile) #分离文件名和路径 if not os.path.exists(fpath): os.makedirs(fpath) #创建路径 shutil.move(srcfile,dstfile) #移动文件 print "move %s -&gt; %s"%( srcfile,dstfile)def mycopyfile(srcfile,dstfile): if not os.path.isfile(srcfile): print "%s not exist!"%(srcfile) else: fpath,fname=os.path.split(dstfile) #分离文件名和路径 if not os.path.exists(fpath): os.makedirs(fpath) #创建路径 shutil.copyfile(srcfile,dstfile) #复制文件 print "copy %s -&gt; %s"%( srcfile,dstfile)srcfile='/Users/xxx/git/project1/test.sh'dstfile='/Users/xxx/tmp/tmp/1/test.sh'mymovefile(srcfile,dstfile) 参考链接 https://www.cnblogs.com/andy-x/p/10144658.html https://blog.csdn.net/congcong7267/article/details/83412747 https://www.cnblogs.com/iois/p/7258686.html]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[格式化字符串漏洞]]></title>
     <url>%2F2018%2F11%2F29%2F%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%BC%8F%E6%B4%9E%2F</url>
     <content type="text"><![CDATA[0x00 什么是格式化字符串学过c语言的都知道printf，fprintf，sprintf等这一类printf函数中经常用到”%”，后面加一个或多个字符串做说明符。格式化字符串指的就是printf函数第一个参数，最常见的包括： 123456%d - 十进制 - 输出十进制整数%s - 字符串 - 从内存中读取字符串%x - 十六进制 - 输出十六进制数%c - 字符 - 输出字符%p - 指针 - 指针地址%n - 到目前为止所写的字符数 printf有一个特殊的格式化控制符%n，和其他控制输出格式和内容的格式化字符不同的是，这个格式化字符会将已输出的字符数写入到对应参数的内存中。我们就利用这个漏洞实现任意地址写 0x01 漏洞原理产生漏洞的原因就是没写格式化控制符,如123char str[100];scanf(&quot;%s&quot;,str);printf(str); 事实上，这是一种非常危险的写法。由于printf函数族的设计缺陷，当其第一个参数可被控制时，攻击者将有机会对任意内存地址进行读写操作。 一般来说，每个函数的参数个数都是固定的，被调用的函数知道应该从内存中读取多少个变量，但printf是可变参数的函数，对可变参数的函数而言，一切就变得模糊了起来。函数的调用者可以自由的指定函数参数的数量和类型，被调用者无法知道在函数调用之前到底有多少参数被压入栈帧当中。所以printf函数要求传入一个format参数用以指定到底有多少，怎么样的参数被传入其中。然后它就会忠实的按照函数的调用者传入的格式一个一个的打印出数据。由于编程者的疏忽，把格式化字符串的操纵权交给用户，就会产生后面任意地址读写的漏洞。 举个栗子，主函数如下：程序很简单，可以多次输入方便调试，memset函数先把buf都初始化为0，然后read函数读取键盘操作，输入buf最后在输出buf。 正常情况下我们输入什么都会输出什么，但是当我们输入一些特定的字符时输出出现了变化。 0x02利用格式化字符串漏洞实现任意地址读]]></content>
@@ -713,17 +724,6 @@
       </categories>
       <tags>
         <tag>web</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[python的文件移动和复制]]></title>
-    <url>%2F2018%2F08%2F01%2Fpython%E7%9A%84%E6%96%87%E4%BB%B6%E7%A7%BB%E5%8A%A8%E5%92%8C%E5%A4%8D%E5%88%B6%2F</url>
-    <content type="text"><![CDATA[os模块os.sep 可以取代操作系统特定的路径分隔符。windows下为 ‘\‘os.name 字符串指示你正在使用的平台。比如对于Windows，它是’nt’，而对于Linux/Unix用户，它是 ‘posix’os.getcwd() 函数得到当前工作目录，即当前Python脚本工作的目录路径os.getenv() 获取一个环境变量，如果没有返回noneos.putenv(key, value) 设置一个环境变量值os.listdir(path) 返回指定目录下的所有文件和目录名os.remove(path) 函数用来删除一个文件os.system(command) 函数用来运行shell命令os.linesep 字符串给出当前平台使用的行终止符。例如，Windows使用 ‘\r\n’，Linux使用 ‘\n’ 而Mac使用 ‘\r’os.path.split(path) 函数返回一个路径的目录名和文件名os.path.isfile() 和os.path.isdir()函数分别检验给出的路径是一个文件还是目录os.path.exists() 函数用来检验给出的路径是否真地存在os.curdir 返回当前目录 (‘.’)os.mkdir(path) 创建一个目录os.makedirs(path) 递归的创建目录os.chdir(dirname) 改变工作目录到dirnameos.path.getsize(name) 获得文件大小，如果name是目录返回0Los.path.abspath(name) 获得绝对路径os.path.normpath(path) 规范path字符串形式os.path.splitext() 分离文件名与扩展名os.path.join(path,name) 连接目录与文件名或目录os.path.basename(path) 返回文件名os.path.dirname(path) 返回文件路径os.walk(top,topdown=True,onerror=None) 遍历迭代目录os.rename(src, dst) 重命名file或者directory src到dst 如果dst是一个存在的directory, 将抛出OSError. 在Unix, 如果dst在存且是一个file, 如果用户有权限的话，它将被安静的替换. 操作将会失败在某些Unix 中如果src和dst在不同的文件系统中. 如果成功, 这命名操作将会是一个原子操作 (这是POSIX 需要). 在 Windows上, 如果dst已经存在, 将抛出OSError，即使它是一个文件. 在unix，Windows中有效。os.renames(old, new) 递归重命名文件夹或者文件。像rename() shutil 模块shutil.copyfile( src, dst) 从源src复制到dst中去。当然前提是目标地址是具备可写权限。抛出的异常信息为IOException. 如果当前的dst已存在的话就会被覆盖掉shutil.move( src, dst) 移动文件或重命名shutil.copymode( src, dst) 只是会复制其权限其他的东西是不会被复制的shutil.copystat( src, dst) 复制权限、最后访问时间、最后修改时间shutil.copy( src, dst) 复制一个文件到一个文件或一个目录shutil.copy2( src, dst) 在copy上的基础上再复制文件最后访问时间与修改时间也复制过来了，类似于cp –p的东西shutil.copy2( src, dst) 如果两个位置的文件系统是一样的话相当于是rename操作，只是改名；如果是不在相同的文件系统的话就是做move操作shutil.copytree( olddir, newdir, True/Flase)把olddir拷贝一份newdir，如果第3个参数是True，则复制目录时将保持文件夹下的符号连接，如果第3个参数是False，则将在复制的目录下生成物理副本来替代符号连接shutil.rmtree( src ) 递归删除一个目录以及目录内的所有内容]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
       </tags>
   </entry>
   <entry>
